@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>工程项目列表</title>
+    <link rel="stylesheet" href="/static/css/styles.css" />
+  </head>
+  <body>
+<div id="navbar"></div>
+<!--
+<script>
+    // 使用 JavaScript 加载外部 HTML 文件
+    fetch('navbar.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('navbar').innerHTML = data;
+        })
+        .catch(error => console.log('Error loading navbar:', error));
+</script>-->
+  <!-- 包含导航栏 -->
+    {% include 'navbar.html' %}
+    <!-- 主内容区域 -->
+    <main>
+      <h1>工程项目列表</h1>
+      <div class="content">
+        <!-- 搜索栏 -->
+        <div class="search-bar">
+          <input type="text" placeholder="请输入工程项目名称" />
+          <button>搜索</button>
+        </div>
+
+        <!-- 任务表格 -->
+        <div class="task-table">
+          <table>
+            <thead>
+              <tr>
+                <th>工程项目名称</th>
+                <th>编制阶段</th>
+                <th>工程地点</th>
+                <th>价格基期</th>
+                <th>工程总造价（万元）</th>
+                <th>造价指标（元/km）</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>XX主干路新建工程</td>
+                <td>初设概算</td>
+                <td>广州</td>
+                <td>2021.12</td>
+                <td>30000</td>
+                <td>150000</td>
+                <td><a href="#">查看</a></td>
+              </tr>
+              <tr>
+                <td>任务的分配</td>
+                <td>2012-3-20</td>
+                <td>吴菲菲</td>
+                <td>未完成</td>
+                <td>一般</td>
+                <td><a href="#">查看</a></td>
+              </tr>
+              <tr>
+                <td>项目任务的分配</td>
+                <td>2012-3-20</td>
+                <td>吴菲菲</td>
+                <td>未完成</td>
+                <td>一般</td>
+                <td><a href="#">查看</a></td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- 分页 -->
+          <div class="pagination">
+            <button>&lt;&lt;</button>
+            <button>&lt;</button>
+            <span>1 2 3 4 ...</span>
+            <button>&gt;</button>
+            <button>&gt;&gt;</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
+
+

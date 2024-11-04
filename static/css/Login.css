@@ -1,0 +1,80 @@
+body {
+    background: linear-gradient(#e66465, #9198e5);
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login {
+    background-color: #0b132b;
+    width: 400px;
+    color: #f8f9fa;
+    padding: 40px;
+    box-shadow: 10px 10px 25px #000000;
+    text-align: center;
+    border-radius: 15px; /* 添加圆角效果 */
+    position: relative;
+}
+
+.login input {
+    display: block;
+    margin: 20px auto;
+    text-align: center;
+    background: none;
+    padding: 12px;
+    font-size: 15px;
+    border-radius: 22px;
+    outline: none;
+    color: #f8f9fa;
+}
+
+.login input[type="text"],
+.login input[type="password"] {
+    border: 2px solid #3498db;
+    width: 220px;
+    transition: width 0.5s, border-color 0.5s; /* 平滑过渡效果 */
+}
+
+.login input[type="submit"] {
+    width: 150px;
+    border: 2px solid #2ecc71;
+    cursor: pointer;
+    transition: background-color 0.5s; /* 平滑过渡效果 */
+}
+
+.login input[type="text"]:focus,
+.login input[type="password"]:focus {
+    border-color: #2ecc71;
+    width: 250px;
+}
+
+.login input[type="submit"]:hover {
+    background-color: #2ecc71;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

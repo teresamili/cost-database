@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>单位工程造价指标-道路工程</title>
+    <link rel="stylesheet" href="/static/css/styles.css" />
+  </head>
+  <body>
+   <div id="navbar"></div>
+  <!-- 包含导航栏 -->
+    {% include 'navbar.html' %}
+
+    <!-- 主内容区域 -->
+    <main>
+        <!-- 搜索条件 -->
+        <div class="search-condition">
+          <ul>
+            <li>
+              <a>工程地点</a>
+              <div class="button-group">
+                <button type="button" class="region-btn">不限</button>
+                <button type="button" class="region-btn">广东</button>
+                <button type="button" class="region-btn">四川</button>
+                <button type="button" class="region-btn">海南</button>
+              </div>
+            </li>
+            <li><a>建设性质</a>
+               <div class="button-group">
+                <button type="button" class="region-btn">不限</button>
+                <button type="button" class="region-btn">新建</button>
+                <button type="button" class="region-btn">改建</button>
+                <button type="button" class="region-btn">扩建</button>
+              </div>
+              </li>
+            <li><a>价格基期</a>
+            <div class="button-group">
+                <button type="button" class="region-btn">不限</button>
+                <button type="button" class="region-btn">2014</button>
+                <button type="button" class="region-btn">2015</button>
+                <button type="button" class="region-btn">2016</button>
+                <button type="button" class="region-btn">2017</button>
+                <button type="button" class="region-btn">2018</button>
+                <button type="button" class="region-btn">2019</button>
+                <button type="button" class="region-btn">2020</button>
+                <button type="button" class="region-btn">2021</button>
+                <button type="button" class="region-btn">2022</button>
+                <button type="button" class="region-btn">2023</button>
+                <button type="button" class="region-btn">2024</button>
+              </div>
+              </li>
+            <li><a>造价类型</a>
+             <div class="button-group">
+                <button type="button" class="region-btn">不限</button>
+                <button type="button" class="region-btn">估算价</button>
+                <button type="button" class="region-btn">概算价</button>
+                <button type="button" class="region-btn">预算价</button>
+                <button type="button" class="region-btn">招标控制价</button>
+              </div>
+              </li>
+               <li><a>道路等级</a>
+             <div class="button-group">
+                <button type="button" class="region-btn">不限</button>
+                <button type="button" class="region-btn">快速路</button>
+                <button type="button" class="region-btn">主干路</button>
+                <button type="button" class="region-btn">次干路</button>
+                <button type="button" class="region-btn">支路</button>
+              </div>
+              </li>
+          </ul>
+        </div>
+        <div class="sure">
+          <button >确定</button>
+        </div>
+
+        <!-- 任务表格 -->
+        <div class="task-table">
+          <table>
+            <thead>
+              <tr>
+                <th>工程项目名称</th>
+                <th>工程地点</th>
+                <th>建设性质</th>
+                <th>价格基期</th>
+                <th>造价类型</th>
+                <th>道路等级</th>
+                <th>单位工程造价（万元）</th>
+                <th>造价指标（元/m）</th>
+                <th>造价指标（元/m2）</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>XX</td>
+                <td>XX</td>
+                <td>XX</td>
+                <td>XX</td>
+                <td>XX</td>
+                <td>XX</td>
+                <td>XX</td>
+                <td>XX</td>
+                <td>XX</td>
+                <td><a href="#">查看</a></td>
+              </tr>
+                <tr>
+                <td>XX</td>
+                <td>XX</td>
+                <td>XX</td>
+                <td>XX</td>
+                <td>XX</td>
+                <td>XX</td>
+                <td>XX</td>
+                <td>XX</td>
+                <td>XX</td>
+                <td><a href="#">查看</a></td>
+              </tr>
+              <tr>
+                <td>XX</td>
+                <td>XX</td>
+                <td>XX</td>
+                <td>XX</td>
+                <td>XX</td>
+                <td>XX</td>
+                <td>XX</td>
+                <td>XX</td>
+                <td>XX</td>
+                <td><a href="#">查看</a></td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- 分页 -->
+          <div class="pagination">
+            <button>&lt;&lt;</button>
+            <button>&lt;</button>
+            <span>1 2 3 4 ...</span>
+            <button>&gt;</button>
+            <button>&gt;&gt;</button>
+          </div>
+        </div>
+    </main>
+  </body>
+</html>

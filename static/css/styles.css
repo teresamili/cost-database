@@ -1,0 +1,284 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  font-family: "新宋体", sans-serif;
+  font-size: 14px;
+  background-color: #f4f4f4;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+}
+
+.top-bar .logo {
+  display: flex;
+  align-items: center;
+}
+
+.top-bar .logo img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.top-nav a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.top-nav a:hover {
+  background-color: #645b5b;
+}
+
+.sidebar {
+  width: 200px;
+  background-color: #222;
+  color: #fff;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 10px 0;
+}
+
+.sidebar ul li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 20px;
+  display: block;
+}
+
+.sidebar ul li a:hover {
+  background-color: #333;
+}
+/*侧导航子菜单*/
+.nav-item {
+    position: relative; /* 使子菜单能正确定位 */
+}
+
+.main-menu:hover {
+    background-color: #0056b3; /* 鼠标悬停时的背景颜色 */
+    
+}
+
+.submenu {
+    display: none; /* 初始隐藏子菜单 */
+    position: absolute;
+    top: 0;
+    left: 140px; /* 子菜单相对于主菜单右侧显示 */
+    background-color: #f0f0f0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border: 2px solid #6ab5f1;
+    border-radius: 5px;
+    padding: 10px;
+    width: 150px; /* 子菜单宽度 */
+}
+
+.submenu a {
+    display: block;
+    padding: 5px 10px;
+    color: #000!important;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+}
+
+.submenu a:hover {
+    background-color: #cfcbcb!important; /* 鼠标悬停在子菜单项上的背景色 */
+    color: #f0f0f0/* 鼠标悬停时的字体颜色 */
+}
+
+/* 当鼠标悬停在 .main-menu 上时，显示 .submenu */
+.nav-item:hover .submenu {
+    display: block;
+}
+
+main {
+  margin-left: 220px;
+  font-size: 6px;
+  padding: 20px;
+}
+
+.search-bar {
+  display: flex;
+  justify-content: flex-start; /* 左对齐，避免按钮和输入框之间距离过大 */
+  align-items: center;
+  gap: 10px; /* 设置输入框和按钮之间的间距 */
+  margin-bottom: 10px;
+}
+
+.search-bar input {
+  width: 50%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.search-bar button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background-color: #0056b3;
+}
+
+.task-table {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.task-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.task-table th,
+.task-table td {
+  padding: 10px;
+  text-align: left;
+  font-size: 12px;
+  border-bottom: 1px solid #ddd;
+}
+
+.task-table th {
+  background-color: #f4f4f4;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination button {
+  padding: 5px 10px;
+  margin: 0 5px;
+  cursor: pointer;
+  font-size: 10px;
+}
+
+.pagination span {
+  padding: 0px 0;
+  margin: 0 5px;
+  cursor: pointer;
+  display: flex; /* 使用 flex 布局 */
+  align-items: center; /* 垂直居中 */
+  height: 20px; /* 设置统一高度 */
+  border: none; /* 确保没有边框影响 */
+  font-size: 13px;
+}
+
+.search-condition {
+  padding: 5px;
+  background-color: #f8f8f8; /* 浅色背景 */
+  width: 100%; /* 全宽展示 */
+  border-radius: 5px;
+}
+
+.search-condition ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.search-condition li {
+  display: flex; /* 使用 flex 让内容在同一行 */
+  align-items: center; /* 垂直居中 */
+  margin: 8px 0; /* 设置上下间距 */
+  line-height: 1.6;
+}
+
+.search-condition a {
+  color: #000; /* 设置字体颜色为黑色 */
+  text-decoration: none;
+  font-size: 12px; /* 调整字体大小 */
+  margin-right: 10px; /* 在文本和选择项之间添加间距 */
+  display: inline-block;
+  min-width: 80px; /* 确保文本有固定宽度 */
+}
+
+.button-group {
+  display: flex;
+  gap: 8px; /* 设置按钮之间的间距 */
+}
+
+.region-btn {
+  padding: 5px 10px;
+  background-color: #f8f8f8; /* 默认背景颜色为白色 */
+  color: #000; /* 黑色字体 */
+  border: 0px solid #f8f8f8; /* 灰色边框 */
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.region-btn.active {
+  background-color: #007bff; /* 激活状态下的蓝色背景 */
+  color: #000; /* 保持字体颜色为黑色 */
+  border-color: #007bff; /* 激活状态下的边框 */
+}
+
+.region-btn:hover {
+  background-color: #bbbabd; /* 悬停时的浅灰色背景 */
+}
+
+.region-btn:focus {
+  outline: none; /* 移除按钮聚焦时的边框 */
+}
+.sure button {
+  padding: 5px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+.sure button:hover {
+  background-color: #0056b3;
+}
+
+  /*特征明细表*/
+  .features h2{
+    font-size: 12px ;
+    padding-top: 0%;
+  }
+.features {
+    display: flex; /* 使用 flex 布局 */
+    gap: 20px; /* 设置盒子之间的间距 */
+}
+
+
+  .feature {
+    display: flex;
+  background-color: #fff;
+  width: 150px;
+  height: 200px;
+  border: 2px solid #bbbabd;
+  padding: 5px;
+  margin-bottom: 10px
+}
