@@ -9,7 +9,7 @@ users = {
     "zjsjk": "123456"  # 用户名: 密码
 }
 
-@app.route('/')
+@app.route('/') #/访问的路径
 def index():
     # 如果用户已登录，跳转到项目页面，否则跳转到登录页面
     if 'username' in session:
@@ -19,7 +19,7 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        # 从表单获取用户名和密码
+        # request 对象从表单获取用户名和密码
         username = request.form['username']
         password = request.form['password']
         
@@ -49,10 +49,9 @@ def logout():
     return redirect(url_for('login'))
 
 
-
-from flask import Flask
+#导入flask对象
 from flask_sqlalchemy import SQLAlchemy
-
+#使用flask对象创建一个app对象 app是应用的意思
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://username:password@localhost/database_name'
 db = SQLAlchemy(app)
