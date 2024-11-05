@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 
+
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # 用于会话管理
 
@@ -47,5 +48,19 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('login'))
 
-if __name__ == '__main__':
+
+
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://username:password@localhost/database_name'
+db = SQLAlchemy(app)
+
+# 定义模型
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
+
+if __name__ == "__main__":
     app.run(debug=True)
