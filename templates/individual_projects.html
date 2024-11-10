@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="/static/css/styles.css" />
   </head>
   <body>
-   <div id="navbar"></div>
-  <!-- 包含导航栏 -->
+    <div id="navbar"></div>
+    <!-- 包含导航栏 -->
     {% include 'navbar.html' %}
 
     <!-- 主内容区域 -->
@@ -32,16 +32,18 @@
                 <button type="button" class="region-btn">海南</button>
               </div>
             </li>
-            <li><a>建设性质</a>
-               <div class="button-group">
+            <li>
+              <a>建设性质</a>
+              <div class="button-group">
                 <button type="button" class="region-btn">不限</button>
                 <button type="button" class="region-btn">新建</button>
                 <button type="button" class="region-btn">改建</button>
                 <button type="button" class="region-btn">扩建</button>
               </div>
-              </li>
-            <li><a>价格基期</a>
-            <div class="button-group">
+            </li>
+            <li>
+              <a>价格基期</a>
+              <div class="button-group">
                 <button type="button" class="region-btn">不限</button>
                 <button type="button" class="region-btn">2014</button>
                 <button type="button" class="region-btn">2015</button>
@@ -55,29 +57,31 @@
                 <button type="button" class="region-btn">2023</button>
                 <button type="button" class="region-btn">2024</button>
               </div>
-              </li>
-            <li><a>造价类型</a>
-             <div class="button-group">
+            </li>
+            <li>
+              <a>造价类型</a>
+              <div class="button-group">
                 <button type="button" class="region-btn">不限</button>
                 <button type="button" class="region-btn">估算价</button>
                 <button type="button" class="region-btn">概算价</button>
                 <button type="button" class="region-btn">预算价</button>
                 <button type="button" class="region-btn">招标控制价</button>
               </div>
-              </li>
-               <li><a>道路等级</a>
-             <div class="button-group">
+            </li>
+            <li>
+              <a>道路等级</a>
+              <div class="button-group">
                 <button type="button" class="region-btn">不限</button>
                 <button type="button" class="region-btn">快速路</button>
                 <button type="button" class="region-btn">主干路</button>
                 <button type="button" class="region-btn">次干路</button>
                 <button type="button" class="region-btn">支路</button>
               </div>
-              </li>
+            </li>
           </ul>
         </div>
         <div class="sure">
-          <button >确定</button>
+          <button>确定</button>
         </div>
 
         <!-- 任务表格 -->
@@ -88,10 +92,10 @@
                 <th>工程项目名称</th>
                 <th>工程地点</th>
                 <th>建设性质</th>
-                <th>价格基期</th>
+                <th>价格基准期</th>
                 <th>造价类型</th>
                 <th>道路等级</th>
-                <th>工程总造价（万元）</th>
+                <th>单项工程费用（元）</th>
                 <th>造价指标（元/m）</th>
                 <th>造价指标（元/m2）</th>
                 <th>所含单位工程</th>
@@ -99,20 +103,21 @@
               </tr>
             </thead>
             <tbody>
+              {% for project in projects %}
               <tr>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
+           
+                <td>{{ project.建设项目工程名称 }}</td>
+                <td>{{ project.项目地点 }}</td>
+                <td>{{ project.建设性质 }}</td>
+                <td>{{ project.价格基准期 }}</td>
+                <td>{{ project.项目阶段 }}</td>
+                <td>{{ project.道路等级 }}</td>
+                <td>{{ project.单项工程费用}}</td>
+
                 <td><a href="#">查看</a></td>
               </tr>
-                <tr>
+                 {% endfor %}
+              <tr>
                 <td>XX</td>
                 <td>XX</td>
                 <td>XX</td>
