@@ -27,14 +27,17 @@
             <a href="#"> 首页</a>
           </li>
           <li>
-            <a href="#">工程项目列表</a>
+            <!--蓝图名称.视图函数名称-->
+            <a href="{{ url_for('projects.project_list') }}">工程项目列表</a>
           </li>
           <li>
-            <a href="#">单项工程造价指标</a>
+            <a
+              href="{{ url_for('individual_project.individual_project_list') }}"
+              >单项工程造价指标</a
+            >
           </li>
           <li class="nav-item">
-            <a href="#" class="main-menu"
-              >单位工程造价指标</a>
+            <a href="#" class="main-menu">单位工程造价指标</a>
             <div class="submenu">
               <a href="#">道路工程</a>
               <a href="#">桥梁工程</a>

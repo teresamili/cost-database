@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="/static/css/styles.css" />
   </head>
   <body>
-<div id="navbar"></div>
-<!--
+    <div id="navbar"></div>
+    <!--
 <script>
     // 使用 JavaScript 加载外部 HTML 文件
     fetch('navbar.html')
@@ -18,7 +18,7 @@
         })
         .catch(error => console.log('Error loading navbar:', error));
 </script>-->
-  <!-- 包含导航栏 -->
+    <!-- 包含导航栏 -->
     {% include 'navbar.html' %}
     <!-- 主内容区域 -->
     <main>
@@ -35,33 +35,33 @@
           <table>
             <thead>
               <tr>
-      <th>ID</th>
-      <th>建设项目工程名称</th>
-      <th>单项工程费用</th>
-      <th>项目阶段</th>
-      <th>项目地点</th>
-      <th>价格基准期</th>
-      <th>道路等级</th>
-      <th>红线宽度</th>
-      <th>道路全长</th>
-      <th>建设性质</th>
-    </tr>
-  </thead>
-   <tbody>
+                <th>序号</th>
+                <th>建设项目工程名称</th>
+                <th>单项工程费用(元)</th>
+                <th>项目阶段</th>
+                <th>项目地点</th>
+                <th>价格基准期</th>
+                <th>道路等级</th>
+                <th>红线宽度(m)</th>
+                <th>道路全长(m)</th>
+                <th>建设性质</th>
+              </tr>
+            </thead>
+            <tbody>
               {% for project in projects %}
-        <tr>
-            <td>{{ project.项目表_id }}</td>
-            <td>{{ project.建设项目工程名称 }}</td>
-            <td>{{ project.单项工程费用 }}</td>
-            <td>{{ project.项目阶段 }}</td>
-            <td>{{ project.项目地点 }}</td>
-            <td>{{ project.价格基准期 }}</td>
-            <td>{{ project.道路等级 }}</td>
-            <td>{{ project.红线宽度 }}</td>
-            <td>{{ project.道路全长 }}</td>
-            <td>{{ project.建设性质 }}</td>
-        </tr>
-        {% endfor %}
+              <tr>
+                <td>{{ project.项目表_id }}</td>
+                <td>{{ project.建设项目工程名称 }}</td>
+                <td>{{ project.单项工程费用 }}</td>
+                <td>{{ project.项目阶段 }}</td>
+                <td>{{ project.项目地点 }}</td>
+                <td>{{ project.价格基准期 }}</td>
+                <td>{{ project.道路等级 }}</td>
+                <td>{{ project.红线宽度 }}</td>
+                <td>{{ project.道路全长 }}</td>
+                <td>{{ project.建设性质 }}</td>
+              </tr>
+              {% endfor %}
             </tbody>
           </table>
           <!-- 分页 -->
@@ -77,5 +77,3 @@
     </main>
   </body>
 </html>
-
-

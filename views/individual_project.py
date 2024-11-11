@@ -23,11 +23,14 @@ def perform_calculation(projects):
     for project in projects:
         # 单项工程费用/道路全长
         original_cost = project.单项工程费用
-        road_length = project.道路全长 
+        road_length = project.道路全长
+        road_width = project.红线宽度
         cost_index_length = original_cost/road_length  if road_length else 0
+        cost_index_aquare = original_cost/road_length/road_width  if road_length else 0
+    
         # 将结果存储在字典中
         results.append({
-           
+            "道路面积指标": round(float(cost_index_aquare), 2),
             "道路长度指标": round(float(cost_index_length), 2)
         })
 
