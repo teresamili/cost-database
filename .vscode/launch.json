@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python: Flask",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${workspaceFolder}/app.py", // 将这里指向您的 Flask 主应用文件
+      "env": {
+        "FLASK_APP": "app.py", // 您的 Flask 应用文件名
+        "FLASK_ENV": "development"
+      },
+      "args": ["run"],
+      "jinja": true
+    }
+  ]
+}

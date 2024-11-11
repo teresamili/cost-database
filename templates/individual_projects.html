@@ -103,9 +103,8 @@
               </tr>
             </thead>
             <tbody>
-              {% for project in projects %}
+              {% for project, result in zip(projects, results) %}
               <tr>
-           
                 <td>{{ project.建设项目工程名称 }}</td>
                 <td>{{ project.项目地点 }}</td>
                 <td>{{ project.建设性质 }}</td>
@@ -113,36 +112,11 @@
                 <td>{{ project.项目阶段 }}</td>
                 <td>{{ project.道路等级 }}</td>
                 <td>{{ project.单项工程费用}}</td>
+                <td>{{ result['道路长度指标']}}</td>
 
                 <td><a href="#">查看</a></td>
               </tr>
-                 {% endfor %}
-              <tr>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td><a href="#">查看</a></td>
-              </tr>
-              <tr>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td><a href="#">查看</a></td>
-              </tr>
+              {% endfor %}
             </tbody>
           </table>
           <!-- 分页 -->
