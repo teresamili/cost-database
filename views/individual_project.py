@@ -28,10 +28,13 @@ def perform_calculation(projects):
         cost_index_length = original_cost/road_length  if road_length else 0
         cost_index_aquare = original_cost/road_length/road_width  if road_length else 0
     
+        # 如果没有关联的单位工程，unit_names 将为空列表
+        unit_names = [unit.单位工程名称 for unit in project.units] if project.units else []
         # 将结果存储在字典中
         results.append({
             "道路面积指标": round(float(cost_index_aquare), 2),
-            "道路长度指标": round(float(cost_index_length), 2)
+            "道路长度指标": round(float(cost_index_length), 2),
+            "单位工程": ', '.join(unit_names)  # 合并单位工程名称
         })
 
     return results
