@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>单项工程造价指标</title>
     <link rel="stylesheet" href="/static/css/styles.css" />
+    <script src="/js/individual_project_search.js"></script>
   </head>
   <body>
     <div id="navbar"></div>
@@ -24,7 +25,7 @@
         <div class="search-condition">
           <ul>
             <li>
-              <a>工程地点</a>
+              <a>项目地点</a>
               <div class="button-group">
                 <button type="button" class="region-btn">不限</button>
                 <button type="button" class="region-btn">广东</button>
@@ -81,7 +82,7 @@
           </ul>
         </div>
         <div class="sure">
-          <button>确定</button>
+          <button onclick="performSearch()">确定</button>
         </div>
 
         <!-- 任务表格 -->
@@ -90,7 +91,7 @@
             <thead>
               <tr>
                 <th>工程项目名称</th>
-                <th>工程地点</th>
+                <th>项目地点</th>
                 <th>建设性质</th>
                 <th>价格基准期</th>
                 <th>造价类型</th>
@@ -99,7 +100,6 @@
                 <th>造价指标（元/m）</th>
                 <th>造价指标（元/m2）</th>
                 <th>所含单位工程</th>
-                
               </tr>
             </thead>
             <tbody>
@@ -109,14 +109,13 @@
                 <td>{{ project.项目地点 }}</td>
                 <td>{{ project.建设性质 }}</td>
                 <td>{{ project.价格基准期 }}</td>
-                <td>{{ project.项目阶段 }}</td>
+                <td>{{ project.造价类型 }}</td>
                 <td>{{ project.道路等级 }}</td>
                 <td>{{ project.单项工程费用}}</td>
                 <td>{{ result['道路长度指标']}}</td>
                 <td>{{ result['道路面积指标']}}</td>
                 <td>{{ result['单位工程'] }}</td>
                 <!-- 显示单位工程名称列表 -->
-               
               </tr>
               {% endfor %}
             </tbody>

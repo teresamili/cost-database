@@ -282,3 +282,10 @@ main {
   padding: 5px;
   margin-bottom: 10px
 }
+
+/* 选中状态的样式 */
+.region-btn.selected {
+  background-color: #d3e4cd; /* 选中后显示的底色，可以根据需要调整 */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* 添加阴影效果 */
+  color: #333; /* 可选：调整字体颜色 */
+}
