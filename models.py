@@ -9,11 +9,11 @@ project_unit_association = db.Table('项目_单位',
     db.Column('单位工程_id', db.Integer, db.ForeignKey('单位工程表.单位工程_id'), primary_key=True)
 )
 
-# 定义数据库模型
+# 定义xx项目表模型
 class Project(db.Model):
     __tablename__ = '项目表'  # 表名
 
-    # 定义字段
+    # 定义字段 .Column是一个特殊类。它来描述模型类中的每一个字段与数据库表中的一列之间的对应关系。
     项目表_id = db.Column(db.Integer, primary_key=True)               # 主键
     建设项目工程名称 = db.Column(db.String(225))                     # 项目名称
     单项工程费用 = db.Column(db.Numeric(14, 2))                       # 工程费用

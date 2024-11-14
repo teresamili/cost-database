@@ -22,20 +22,22 @@ def perform_calculation(projects):
     results = []
     for project in projects:
         # 单项工程费用/道路全长
-        original_cost = project.单项工程费用
-        road_length = project.道路全长
-        road_width = project.红线宽度
-        cost_index_length = original_cost/road_length  if road_length else 0
-        cost_index_aquare = original_cost/road_length/road_width  if road_length else 0
+        original_cost = project.单项工程费用 or 0
+        road_length = project.道路全长 or 1 # 避免除以0
+        road_width = project.红线宽度 or 1
+        cost_index_length = original_cost/road_length  
+        cost_index_aquare = original_cost/( road_length * road_width )  
     
-        # 如果没有关联的单位工程，unit_names 将为空列表
+        # 获取单位工程名称列表,如果没有关联的单位工程，unit_names 将为空列表
         unit_names = [unit.单位工程名称 for unit in project.units] if project.units else []
-        # 将结果存储在字典中
+         # 将计算结果和单位工程名称存储到字典中
         results.append({
             "道路面积指标": round(float(cost_index_aquare), 2),
             "道路长度指标": round(float(cost_index_length), 2),
             "单位工程": ', '.join(unit_names)  # 合并单位工程名称
         })
+
+
 
     return results
 
