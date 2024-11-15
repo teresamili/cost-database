@@ -2,7 +2,7 @@ from flask import Flask, redirect, url_for, session
 from models import db
 from views import auth_blueprint, project_blueprint, individual_project_blueprint
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="static")
 app.secret_key = 'your_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:March5323@localhost/cost-database'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

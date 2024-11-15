@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>单项工程造价指标</title>
     <link rel="stylesheet" href="/static/css/styles.css" />
-    <script src="/js/individual_project_search.js"></script>
+    <script src="/static/js/individual_project_search.js"></script>
   </head>
   <body>
     <div id="navbar"></div>
@@ -27,56 +27,266 @@
             <li>
               <a>项目地点</a>
               <div class="button-group">
-                <button type="button" class="region-btn">不限</button>
-                <button type="button" class="region-btn">广东</button>
-                <button type="button" class="region-btn">四川</button>
-                <button type="button" class="region-btn">海南</button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="project_location"
+                  data-value="不限"
+                >
+                  不限
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="project_location"
+                  data-value="广东"
+                >
+                  广东
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="project_location"
+                  data-value="四川"
+                >
+                  四川
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="project_location"
+                  data-value="海南"
+                >
+                  海南
+                </button>
               </div>
             </li>
             <li>
               <a>建设性质</a>
               <div class="button-group">
-                <button type="button" class="region-btn">不限</button>
-                <button type="button" class="region-btn">新建</button>
-                <button type="button" class="region-btn">改建</button>
-                <button type="button" class="region-btn">扩建</button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="construction_nature"
+                  data-value="不限"
+                >
+                  不限
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="construction_nature"
+                  data-value="新建"
+                >
+                  新建
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="construction_nature"
+                  data-value="改建"
+                >
+                  改建
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="construction_nature"
+                  data-value="扩建"
+                >
+                  扩建
+                </button>
               </div>
             </li>
             <li>
               <a>价格基期</a>
               <div class="button-group">
-                <button type="button" class="region-btn">不限</button>
-                <button type="button" class="region-btn">2014</button>
-                <button type="button" class="region-btn">2015</button>
-                <button type="button" class="region-btn">2016</button>
-                <button type="button" class="region-btn">2017</button>
-                <button type="button" class="region-btn">2018</button>
-                <button type="button" class="region-btn">2019</button>
-                <button type="button" class="region-btn">2020</button>
-                <button type="button" class="region-btn">2021</button>
-                <button type="button" class="region-btn">2022</button>
-                <button type="button" class="region-btn">2023</button>
-                <button type="button" class="region-btn">2024</button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="price_basis"
+                  data-value="不限"
+                >
+                  不限
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="price_basis"
+                  data-value="2014"
+                >
+                  2014
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="price_basis"
+                  data-value="2015"
+                >
+                  2015
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="price_basis"
+                  data-value="2016"
+                >
+                  2016
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="price_basis"
+                  data-value="2017"
+                >
+                  2017
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="price_basis"
+                  data-value="2018"
+                >
+                  2018
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="price_basis"
+                  data-value="2019"
+                >
+                  2019
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="price_basis"
+                  data-value="2020"
+                >
+                  2020
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="price_basis"
+                  data-value="2021"
+                >
+                  2021
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="price_basis"
+                  data-value="2022"
+                >
+                  2022
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="price_basis"
+                  data-value="2023"
+                >
+                  2023
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="price_basis"
+                  data-value="2024"
+                >
+                  2024
+                </button>
               </div>
             </li>
             <li>
               <a>造价类型</a>
               <div class="button-group">
-                <button type="button" class="region-btn">不限</button>
-                <button type="button" class="region-btn">估算价</button>
-                <button type="button" class="region-btn">概算价</button>
-                <button type="button" class="region-btn">预算价</button>
-                <button type="button" class="region-btn">招标控制价</button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="cost_type"
+                  data-value="不限"
+                >
+                  不限
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="cost_type"
+                  data-value="估算价"
+                >
+                  估算价
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="cost_type"
+                  data-value="概算价"
+                >
+                  概算价
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="cost_type"
+                  data-value="预算价"
+                >
+                  预算价
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="cost_type"
+                  data-value="招标控制价"
+                >
+                  招标控制价
+                </button>
               </div>
             </li>
             <li>
               <a>道路等级</a>
               <div class="button-group">
-                <button type="button" class="region-btn">不限</button>
-                <button type="button" class="region-btn">快速路</button>
-                <button type="button" class="region-btn">主干路</button>
-                <button type="button" class="region-btn">次干路</button>
-                <button type="button" class="region-btn">支路</button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="road_grade"
+                  data-value="不限"
+                >
+                  不限
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="road_grade"
+                  data-value="快速路"
+                >
+                  快速路
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="road_grade"
+                  data-value="主干路"
+                >
+                  主干路
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="road_grade"
+                  data-value="次干路"
+                >
+                  次干路
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  data-filter="road_grade"
+                  data-value="支路"
+                >
+                  支路
+                </button>
               </div>
             </li>
           </ul>
@@ -102,7 +312,7 @@
                 <th>所含单位工程</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody id="results">
               {% for project, result in zip(projects, results) %}
               <tr>
                 <td>{{ project.建设项目工程名称 }}</td>
