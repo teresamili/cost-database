@@ -14,7 +14,7 @@ db.init_app(app)
 app.register_blueprint(auth_blueprint)
 app.register_blueprint(project_blueprint)
 app.register_blueprint(individual_project_blueprint)
-app.register_blueprint(individual_project2_blueprint)
+app.register_blueprint(individual_project2_blueprint, url_prefix='/individual_project2')  # 新蓝图
 
 @app.route('/')
 def index():

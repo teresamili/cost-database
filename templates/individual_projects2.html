@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>单项工程造价指标明细</title>
+    <title>{{ project.name }}</title>
     <link rel="stylesheet" href="/static/css/styles.css" />
   </head>
   <body>
@@ -45,9 +45,9 @@
             </thead>
             <tbody>
               <tr>
-                <td>1</td>
-                <td>XX</td>
-                <td>XX</td>
+                <td>{{ project.name }}</td>
+                <td>{{ project.单位工程名称 }}</td>
+                <td>{{ project.单位工程造价 }}</td>
                 <td>XX</td>
                 <td>XX</td>
                 <td>XX</td>

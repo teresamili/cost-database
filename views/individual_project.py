@@ -2,7 +2,30 @@ from flask import Blueprint, render_template, session, redirect, url_for, reques
 from models import Project
 from sqlalchemy import and_
 
-individual_project_blueprint = Blueprint('individual_project', __name__)
+individual_project_blueprint = Blueprint('individual_project', __name__) 
+@individual_project_blueprint.route('/projects', methods=['GET'])
+def get_projects():
+    # 此处的 request.args 在请求上下文中，可以正常使用
+    page = request.args.get('page', 1, type=int)  # 从请求参数中获取页码
+    per_page = 10  # 每页显示10条记录
+
+    # 示例过滤条件
+    filters = []  
+    project_name = request.args.get('project_name')
+    if project_name:
+        filters.append(Project.name.like(f"%{project_name}%"))
+
+    # 分页查询
+    pagination = Project.query.filter(and_(*filters)).paginate(page=page, per_page=per_page)
+    project_list = pagination.items
+
+    # 返回分页数据
+    return {
+        "projects": [{"id": p.id, "name": p.name} for p in project_list],
+        "total_pages": pagination.pages,
+        "current_page": pagination.page,
+    }
+
 
 @individual_project_blueprint.route('/individual-projects')
 def individual_project_list():

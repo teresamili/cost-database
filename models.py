@@ -44,3 +44,18 @@ class UnitProject(db.Model):
 
     def __repr__(self):
         return f'<UnitProject {self.单位工程名称}>'
+    
+# 定义道路工程模型
+class RoadFeature(db.Model):
+    __tablename__ = '道路工程特征表'  # 数据库表名
+
+    id = db.Column(db.Integer, primary_key=True)  # 主键
+    名称 = db.Column(db.String(225))             # 名称
+    长度 = db.Column(db.Numeric(10, 2))          # 长度（米）
+    宽度 = db.Column(db.Numeric(5, 2))           # 宽度（米）
+    造价 = db.Column(db.Numeric(14, 2))          # 工程造价（元）
+    面积造价指标 = db.Column(db.Numeric(10, 2))   # 面积造价指标（元/平方米）
+    长度造价指标 = db.Column(db.Numeric(10, 2))   # 长度造价指标（元/米）
+
+    def __repr__(self):
+        return f'<RoadFeature {self.道路工程}>'
