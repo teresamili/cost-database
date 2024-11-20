@@ -9,7 +9,7 @@ project_unit_association = db.Table('项目_单位',
     db.Column('单位工程_id', db.Integer, db.ForeignKey('单位工程表.单位工程_id'), primary_key=True)
 )
 
-# 定义xx项目表模型
+# 定义项目表模型
 class Project(db.Model):
     __tablename__ = '项目表'  # 表名
 
@@ -49,13 +49,50 @@ class UnitProject(db.Model):
 class RoadFeature(db.Model):
     __tablename__ = '道路工程特征表'  # 数据库表名
 
-    id = db.Column(db.Integer, primary_key=True)  # 主键
-    名称 = db.Column(db.String(225))             # 名称
-    长度 = db.Column(db.Numeric(10, 2))          # 长度（米）
-    宽度 = db.Column(db.Numeric(5, 2))           # 宽度（米）
-    造价 = db.Column(db.Numeric(14, 2))          # 工程造价（元）
-    面积造价指标 = db.Column(db.Numeric(10, 2))   # 面积造价指标（元/平方米）
-    长度造价指标 = db.Column(db.Numeric(10, 2))   # 长度造价指标（元/米）
+    道路工程特征表_id = db.Column(db.Integer, primary_key=True)  # 主键
+    项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
+    工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
+    道路面积 = db.Column('道路面积（m2）', db.Numeric(14, 2))
+    道路长度 = db.Column('道路长度（m）', db.Numeric(14, 2))
+    机动车道宽度 = db.Column('机动车道宽度（m）', db.Numeric(5, 2))
+    非机动车道宽度 = db.Column('非机动车道宽度（m）', db.Numeric(5, 2))
+    人行道宽度 = db.Column('人行道宽度（m）', db.Numeric(5, 2))
+    机动车道面层 = db.Column(db.String(225))
+    非机动车道面层 = db.Column(db.String(225))
+    人行道面层 = db.Column(db.String(225))
+    是否含软基处理 = db.Column(db.Enum('是', '否'))
 
     def __repr__(self):
-        return f'<RoadFeature {self.道路工程}>'
+        return f'<RoadFeature {self.工程造价}>'
+     
+# 定义排水工程模型   
+class DrainageFeature(db.Model):
+    __tablename__ = '排水工程特征表'
+
+    排水工程特征表_id = db.Column(db.Integer, primary_key=True)
+    项目_单位_id = db.Column(db.Integer, db.ForeignKey('单位工程表.单位工程_id'), nullable=False)
+    工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))  # 注意映射数据库的实际字段名
+
+
+    # 关联到单位工程表
+    unit_project = db.relationship('UnitProject', backref='drainage_features')
+    def __repr__(self):
+        return f'<DrainageFeature {self.工程造价}>'
+
+# 定义交通工程模型 
+class TrafficFeature(db.Model):
+    __tablename__ = '交通工程特征表'
+
+    交通工程特征表_id = db.Column(db.Integer, primary_key=True)  # 主键
+    工程造价 = db.Column('工程造价（元）', db.Numeric(12, 2))  # 工程造价
+    是否含交通监控 = db.Column(db.Enum('是', '否'))  # 是否含交通监控
+    是否含电子警察 = db.Column(db.Enum('是', '否'))  # 是否含电子警察
+    十字路口个数 = db.Column(db.Integer)  # 十字路口个数
+    T字路口个数 = db.Column(db.Integer)  # T字路口个数
+    项目_单位_id = db.Column(db.Integer, db.ForeignKey('单位工程表.单位工程_id'), nullable=False)  # 外键
+
+    # 关联到单位工程表
+    unit_project = db.relationship('UnitProject', backref='traffic_features')
+
+    def __repr__(self):
+        return f'<TrafficFeature 工程造价={self.工程造价}>'

@@ -1,3 +1,9 @@
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+
+
 from flask import Flask, redirect, url_for, session
 from models import db
 from views import auth_blueprint, project_blueprint, individual_project_blueprint,individual_project2_blueprint
@@ -14,12 +20,12 @@ db.init_app(app)
 app.register_blueprint(auth_blueprint)
 app.register_blueprint(project_blueprint)
 app.register_blueprint(individual_project_blueprint)
-app.register_blueprint(individual_project2_blueprint, url_prefix='/individual_project2')  # 新蓝图
+app.register_blueprint(individual_project2_blueprint)
 
 @app.route('/')
 def index():
     if 'username' in session:
-        return redirect(url_for('project.project_list'))
+        return redirect(url_for('projects.project_list'))
     return redirect(url_for('auth.login'))
 
 if __name__ == "__main__":

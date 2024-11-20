@@ -43,38 +43,20 @@
                 <th>操作</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>{{ project.name }}</td>
-                <td>{{ project.单位工程名称 }}</td>
-                <td>{{ project.单位工程造价 }}</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td><a href="#">查看</a></td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td><a href="#">查看</a></td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td>XX</td>
-                <td><a href="#">查看</a></td>
-              </tr>
-            </tbody>
+           <tbody>
+  {% for row in task_data %}
+  <tr>
+    <td>{{ loop.index }}</td>
+    <td>{{ row.单位工程名称 }}</td>
+    <td>{{ row.工程造价 }}</td>
+    <td>{{ row.道路面积 }}</td>
+    <td>{{ row.面积造价指标 }}</td>
+    <td>{{ row.道路长度 }}</td>
+    <td>{{ row.长度造价指标 }}</td>
+  </tr>
+  {% endfor %}
+</tbody>
+
           </table>
           <!-- 分页 -->
           <div class="pagination">

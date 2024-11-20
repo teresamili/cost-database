@@ -315,11 +315,8 @@
             <tbody id="results">
               {% for project, result in zip(projects, results) %}
               <tr>
-                <td>
-                  <a href="{{ url_for('individual_project2.individual_project_detail', project_id=item.id) }}">
-                    {{ item.name }}
-                  </a>
-                </td>
+                <td><a href="{{ url_for('individual_project2.project_details', project_id=project.项目表_id) }}">
+                    {{ project.建设项目工程名称 }}</a></td>
                 <td>{{ project.项目地点 }}</td>
                 <td>{{ project.建设性质 }}</td>
                 <td>{{ project.价格基准期 }}</td>
