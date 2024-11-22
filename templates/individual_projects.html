@@ -297,9 +297,9 @@
 
         <!-- 任务表格 -->
         <div class="task-table">
-          <table>
-            <thead>
-              <tr>
+    <table>
+        <thead>
+            <tr>
                 <th>工程项目名称</th>
                 <th>项目地点</th>
                 <th>建设性质</th>
@@ -310,27 +310,26 @@
                 <th>造价指标（元/m）</th>
                 <th>造价指标（元/m2）</th>
                 <th>所含单位工程</th>
-              </tr>
-            </thead>
-            <tbody id="results">
-              {% for project, result in zip(projects, results) %}
-              <tr>
-                <td><a href="{{ url_for('individual_project2.project_details', project_id=project.项目表_id) }}">
-                    {{ project.建设项目工程名称 }}</a></td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for project, result in zip(projects, results) %}
+            <tr>
+                <td><a href="{{ url_for('individual_project2.project_details', project_id=project.项目表_id) }}">{{ project.建设项目工程名称 }}</a></td>
                 <td>{{ project.项目地点 }}</td>
                 <td>{{ project.建设性质 }}</td>
                 <td>{{ project.价格基准期 }}</td>
                 <td>{{ project.造价类型 }}</td>
                 <td>{{ project.道路等级 }}</td>
-                <td>{{ project.单项工程费用}}</td>
-                <td>{{ result['道路长度指标']}}</td>
-                <td>{{ result['道路面积指标']}}</td>
+                <td>{{ project.单项工程费用 }}</td>
+                <td>{{ result['道路长度指标'] }}</td>
+                <td>{{ result['道路面积指标'] }}</td>
                 <td>{{ result['单位工程'] }}</td>
-                <!-- 显示单位工程名称列表 -->
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
           <!-- 分页 -->
           <div class="pagination">
             <button>&lt;&lt;</button>

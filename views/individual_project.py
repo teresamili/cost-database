@@ -27,17 +27,31 @@ def get_projects():
     }
 
 
-@individual_project_blueprint.route('/individual-projects')
+@individual_project_blueprint.route('/individual-projects', methods=['GET'])
 def individual_project_list():
-    if 'username' in session:
-        # 从数据库查询数据
-        project_list = Project.query.all()
-        # 对数据进行计算
-        calculated_results = perform_calculation(project_list)
-        # 将原始数据和计算结果一起传递到模板中
-        return render_template('individual_projects.html', projects=project_list, results=calculated_results, zip=zip)
+    """
+    显示所有项目或单个项目数据
+    """
+    project_id = request.args.get('project_id', type=int)  # 获取 project_id 参数
+    if project_id:
+        # 如果有 project_id，仅查询单个项目
+        project_list = [Project.query.get_or_404(project_id)]
     else:
-        return redirect(url_for('auth.login'))
+        # 如果没有 project_id，查询所有项目
+        project_list = Project.query.all()
+
+    # 对查询结果进行计算
+    calculated_results = perform_calculation(project_list)
+
+    # 渲染模板，传递项目列表和计算结果
+    return render_template(
+        'individual_projects.html',
+        projects=project_list,
+        results=calculated_results,
+        zip=zip
+    )
+
+
 
 from flask import jsonify
 from sqlalchemy import and_
