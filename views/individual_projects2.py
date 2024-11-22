@@ -7,7 +7,12 @@ from models import (
     RoadFeature, 
     DrainageFeature, 
     TrafficFeature,
-    BridgeFeature
+    BridgeFeature,
+    CulvertFeature,
+    WaterpipeFeature,
+    ElectricalFeature,
+    TelecomFeature,
+    GreenFeature
 )
 
 # 定义蓝图
@@ -57,6 +62,21 @@ def project_details(project_id):
             "长度造价指标": round(feature.工程造价 / feature.桥梁长度, 2) ,
         })
 
+# 涵洞工程特征
+    culvert_features = CulvertFeature.query.filter(
+        CulvertFeature.项目_单位_id.in_([unit.项目_单位_id for unit in unit_projects])
+    ).all()
+    for idx, feature in enumerate(culvert_features, start=1):
+        task_data.append({
+            "序号": idx,
+            "单位工程名称": "涵洞工程",
+            "工程造价": feature.工程造价,
+            "面积": feature.涵洞面积,
+            "面积造价指标": round(feature.工程造价 / feature.涵洞面积, 2) ,
+            "长度": feature.涵洞长度,
+            "长度造价指标": round(feature.工程造价 / feature.涵洞长度, 2) ,
+        })
+
     # 排水工程特征
     drainage_features = DrainageFeature.query.filter(
         DrainageFeature.项目_单位_id.in_([unit.项目_单位_id for unit in unit_projects])
@@ -96,6 +116,66 @@ def project_details(project_id):
         task_data.append({
             "序号": idx,
             "单位工程名称": "照明工程",
+            "工程造价": feature.工程造价,
+            "面积": round((project.红线宽度 * project.道路全长), 2),
+            "面积造价指标": round(feature.工程造价 / (project.红线宽度 * project.道路全长), 2) if project.红线宽度 and project.道路全长 else "N/A",
+            "长度": project.道路全长,
+            "长度造价指标": round(feature.工程造价 / project.道路全长, 2) if project.道路全长 else "N/A",
+        })
+
+    # 给水工程特征
+    waterpipe_features = WaterpipeFeature.query.filter(
+        WaterpipeFeature.项目_单位_id.in_([unit.项目_单位_id for unit in unit_projects])
+    ).all()
+    for idx, feature in enumerate(waterpipe_features, start=len(task_data) + 1):
+        task_data.append({
+            "序号": idx,
+            "单位工程名称": "给水工程",
+            "工程造价": feature.工程造价,
+            "面积": round((project.红线宽度 * project.道路全长), 2),
+            "面积造价指标": round(feature.工程造价 / (project.红线宽度 * project.道路全长), 2) if project.红线宽度 and project.道路全长 else "N/A",
+            "长度": project.道路全长,
+            "长度造价指标": round(feature.工程造价 / project.道路全长, 2) if project.道路全长 else "N/A",
+        })
+
+   # 电力工程特征
+    electrical_features = ElectricalFeature.query.filter(
+        ElectricalFeature.项目_单位_id.in_([unit.项目_单位_id for unit in unit_projects])
+    ).all()
+    for idx, feature in enumerate(electrical_features, start=len(task_data) + 1):
+        task_data.append({
+            "序号": idx,
+            "单位工程名称": "电力工程",
+            "工程造价": feature.工程造价,
+            "面积": round((project.红线宽度 * project.道路全长), 2),
+            "面积造价指标": round(feature.工程造价 / (project.红线宽度 * project.道路全长), 2) if project.红线宽度 and project.道路全长 else "N/A",
+            "长度": project.道路全长,
+            "长度造价指标": round(feature.工程造价 / project.道路全长, 2) if project.道路全长 else "N/A",
+        })
+
+        # 通信工程特征
+    telecom_features = TelecomFeature.query.filter(
+        TelecomFeature.项目_单位_id.in_([unit.项目_单位_id for unit in unit_projects])
+    ).all()
+    for idx, feature in enumerate(telecom_features, start=len(task_data) + 1):
+        task_data.append({
+            "序号": idx,
+            "单位工程名称": "通信工程",
+            "工程造价": feature.工程造价,
+            "面积": round((project.红线宽度 * project.道路全长), 2),
+            "面积造价指标": round(feature.工程造价 / (project.红线宽度 * project.道路全长), 2) if project.红线宽度 and project.道路全长 else "N/A",
+            "长度": project.道路全长,
+            "长度造价指标": round(feature.工程造价 / project.道路全长, 2) if project.道路全长 else "N/A",
+        })
+
+         # 绿化工程特征
+    green_features = GreenFeature.query.filter(
+        GreenFeature.项目_单位_id.in_([unit.项目_单位_id for unit in unit_projects])
+    ).all()
+    for idx, feature in enumerate(green_features, start=len(task_data) + 1):
+        task_data.append({
+            "序号": idx,
+            "单位工程名称": "绿化工程",
             "工程造价": feature.工程造价,
             "面积": round((project.红线宽度 * project.道路全长), 2),
             "面积造价指标": round(feature.工程造价 / (project.红线宽度 * project.道路全长), 2) if project.红线宽度 and project.道路全长 else "N/A",

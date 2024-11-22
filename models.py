@@ -85,6 +85,22 @@ class BridgeFeature(db.Model):
 
     def __repr__(self):
         return f'<BridgeFeature {self.工程造价}>'
+    
+# 定义涵洞工程模型
+class CulvertFeature(db.Model):
+    __tablename__ = '涵洞工程特征表'
+
+    涵洞工程特征表_id = db.Column(db.Integer, primary_key=True)
+    项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
+    工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
+    涵洞面积 = db.Column('涵洞面积（m2）', db.Numeric(14, 2))
+    涵洞长度 = db.Column('涵洞长度（m）', db.Numeric(14, 2))
+
+    # 关联到项目_单位表
+    project_unit = db.relationship('ProjectUnit', backref='culvert_features')
+
+    def __repr__(self):
+        return f'<CulvertFeature {self.工程造价}>'
 
 # 定义排水工程模型
 class DrainageFeature(db.Model):
@@ -129,3 +145,59 @@ class LightingFeature(db.Model):
 
     def __repr__(self):
         return f'<LightingFeature {self.工程造价}>'
+
+# 定义给水工程模型
+class WaterpipeFeature(db.Model):
+    __tablename__ = '给水工程特征表'
+
+    给水工程特征表_id = db.Column(db.Integer, primary_key=True)
+    项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
+    工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
+
+    # 关联到项目_单位表
+    project_unit = db.relationship('ProjectUnit', backref='waterpipe_features')
+
+    def __repr__(self):
+        return f'<WaterpipeFeature {self.工程造价}>'
+    
+    # 定义电力工程模型
+class ElectricalFeature(db.Model):
+    __tablename__ = '电力工程特征表'
+
+    电力工程特征表_id = db.Column(db.Integer, primary_key=True)
+    项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
+    工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
+
+    # 关联到项目_单位表
+    project_unit = db.relationship('ProjectUnit', backref='electrical_features')
+
+    def __repr__(self):
+        return f'<ElectricalFeature {self.工程造价}>'
+    
+    # 定义通信工程模型
+class TelecomFeature(db.Model):
+    __tablename__ = '通信工程特征表'
+
+    通信工程特征表_id = db.Column(db.Integer, primary_key=True)
+    项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
+    工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
+
+    # 关联到项目_单位表
+    project_unit = db.relationship('ProjectUnit', backref='telecom_features')
+
+    def __repr__(self):
+        return f'<TelecomFeature {self.工程造价}>'
+    
+    # 定义绿化工程模型
+class GreenFeature(db.Model):
+    __tablename__ = '绿化工程特征表'
+
+    绿化工程特征表_id = db.Column(db.Integer, primary_key=True)
+    项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
+    工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
+
+    # 关联到项目_单位表
+    project_unit = db.relationship('ProjectUnit', backref='green_features')
+
+    def __repr__(self):
+        return f'<TelecomFeature {self.工程造价}>'
