@@ -28,33 +28,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // 点击确定按钮后发送查询请求
 function performSearch() {
-  // 检查是否所有行都有选择
-  const requiredFilters = [
-    "project_location",
-    "construction_nature",
-    "price_basis",
-    "cost_type",
-    "road_grade",
-  ];
-  for (const filter of requiredFilters) {
-    if (!filters[filter]) {
-      alert(`请为${filter}选择一个选项`);
-      return;
-    }
-  }
+  console.log("Filters before search:", filters);
 
-  // 将查询条件转换为 URL 参数
+  // 将筛选条件转换为查询字符串
   const queryString = new URLSearchParams(filters).toString();
+  console.log("Generated Query URL:", `/search?${queryString}`);
+
+  // 向后端发送筛选请求
   fetch(`/search?${queryString}`)
     .then((response) => response.json())
     .then((data) => {
       console.log("Received data:", data); // 打印接收到的数据
       const resultsElement = document.getElementById("results");
+
       if (resultsElement) {
-        // 清空原有内容
+        // 清空表格内容
         resultsElement.innerHTML = "";
 
-        // 检查接收到的数据是否为空
+        // 如果没有数据，提示空表信息
         if (data.length === 0) {
           resultsElement.innerHTML =
             "<tr><td colspan='10'>没有符合条件的结果</td></tr>";
@@ -65,7 +56,11 @@ function performSearch() {
         data.forEach((item) => {
           const row = document.createElement("tr");
           row.innerHTML = `
-            <td>${item.建设项目工程名称 || ""}</td>
+            <td>
+              <a href="${item.url}">
+                ${item.建设项目工程名称 || ""}
+              </a>
+            </td>
             <td>${item.项目地点 || ""}</td>
             <td>${item.建设性质 || ""}</td>
             <td>${item.价格基准期 || ""}</td>
@@ -81,5 +76,9 @@ function performSearch() {
       } else {
         console.error("Element with id 'results' not found.");
       }
+    })
+    .catch((error) => {
+      console.error("Error fetching data:", error);
+      alert("查询失败，请稍后重试。");
     });
 }

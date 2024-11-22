@@ -30,18 +30,43 @@ def get_projects():
 @individual_project_blueprint.route('/individual-projects', methods=['GET'])
 def individual_project_list():
     """
-    显示所有项目或单个项目数据
+    显示所有项目或根据筛选条件显示特定项目
     """
-    project_id = request.args.get('project_id', type=int)  # 获取 project_id 参数
+    # 获取筛选条件
+    project_id = request.args.get('project_id', type=int)
+    project_location = request.args.get('project_location')
+    construction_nature = request.args.get('construction_nature')
+    price_basis = request.args.get('price_basis')
+    cost_type = request.args.get('cost_type')
+    road_grade = request.args.get('road_grade')
+
+    # 构建过滤条件
+    filters = []
     if project_id:
-        # 如果有 project_id，仅查询单个项目
-        project_list = [Project.query.get_or_404(project_id)]
+        filters.append(Project.项目表_id == project_id)
+    if project_location and project_location != "不限":
+        filters.append(Project.项目地点 == project_location)
+    if construction_nature and construction_nature != "不限":
+        filters.append(Project.建设性质 == construction_nature)
+    if price_basis and price_basis != "不限":
+        filters.append(Project.价格基准期 == price_basis)
+    if cost_type and cost_type != "不限":
+        filters.append(Project.造价类型 == cost_type)
+    if road_grade and road_grade != "不限":
+        filters.append(Project.道路等级 == road_grade)
+
+    # 根据过滤条件查询项目
+    if filters:
+        project_list = Project.query.filter(and_(*filters)).all()
     else:
-        # 如果没有 project_id，查询所有项目
         project_list = Project.query.all()
 
-    # 对查询结果进行计算
+    # 调用 perform_calculation 计算结果
     calculated_results = perform_calculation(project_list)
+
+    # 调试打印
+    print("构建的过滤条件：", filters)
+    print("查询到的项目：", [project.建设项目工程名称 for project in project_list])
 
     # 渲染模板，传递项目列表和计算结果
     return render_template(
@@ -53,12 +78,14 @@ def individual_project_list():
 
 
 
+
+
 from flask import jsonify
 from sqlalchemy import and_
 
 @individual_project_blueprint.route('/search', methods=['GET'])
 def search():
-    # 获取每行的查询条件
+    # 获取查询条件
     project_location = request.args.get('project_location')
     construction_nature = request.args.get('construction_nature')
     price_basis = request.args.get('price_basis')
@@ -88,10 +115,11 @@ def search():
     result_list = []
     for project, result in zip(project_list, calculated_results):
         result_list.append({
+            "url": url_for('individual_project2.project_details', project_id=project.项目表_id),  # 动态生成链接
             "建设项目工程名称": project.建设项目工程名称,
             "项目地点": project.项目地点,
             "建设性质": project.建设性质,
-            "价格基准期": project.价格基准期,  
+            "价格基准期": project.价格基准期,
             "造价类型": project.造价类型,
             "道路等级": project.道路等级,
             "单项工程费用": project.单项工程费用,

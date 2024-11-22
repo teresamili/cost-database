@@ -312,22 +312,25 @@
                 <th>所含单位工程</th>
             </tr>
         </thead>
-        <tbody>
-            {% for project, result in zip(projects, results) %}
-            <tr>
-                <td><a href="{{ url_for('individual_project2.project_details', project_id=project.项目表_id) }}">{{ project.建设项目工程名称 }}</a></td>
-                <td>{{ project.项目地点 }}</td>
-                <td>{{ project.建设性质 }}</td>
-                <td>{{ project.价格基准期 }}</td>
-                <td>{{ project.造价类型 }}</td>
-                <td>{{ project.道路等级 }}</td>
-                <td>{{ project.单项工程费用 }}</td>
-                <td>{{ result['道路长度指标'] }}</td>
-                <td>{{ result['道路面积指标'] }}</td>
-                <td>{{ result['单位工程'] }}</td>
-            </tr>
-            {% endfor %}
-        </tbody>
+       <tbody id="results">
+    {% for project, result in zip(projects, results) %}
+    <tr>
+        <td><a href="{{ url_for('individual_project2.project_details', project_id=project.项目表_id) }}">
+            {{ project.建设项目工程名称 }}</a></td>
+        <td>{{ project.项目地点 }}</td>
+        <td>{{ project.建设性质 }}</td>
+        <td>{{ project.价格基准期 }}</td>
+        <td>{{ project.造价类型 }}</td>
+        <td>{{ project.道路等级 }}</td>
+        <td>{{ project.单项工程费用 }}</td>
+        <td>{{ result['道路长度指标'] }}</td>
+        <td>{{ result['道路面积指标'] }}</td>
+        <td>{{ result['单位工程'] }}</td>
+    </tr>
+    {% endfor %}
+</tbody>
+
+
     </table>
 
           <!-- 分页 -->

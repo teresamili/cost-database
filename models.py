@@ -25,7 +25,7 @@ class Project(db.Model):
     单项工程费用 = db.Column(db.Numeric(14, 2))  # 工程费用
     造价类型 = db.Column(db.Enum('估算价', '概算价', '预算价', '招标控制价'))  # 项目阶段
     项目地点 = db.Column(db.String(45))  # 项目地点
-    价格基准期 = db.Column(db.Date)  # 价格基准期
+    价格基准期 = db.Column(db.String(10))  # 价格基准期
     道路等级 = db.Column(db.Enum('快速路', '主干路', '次干路', '支路'))  # 道路等级
     红线宽度 = db.Column(db.Numeric(5, 2))  # 红线宽度
     道路全长 = db.Column(db.Numeric(7, 2))  # 道路全长
@@ -70,6 +70,21 @@ class RoadFeature(db.Model):
     def __repr__(self):
         return f'<RoadFeature {self.工程造价}>'
 
+# 定义桥梁工程模型
+class BridgeFeature(db.Model):
+    __tablename__ = '桥梁工程特征表'
+
+    桥梁工程特征表_id = db.Column(db.Integer, primary_key=True)
+    项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
+    工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
+    桥梁面积 = db.Column('桥梁面积（m2）', db.Numeric(14, 2))
+    桥梁长度 = db.Column('桥梁长度（m）', db.Numeric(14, 2))
+
+    # 关联到项目_单位表
+    project_unit = db.relationship('ProjectUnit', backref='bridge_features')
+
+    def __repr__(self):
+        return f'<BridgeFeature {self.工程造价}>'
 
 # 定义排水工程模型
 class DrainageFeature(db.Model):

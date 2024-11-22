@@ -1,5 +1,14 @@
 from flask import Blueprint, render_template
-from models import LightingFeature, Project, Unit, ProjectUnit, RoadFeature, DrainageFeature, TrafficFeature
+from models import (
+    LightingFeature, 
+    Project, 
+    Unit, 
+    ProjectUnit, 
+    RoadFeature, 
+    DrainageFeature, 
+    TrafficFeature,
+    BridgeFeature
+)
 
 # 定义蓝图
 individual_project2_blueprint = Blueprint('individual_project2', __name__)
@@ -28,9 +37,24 @@ def project_details(project_id):
             "单位工程名称": "道路工程",
             "工程造价": feature.工程造价,
             "面积": feature.道路面积,
-            "面积造价指标": round(feature.工程造价 / feature.道路面积, 2) if feature.道路面积 else "N/A",
+            "面积造价指标": round(feature.工程造价 / feature.道路面积, 2) ,
             "长度": feature.道路长度,
-            "长度造价指标": round(feature.工程造价 / feature.道路长度, 2) if feature.道路长度 else "N/A",
+            "长度造价指标": round(feature.工程造价 / feature.道路长度, 2) ,
+        })
+
+    # 桥梁工程特征
+    bridge_features = BridgeFeature.query.filter(
+        BridgeFeature.项目_单位_id.in_([unit.项目_单位_id for unit in unit_projects])
+    ).all()
+    for idx, feature in enumerate(bridge_features, start=1):
+        task_data.append({
+            "序号": idx,
+            "单位工程名称": "桥梁工程",
+            "工程造价": feature.工程造价,
+            "面积": feature.桥梁面积,
+            "面积造价指标": round(feature.工程造价 / feature.桥梁面积, 2) ,
+            "长度": feature.桥梁长度,
+            "长度造价指标": round(feature.工程造价 / feature.桥梁长度, 2) ,
         })
 
     # 排水工程特征
