@@ -40,7 +40,7 @@
                 <th>面积造价指标（元/m2）</th>
                 <th>长度（m）</th>
                 <th>长度造价指标（元/m）</th>
-                <th>操作</th>
+                <th>备注</th>
               </tr>
             </thead>
            <tbody>
@@ -49,10 +49,10 @@
     <td>{{ loop.index }}</td>
     <td>{{ row.单位工程名称 }}</td>
     <td>{{ row.工程造价 }}</td>
-    <td>{{ row.道路面积 }}</td>
-    <td>{{ row.面积造价指标 }}</td>
-    <td>{{ row.道路长度 }}</td>
-    <td>{{ row.长度造价指标 }}</td>
+    <td>{{ row.面积  }}</td>
+    <td>{{ row.面积造价指标 if row.面积造价指标 != 'N/A' else 'N/A' }}</td>
+    <td>{{ row.长度 }}</td>
+    <td>{{ row.长度造价指标 if row.长度造价指标 != 'N/A' else 'N/A'}}</td>
   </tr>
   {% endfor %}
 </tbody>

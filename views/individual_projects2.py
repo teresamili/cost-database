@@ -1,11 +1,5 @@
 from flask import Blueprint, render_template
-from models import Project
-from models import UnitProject
-from models import RoadFeature
-from models import DrainageFeature
-from models import TrafficFeature
-
-from sqlalchemy.orm import joinedload
+from models import LightingFeature, Project, Unit, ProjectUnit, RoadFeature, DrainageFeature, TrafficFeature
 
 # 定义蓝图
 individual_project2_blueprint = Blueprint('individual_project2', __name__)
@@ -19,49 +13,71 @@ def project_details(project_id):
     project = Project.query.get_or_404(project_id)
 
     # 查询关联的单位工程
-    unit_projects = UnitProject.query.filter(UnitProject.projects.any(项目表_id=project_id)).all()
-    print("关联单位工程:", unit_projects)  # 确保在此处定义后使用
+    unit_projects = ProjectUnit.query.filter_by(项目表_id=project_id).all()
+
+    # 准备传递到模板的数据
+    task_data = []
 
     # 道路工程特征
     road_features = RoadFeature.query.filter(
-        RoadFeature.项目_单位_id.in_([unit.单位工程_id for unit in unit_projects])
+        RoadFeature.项目_单位_id.in_([unit.项目_单位_id for unit in unit_projects])
     ).all()
-    print("道路工程特征:", road_features)  # 确保定义后使用
-
-    # 排水工程特征
-    drainage_features = DrainageFeature.query.filter(
-        DrainageFeature.项目_单位_id.in_([unit.单位工程_id for unit in unit_projects])
-    ).all()
-    print("排水工程特征:", drainage_features)  # 确保定义后使用
-
-    # 交通工程特征
-    traffic_features = TrafficFeature.query.filter(
-        TrafficFeature.项目_单位_id.in_([unit.单位工程_id for unit in unit_projects])
-    ).all()
-    print("交通工程特征:", traffic_features)  # 确保定义后使用
-
-    # 准备传递到模板的数据
-    task_data = []
-    # 准备传递到模板的数据
-    task_data = []
-
-    # 道路工程数据处理
     for idx, feature in enumerate(road_features, start=1):
-        unit_name = next(
-            (unit.单位工程名称 for unit in unit_projects if unit.单位工程_id == feature.项目_单位_id),
-            "未知单位工程"
-        )
         task_data.append({
             "序号": idx,
-            "单位工程名称": unit_name,
+            "单位工程名称": "道路工程",
             "工程造价": feature.工程造价,
-            "道路面积": feature.道路面积,
+            "面积": feature.道路面积,
             "面积造价指标": round(feature.工程造价 / feature.道路面积, 2) if feature.道路面积 else "N/A",
-            "道路长度": feature.道路长度,
+            "长度": feature.道路长度,
             "长度造价指标": round(feature.工程造价 / feature.道路长度, 2) if feature.道路长度 else "N/A",
         })
 
-    # 其他特征数据（交通工程、排水工程等）可以按类似逻辑添加到 task_data
+    # 排水工程特征
+    drainage_features = DrainageFeature.query.filter(
+        DrainageFeature.项目_单位_id.in_([unit.项目_单位_id for unit in unit_projects])
+    ).all()
+    for idx, feature in enumerate(drainage_features, start=len(task_data) + 1):
+        task_data.append({
+            "序号": idx,
+            "单位工程名称": "排水工程",
+            "工程造价": feature.工程造价,
+            "面积": round((project.红线宽度 * project.道路全长), 2),  # 示例计算
+            "面积造价指标": round(feature.工程造价 / (project.红线宽度 * project.道路全长), 2) if project.红线宽度 and project.道路全长 else "N/A",
+            "长度": project.道路全长,
+            "长度造价指标": round(feature.工程造价 / project.道路全长, 2) if project.道路全长 else "N/A",
+        })
+
+    # 交通工程特征
+    traffic_features = TrafficFeature.query.filter(
+        TrafficFeature.项目_单位_id.in_([unit.项目_单位_id for unit in unit_projects])
+    ).all()
+    for idx, feature in enumerate(traffic_features, start=len(task_data) + 1):
+        task_data.append({
+            "序号": idx,
+            "单位工程名称": "交通工程",
+            "工程造价": feature.工程造价,
+            "面积": round((project.红线宽度 * project.道路全长), 2),
+            "面积造价指标": round(feature.工程造价 / (project.红线宽度 * project.道路全长), 2) if project.红线宽度 and project.道路全长 else "N/A",
+            "长度": project.道路全长,
+            "长度造价指标": round(feature.工程造价 / project.道路全长, 2) if project.道路全长 else "N/A",
+        })
+
+    
+    # 照明工程特征
+    lighting_features = LightingFeature.query.filter(
+        LightingFeature.项目_单位_id.in_([unit.项目_单位_id for unit in unit_projects])
+    ).all()
+    for idx, feature in enumerate(lighting_features, start=len(task_data) + 1):
+        task_data.append({
+            "序号": idx,
+            "单位工程名称": "照明工程",
+            "工程造价": feature.工程造价,
+            "面积": round((project.红线宽度 * project.道路全长), 2),
+            "面积造价指标": round(feature.工程造价 / (project.红线宽度 * project.道路全长), 2) if project.红线宽度 and project.道路全长 else "N/A",
+            "长度": project.道路全长,
+            "长度造价指标": round(feature.工程造价 / project.道路全长, 2) if project.道路全长 else "N/A",
+        })
 
     # 渲染模板
     return render_template(
@@ -69,3 +85,4 @@ def project_details(project_id):
         project=project,
         task_data=task_data
     )
+
