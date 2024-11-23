@@ -64,9 +64,6 @@ def individual_project_list():
     # 调用 perform_calculation 计算结果
     calculated_results = perform_calculation(project_list)
 
-    # 调试打印
-    print("构建的过滤条件：", filters)
-    print("查询到的项目：", [project.建设项目工程名称 for project in project_list])
 
     # 渲染模板，传递项目列表和计算结果
     return render_template(

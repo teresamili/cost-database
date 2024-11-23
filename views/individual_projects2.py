@@ -12,7 +12,8 @@ from models import (
     WaterpipeFeature,
     ElectricalFeature,
     TelecomFeature,
-    GreenFeature
+    GreenFeature,
+    TunnelFeature
 )
 
 # 定义蓝图
@@ -181,6 +182,21 @@ def project_details(project_id):
             "面积造价指标": round(feature.工程造价 / (project.红线宽度 * project.道路全长), 2) if project.红线宽度 and project.道路全长 else "N/A",
             "长度": project.道路全长,
             "长度造价指标": round(feature.工程造价 / project.道路全长, 2) if project.道路全长 else "N/A",
+        })
+
+        # 隧道工程特征
+    tunnel_features = TunnelFeature.query.filter(
+        TunnelFeature.项目_单位_id.in_([unit.项目_单位_id for unit in unit_projects])
+    ).all()
+    for idx, feature in enumerate(tunnel_features, start=1):
+        task_data.append({
+            "序号": idx,
+            "单位工程名称": "隧道工程",
+            "工程造价": feature.工程造价,
+            "面积": feature.隧道面积,
+            "面积造价指标": round(feature.工程造价 / feature.隧道面积, 2) ,
+            "长度": feature.隧道长度,
+            "长度造价指标": round(feature.工程造价 / feature.隧道长度, 2) ,
         })
 
     # 渲染模板

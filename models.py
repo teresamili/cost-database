@@ -200,4 +200,21 @@ class GreenFeature(db.Model):
     project_unit = db.relationship('ProjectUnit', backref='green_features')
 
     def __repr__(self):
-        return f'<TelecomFeature {self.工程造价}>'
+        return f'<GreenFeature {self.工程造价}>'
+    
+    # 定义隧道工程模型
+class TunnelFeature(db.Model):
+    __tablename__ = '隧道工程特征表'
+
+    隧道工程特征表_id = db.Column(db.Integer, primary_key=True)
+    项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
+    工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
+    隧道面积 = db.Column('隧道面积（m2）', db.Numeric(14, 2))
+    隧道长度 = db.Column('隧道长度（m）', db.Numeric(14, 2))
+
+
+    # 关联到项目_单位表
+    project_unit = db.relationship('ProjectUnit', backref='tunnel_features')
+
+    def __repr__(self):
+        return f'<TunnelFeature {self.工程造价}>'
