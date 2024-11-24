@@ -12,22 +12,35 @@
     {% include 'navbar.html' %}
     <!-- 主内容区域 -->
     <main>
-      <h1>工程项目名称</h1>
+      <h1>工程项目名称：{{ project.建设项目工程名称 }}</h1>
      
-      <!-- 特征信息表 --> 
-       <div class="features">  
-<div class="feature"> <h2>道路工程特征明细表</h2></div>
-<div class="feature"> <h2>桥梁工程特征明细表</h2></div>
-<div class="feature"> <h2>涵洞工程特征明细表</h2></div>
-<div class="feature"> <h2>交通工程特征明细表</h2></div>
-<div class="feature"> <h2>给水工程特征明细表</h2></div>
-<div class="feature"> <h2>排水工程特征明细表</h2></div>
-<div class="feature"> <h2>照明工程特征明细表</h2></div>
-<div class="feature"> <h2>电力工程特征明细表</h2></div>
-<div class="feature"> <h2>通信工程特征明细表</h2></div>
-<div class="feature"> <h2>绿化工程特征明细表</h2></div>
+      <!-- 道路特征信息表 --> 
+     <div class="details-container">
+  {% for row in road_details %}
+  <div class="detail-card">
+    <h3>道路工程明细 {{ loop.index }} </h3>
+    <ul class="detail-list">
+      {% for key, value in row.items() %}
+      <li><strong>{{ key }}:</strong>  <span>{{ value }}</span></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+      <!-- 排水特征信息表 --> 
+  {% for row in drainage_details %}
+  <div class="detail-card">
+    <h3>排水工程明细 {{ loop.index }}</h3>
+    <ul class="detail-list">
+      {% for key, value in row.items() %}
+      <li><strong>{{ key }}:</strong>  <span>{{ value }}</span></li>
+      {% endfor %}
+    </ul>
+</div>
+ 
 
-       </div> 
+  {% endfor %}
+</div>
+
         <!-- 任务表格 -->
         <div class="task-table">
           <table>
@@ -49,7 +62,7 @@
     <td>{{ loop.index }}</td>
     <td>{{ row.单位工程名称 }}</td>
     <td>{{ row.工程造价 }}</td>
-    <td>{{ row.面积  }}</td>
+    <td>{{ row.面积 }}</td>
     <td>{{ row.面积造价指标 if row.面积造价指标 != 'N/A' else 'N/A' }}</td>
     <td>{{ row.长度 }}</td>
     <td>{{ row.长度造价指标 if row.长度造价指标 != 'N/A' else 'N/A'}}</td>

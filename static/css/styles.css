@@ -70,44 +70,43 @@ html {
 }
 /*侧导航子菜单*/
 .nav-item {
-    position: relative; /* 使子菜单能正确定位 */
+  position: relative; /* 使子菜单能正确定位 */
 }
 
 .main-menu:hover {
-    background-color: #0056b3; /* 鼠标悬停时的背景颜色 */
-    
+  background-color: #0056b3; /* 鼠标悬停时的背景颜色 */
 }
 
 .submenu {
-    display: none; /* 初始隐藏子菜单 */
-    position: absolute;
-    top: 0;
-    left: 140px; /* 子菜单相对于主菜单右侧显示 */
-    background-color: #f0f0f0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border: 2px solid #6ab5f1;
-    border-radius: 5px;
-    padding: 10px;
-    width: 150px; /* 子菜单宽度 */
+  display: none; /* 初始隐藏子菜单 */
+  position: absolute;
+  top: 0;
+  left: 140px; /* 子菜单相对于主菜单右侧显示 */
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 2px solid #6ab5f1;
+  border-radius: 5px;
+  padding: 10px;
+  width: 150px; /* 子菜单宽度 */
 }
 
 .submenu a {
-    display: block;
-    padding: 5px 10px;
-    color: #000!important;
-    text-decoration: none;
-    transition: background-color 0.3s;
-    border-radius: 5px;
+  display: block;
+  padding: 5px 10px;
+  color: #000 !important;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border-radius: 5px;
 }
 
 .submenu a:hover {
-    background-color: #cfcbcb!important; /* 鼠标悬停在子菜单项上的背景色 */
-    color: #f0f0f0/* 鼠标悬停时的字体颜色 */
+  background-color: #cfcbcb !important; /* 鼠标悬停在子菜单项上的背景色 */
+  color: #f0f0f0; /* 鼠标悬停时的字体颜色 */
 }
 
 /* 当鼠标悬停在 .main-menu 上时，显示 .submenu */
 .nav-item:hover .submenu {
-    display: block;
+  display: block;
 }
 
 main {
@@ -237,7 +236,7 @@ main {
 }
 
 .region-btn.active {
-  background-color: #007bff; /* 激活状态下的蓝色背景 */
+  background-color: #9dc2eb; /* 激活状态下的蓝色背景 */
   color: #000; /* 保持字体颜色为黑色 */
   border-color: #007bff; /* 激活状态下的边框 */
 }
@@ -262,30 +261,75 @@ main {
   background-color: #0056b3;
 }
 
-  /*特征明细表*/
-  .features h2{
-    font-size: 12px ;
-    padding-top: 0%;
-  }
-.features {
-    display: flex; /* 使用 flex 布局 */
-    gap: 20px; /* 设置盒子之间的间距 */
+/*特征明细表*/
+/* 卡片容器 */
+.details-container {
+  display: flex;
+  flex-wrap: wrap; /* 支持换行 */
+  overflow-y: auto; /* 禁止纵向滚动 */
+  overflow-x: auto; /* 如果卡片过多，允许横向滚动 */
+  justify-content: flex-start; /* 卡片靠左对齐 */
+  align-items: flex-start; /* 确保顶部对齐 */
+  gap: 1rem; /* 卡片间距 */
+  padding: 0rem;
 }
 
 
-  .feature {
-    display: flex;
+/* 单个卡片 */
+.detail-card {
   background-color: #fff;
-  width: 150px;
-  height: 200px;
-  border: 2px solid #bbbabd;
-  padding: 5px;
-  margin-bottom: 10px
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 1px solid #ddd;
+  padding: 1.2rem; /* 卡片内边距 */
+  box-sizing: border-box;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 200px;
+  height: 300px;
+  text-align: left; 
+  margin-bottom: 1rem; /* 为卡片底部添加间距 */
+  overflow-y: auto;
+  overflow-x: auto;
 }
 
-/* 选中状态的样式 */
-.region-btn.selected {
-  background-color: #d1ecf5; /* 选中后显示的底色，可以根据需要调整 */
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* 添加阴影效果 */
-  color: #333; /* 可选：调整字体颜色 */
+/* 卡片悬停效果 */
+.detail-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* 卡片标题 */
+.detail-card h3 {
+  margin: 0 0 1rem;
+  font-size: 0.8rem;
+  color: #333;
+  text-align: center;
+  background-color: #f0f0f0;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* 卡片内容 */
+.detail-card ul {
+  list-style-type: none; /* 去掉列表样式 */
+  padding: 0;
+  margin: 0;
+}
+
+.detail-card ul li {
+  display: block; /* 每个字段单独占一行 */
+  margin-bottom: 0.6rem; /* 每行之间的间距 */
+  font-size: 0.7rem; /* 字体大小 */
+  line-height: 1.5; /* 行距适中 */
+}
+
+.detail-card ul li strong {
+  color: #555;
+  font-weight: bold;
+}
+
+.detail-card ul li span {
+  color: #333;
 }

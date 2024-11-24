@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
       // 为当前点击的按钮添加选中状态
-      button.classList.add("selected");
+      button.classList.add("selected", "active");
     });
   });
 });

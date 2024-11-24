@@ -13,7 +13,9 @@ from models import (
     ElectricalFeature,
     TelecomFeature,
     GreenFeature,
-    TunnelFeature
+    TunnelFeature,
+    RoadFeatureDetail,
+    DrainageFeatureDetail
 )
 
 # 定义蓝图
@@ -33,11 +35,12 @@ def project_details(project_id):
     # 准备传递到模板的数据
     task_data = []
 
-    # 道路工程特征
+    # 道路工程特征表
     road_features = RoadFeature.query.filter(
         RoadFeature.项目_单位_id.in_([unit.项目_单位_id for unit in unit_projects])
     ).all()
     for idx, feature in enumerate(road_features, start=1):
+
         task_data.append({
             "序号": idx,
             "单位工程名称": "道路工程",
@@ -46,8 +49,28 @@ def project_details(project_id):
             "面积造价指标": round(feature.工程造价 / feature.道路面积, 2) ,
             "长度": feature.道路长度,
             "长度造价指标": round(feature.工程造价 / feature.道路长度, 2) ,
+
         })
 
+    # 道路工程特征细表
+  
+    road_details = []
+    for feature in road_features:
+        details = RoadFeatureDetail.query.filter_by(道路工程特征表_id=feature.道路工程特征表_id).all()
+        road_details.extend([
+        {
+            "机动车道宽度（m）": detail.机动车道宽度,
+            "非机动车道宽度（m）": detail.非机动车道宽度,
+            "人行道宽度（m）": detail.人行道宽度,
+            "机动车道面层": detail.机动车道面层,
+            "非机动车道面层": detail.非机动车道面层,
+            "人行道面层": detail.人行道面层,
+            "是否含软基处理":detail.是否含软基处理,
+            "备注": detail.备注,
+        }
+        for detail in details
+    ])
+    
     # 桥梁工程特征
     bridge_features = BridgeFeature.query.filter(
         BridgeFeature.项目_单位_id.in_([unit.项目_单位_id for unit in unit_projects])
@@ -92,6 +115,23 @@ def project_details(project_id):
             "长度": project.道路全长,
             "长度造价指标": round(feature.工程造价 / project.道路全长, 2) if project.道路全长 else "N/A",
         })
+
+# 排水工程特征细表
+    drainage_details = []
+    for feature in drainage_features:
+        details = DrainageFeatureDetail.query.filter_by(排水工程特征表_id=feature.排水工程特征表_id).all()
+        drainage_details.extend([
+        {
+           
+            "管道材质": detail.管道材质,
+            "施工方法": detail.施工方法,
+            "管径": detail.管径,
+            "长度（m）": detail.长度,
+            
+        }
+        for detail in details
+    ])
+
 
     # 交通工程特征
     traffic_features = TrafficFeature.query.filter(
@@ -203,6 +243,9 @@ def project_details(project_id):
     return render_template(
         'individual_projects2.html',
         project=project,
-        task_data=task_data
+        task_data=task_data,
+        road_features=road_features,
+        road_details=road_details, # 确保明细表被传递
+        drainage_details=drainage_details
     )
 

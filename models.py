@@ -67,8 +67,37 @@ class RoadFeature(db.Model):
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='road_features')
 
+    # 关联到特征明细表
+    details = db.relationship('RoadFeatureDetail', back_populates='road_feature')
+    
     def __repr__(self):
         return f'<RoadFeature {self.工程造价}>'
+
+# 定义道路工程明细模型    
+class RoadFeatureDetail(db.Model):
+    __tablename__ = '道路工程特征细表'
+
+    道路工程特征细表_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    道路工程特征表_id = db.Column(db.Integer, db.ForeignKey('道路工程特征表.道路工程特征表_id'), nullable=False)
+    机动车道宽度 = db.Column('机动车道宽度（m）',db.Numeric(6, 2), nullable=True, default=None)
+    非机动车道宽度 = db.Column('非机动车道宽度（m）',db.Numeric(6, 2), nullable=True, default=None)
+    人行道宽度 = db.Column('人行道宽度（m）',db.Numeric(6, 2), nullable=True, default=None)
+    机动车道面层 = db.Column(db.Enum('沥青混凝土', '水泥混凝土'), nullable=True, default=None)
+    非机动车道面层 = db.Column(db.Enum(
+        '沥青混凝土', '水泥混凝土', '彩色沥青混凝土', '彩色水泥混凝土',
+        '透水沥青混凝土', '透水水泥混凝土', '其他'
+    ), nullable=True, default=None)
+    人行道面层 = db.Column(db.Enum(
+        '混凝土砖', '透水砖', '透水混凝土砖', 'PC砖', '花岗岩石材',
+        '透水水泥混凝土', '其他'
+    ), nullable=True, default=None)
+    
+    是否含软基处理 = db.Column('是否含软基处理',db.Enum('是', '否'), nullable=True, default=None)
+    备注 = db.Column(db.String(30), nullable=True, default=None)
+    
+    # 建立与特征表的关系
+    road_feature = db.relationship('RoadFeature', back_populates='details')
+
 
 # 定义桥梁工程模型
 class BridgeFeature(db.Model):
@@ -113,8 +142,38 @@ class DrainageFeature(db.Model):
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='drainage_features')
 
+    # 关联到细表
+    details = db.relationship('DrainageFeatureDetail', back_populates='drainage_feature')
+
+
     def __repr__(self):
         return f'<DrainageFeature {self.工程造价}>'
+
+#定义排水工程细表模型
+
+class DrainageFeatureDetail(db.Model):
+    __tablename__ = '排水工程特征细表'
+
+    排水工程特征细表_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    管径 = db.Column('管径（mm）', db.String(225), nullable=True, default=None)
+    管道材质 = db.Column(
+        db.Enum('钢筋混凝土管', '钢管', 'HDPE管', '球墨铸铁管', 'PVC-U管', 'PE管', '其他'),
+        nullable=True,
+        default=None
+    )
+    施工方法 = db.Column(
+        db.Enum('开槽', '顶管', '水平定向钻'),
+        nullable=True,
+        default=None
+    )
+    长度 = db.Column('长度（m）', db.String(225), nullable=True, default=None)
+    排水工程特征表_id = db.Column(db.Integer, db.ForeignKey('排水工程特征表.排水工程特征表_id'), nullable=True)
+
+    # 关系设置
+    drainage_feature = db.relationship('DrainageFeature', back_populates='details')
+
+    def __repr__(self):
+        return f'<DrainageFeatureDetail {self.排水工程特征细表_id}>'
 
 
 # 定义交通工程模型
