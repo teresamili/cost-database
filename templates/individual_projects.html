@@ -307,8 +307,10 @@
                 <th>造价类型</th>
                 <th>道路等级</th>
                 <th>单项工程费用（元）</th>
-                <th>造价指标（元/m）</th>
-                <th>造价指标（元/m2）</th>
+                <th>道路全长（m）</th>
+                <th>长度造价指标（元/m）</th>
+                <th>道路总面积（m2）</th>
+                <th>面积造价指标（元/m2）</th>
                 <th>所含单位工程</th>
             </tr>
         </thead>
@@ -323,7 +325,9 @@
         <td>{{ project.造价类型 }}</td>
         <td>{{ project.道路等级 }}</td>
         <td>{{ project.单项工程费用 }}</td>
+        <td>{{ project.道路全长 }}</td>
         <td>{{ result['道路长度指标'] }}</td>
+        <td>{{ project.道路总面积 }}</td>
         <td>{{ result['道路面积指标'] }}</td>
         <td>{{ result['单位工程'] }}</td>
     </tr>

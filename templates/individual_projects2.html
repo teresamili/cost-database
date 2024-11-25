@@ -18,7 +18,7 @@
      <div class="details-container">
   {% for row in road_details %}
   <div class="detail-card">
-    <h3>道路工程明细 {{ loop.index }} </h3>
+    <h3>道路工程特征 {{ loop.index }} </h3>
     <ul class="detail-list">
       {% for key, value in row.items() %}
       <li><strong>{{ key }}:</strong>  <span>{{ value }}</span></li>
@@ -29,7 +29,7 @@
       <!-- 排水特征信息表 --> 
   {% for row in drainage_details %}
   <div class="detail-card">
-    <h3>排水工程明细 {{ loop.index }}</h3>
+    <h3>排水工程特征 {{ loop.index }}</h3>
     <ul class="detail-list">
       {% for key, value in row.items() %}
       <li><strong>{{ key }}:</strong>  <span>{{ value }}</span></li>

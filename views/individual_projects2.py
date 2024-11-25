@@ -62,6 +62,8 @@ def project_details(project_id):
             "机动车道宽度（m）": detail.机动车道宽度,
             "非机动车道宽度（m）": detail.非机动车道宽度,
             "人行道宽度（m）": detail.人行道宽度,
+            "中央分隔带宽度（m）": detail.中央分隔带宽度,
+            "外侧分隔带宽度（m）": detail.外侧分隔带宽度,
             "机动车道面层": detail.机动车道面层,
             "非机动车道面层": detail.非机动车道面层,
             "人行道面层": detail.人行道面层,
@@ -110,10 +112,10 @@ def project_details(project_id):
             "序号": idx,
             "单位工程名称": "排水工程",
             "工程造价": feature.工程造价,
-            "面积": round((project.红线宽度 * project.道路全长), 2),  # 示例计算
-            "面积造价指标": round(feature.工程造价 / (project.红线宽度 * project.道路全长), 2) if project.红线宽度 and project.道路全长 else "N/A",
+            "面积": round((project.道路总面积), 2),  # 示例计算
+            "面积造价指标": round(feature.工程造价 / (project.道路总面积), 2) ,
             "长度": project.道路全长,
-            "长度造价指标": round(feature.工程造价 / project.道路全长, 2) if project.道路全长 else "N/A",
+            "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
         })
 
 # 排水工程特征细表
@@ -142,10 +144,10 @@ def project_details(project_id):
             "序号": idx,
             "单位工程名称": "交通工程",
             "工程造价": feature.工程造价,
-            "面积": round((project.红线宽度 * project.道路全长), 2),
-            "面积造价指标": round(feature.工程造价 / (project.红线宽度 * project.道路全长), 2) if project.红线宽度 and project.道路全长 else "N/A",
+            "面积": round((project.道路总面积), 2),
+            "面积造价指标": round(feature.工程造价 / (project.道路总面积), 2) ,
             "长度": project.道路全长,
-            "长度造价指标": round(feature.工程造价 / project.道路全长, 2) if project.道路全长 else "N/A",
+            "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
         })
 
     
@@ -158,10 +160,10 @@ def project_details(project_id):
             "序号": idx,
             "单位工程名称": "照明工程",
             "工程造价": feature.工程造价,
-            "面积": round((project.红线宽度 * project.道路全长), 2),
-            "面积造价指标": round(feature.工程造价 / (project.红线宽度 * project.道路全长), 2) if project.红线宽度 and project.道路全长 else "N/A",
+            "面积": round((project.道路总面积), 2),
+            "面积造价指标": round(feature.工程造价 / (project.道路总面积), 2) ,
             "长度": project.道路全长,
-            "长度造价指标": round(feature.工程造价 / project.道路全长, 2) if project.道路全长 else "N/A",
+            "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
         })
 
     # 给水工程特征
@@ -173,10 +175,10 @@ def project_details(project_id):
             "序号": idx,
             "单位工程名称": "给水工程",
             "工程造价": feature.工程造价,
-            "面积": round((project.红线宽度 * project.道路全长), 2),
-            "面积造价指标": round(feature.工程造价 / (project.红线宽度 * project.道路全长), 2) if project.红线宽度 and project.道路全长 else "N/A",
+            "面积": round((project.道路总面积), 2),
+            "面积造价指标": round(feature.工程造价 / (project.道路总面积), 2) ,
             "长度": project.道路全长,
-            "长度造价指标": round(feature.工程造价 / project.道路全长, 2) if project.道路全长 else "N/A",
+            "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
         })
 
    # 电力工程特征
@@ -188,10 +190,10 @@ def project_details(project_id):
             "序号": idx,
             "单位工程名称": "电力工程",
             "工程造价": feature.工程造价,
-            "面积": round((project.红线宽度 * project.道路全长), 2),
-            "面积造价指标": round(feature.工程造价 / (project.红线宽度 * project.道路全长), 2) if project.红线宽度 and project.道路全长 else "N/A",
+            "面积": round((project.道路总面积), 2),
+            "面积造价指标": round(feature.工程造价 / (project.道路总面积), 2) ,
             "长度": project.道路全长,
-            "长度造价指标": round(feature.工程造价 / project.道路全长, 2) if project.道路全长 else "N/A",
+            "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
         })
 
         # 通信工程特征
@@ -203,10 +205,10 @@ def project_details(project_id):
             "序号": idx,
             "单位工程名称": "通信工程",
             "工程造价": feature.工程造价,
-            "面积": round((project.红线宽度 * project.道路全长), 2),
-            "面积造价指标": round(feature.工程造价 / (project.红线宽度 * project.道路全长), 2) if project.红线宽度 and project.道路全长 else "N/A",
+            "面积": round((project.道路总面积), 2),
+            "面积造价指标": round(feature.工程造价 / (project.道路总面积), 2) ,
             "长度": project.道路全长,
-            "长度造价指标": round(feature.工程造价 / project.道路全长, 2) if project.道路全长 else "N/A",
+            "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
         })
 
          # 绿化工程特征
@@ -218,10 +220,10 @@ def project_details(project_id):
             "序号": idx,
             "单位工程名称": "绿化工程",
             "工程造价": feature.工程造价,
-            "面积": round((project.红线宽度 * project.道路全长), 2),
-            "面积造价指标": round(feature.工程造价 / (project.红线宽度 * project.道路全长), 2) if project.红线宽度 and project.道路全长 else "N/A",
+            "面积": round((feature.绿化面积), 2),
+            "面积造价指标": round(feature.工程造价 / (feature.绿化面积), 2) ,
             "长度": project.道路全长,
-            "长度造价指标": round(feature.工程造价 / project.道路全长, 2) if project.道路全长 else "N/A",
+            "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
         })
 
         # 隧道工程特征

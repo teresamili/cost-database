@@ -120,6 +120,8 @@ def search():
             "造价类型": project.造价类型,
             "道路等级": project.道路等级,
             "单项工程费用": project.单项工程费用,
+            "道路全长":project.道路全长,
+            "道路总面积":project.道路总面积,
             "道路长度指标": result["道路长度指标"],
             "道路面积指标": result["道路面积指标"],
             "单位工程": result["单位工程"]
@@ -135,9 +137,9 @@ def perform_calculation(projects):
         # 单项工程费用/道路全长
         original_cost = project.单项工程费用 or 0
         road_length = project.道路全长 or 1  # 避免除以0
-        road_width = project.红线宽度 or 1
+        road_area = project.道路总面积
         cost_index_length = original_cost / road_length
-        cost_index_area = original_cost / (road_length * road_width)
+        cost_index_area = original_cost / road_area
 
         # 获取单位工程名称列表
         unit_names = [unit.单位工程名称 for unit in project.units] if project.units else []

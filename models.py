@@ -29,6 +29,7 @@ class Project(db.Model):
     道路等级 = db.Column(db.Enum('快速路', '主干路', '次干路', '支路'))  # 道路等级
     红线宽度 = db.Column(db.Numeric(5, 2))  # 红线宽度
     道路全长 = db.Column(db.Numeric(7, 2))  # 道路全长
+    道路总面积 = db.Column(db.Numeric(10, 2)) 
     建设性质 = db.Column(db.Enum('新建', '改建'))
 
     # 通过中间表关联单位工程
@@ -82,6 +83,8 @@ class RoadFeatureDetail(db.Model):
     机动车道宽度 = db.Column('机动车道宽度（m）',db.Numeric(6, 2), nullable=True, default=None)
     非机动车道宽度 = db.Column('非机动车道宽度（m）',db.Numeric(6, 2), nullable=True, default=None)
     人行道宽度 = db.Column('人行道宽度（m）',db.Numeric(6, 2), nullable=True, default=None)
+    中央分隔带宽度 = db.Column('中央分隔带宽度（m）',db.Numeric(6, 2))
+    外侧分隔带宽度 = db.Column('外侧分隔带宽度（m）',db.Numeric(6, 2))
     机动车道面层 = db.Column(db.Enum('沥青混凝土', '水泥混凝土'), nullable=True, default=None)
     非机动车道面层 = db.Column(db.Enum(
         '沥青混凝土', '水泥混凝土', '彩色沥青混凝土', '彩色水泥混凝土',
@@ -253,7 +256,8 @@ class GreenFeature(db.Model):
 
     绿化工程特征表_id = db.Column(db.Integer, primary_key=True)
     项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
-    工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
+    工程造价 = db.Column('工程造价（元）', db.Numeric(12, 2))
+    绿化面积 = db.Column('绿化面积（m2）', db.Numeric(10, 2))
 
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='green_features')

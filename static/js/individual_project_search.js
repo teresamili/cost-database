@@ -67,7 +67,9 @@ function performSearch() {
             <td>${item.造价类型 || ""}</td>
             <td>${item.道路等级 || ""}</td>
             <td>${item.单项工程费用 || ""}</td>
+            <td>${item.道路全长 || ""}</td>
             <td>${item.道路长度指标 || ""}</td>
+            <td>${item.道路总面积 || ""}</td>
             <td>${item.道路面积指标 || ""}</td>
             <td>${item.单位工程 || ""}</td>
           `;
