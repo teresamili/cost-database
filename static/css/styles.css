@@ -265,14 +265,17 @@ main {
 /* 卡片容器 */
 .details-container {
   display: flex;
-  flex-wrap: wrap; /* 支持换行 */
-  overflow-y: auto; /* 禁止纵向滚动 */
+  flex-wrap: nowrap; /* 禁止换行 */
+  overflow-y: auto; /* 允许纵向滚动 */
   overflow-x: auto; /* 如果卡片过多，允许横向滚动 */
   justify-content: flex-start; /* 卡片靠左对齐 */
   align-items: flex-start; /* 确保顶部对齐 */
   gap: 1rem; /* 卡片间距 */
   padding: 0rem;
+  white-space: nowrap; /* 确保内容在同一行 */
+  margin-bottom: 1rem;
 }
+
 
 
 /* 单个卡片 */
@@ -290,6 +293,7 @@ main {
   margin-bottom: 1rem; /* 为卡片底部添加间距 */
   overflow-y: auto;
   overflow-x: auto;
+  flex-shrink: 0; /* 防止卡片收缩 */
 }
 
 /* 卡片悬停效果 */
@@ -301,7 +305,7 @@ main {
 /* 卡片标题 */
 .detail-card h3 {
   margin: 0 0 1rem;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   color: #333;
   text-align: center;
   background-color: #f0f0f0;
@@ -321,12 +325,13 @@ main {
 .detail-card ul li {
   display: block; /* 每个字段单独占一行 */
   margin-bottom: 0.6rem; /* 每行之间的间距 */
-  font-size: 0.7rem; /* 字体大小 */
+  font-size: 0.8rem; /* 字体大小 */
+  font-style: STSong;
   line-height: 1.5; /* 行距适中 */
 }
 
 .detail-card ul li strong {
-  color: #555;
+  color: #0f0f0f;
   font-weight: bold;
 }
 

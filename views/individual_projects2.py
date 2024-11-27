@@ -15,7 +15,9 @@ from models import (
     GreenFeature,
     TunnelFeature,
     RoadFeatureDetail,
-    DrainageFeatureDetail
+    DrainageFeatureDetail,
+    CulvertFeatureDetail,
+    TrafficFeatureDetail
 )
 
 # 定义蓝图
@@ -103,6 +105,21 @@ def project_details(project_id):
             "长度造价指标": round(feature.工程造价 / feature.涵洞长度, 2) ,
         })
 
+# 涵洞工程特征细表
+    culvert_details = []
+    for feature in culvert_features:
+        details = CulvertFeatureDetail.query.filter_by(涵洞工程特征表_id=feature.涵洞工程特征表_id).all()
+        culvert_details.extend([
+        {
+            "涵洞形式": detail.涵洞形式,
+            "规格": detail.规格,
+            "长度(m)": detail.长度,
+           
+        }
+        for detail in details
+    ])
+
+
     # 排水工程特征
     drainage_features = DrainageFeature.query.filter(
         DrainageFeature.项目_单位_id.in_([unit.项目_单位_id for unit in unit_projects])
@@ -124,11 +141,12 @@ def project_details(project_id):
         details = DrainageFeatureDetail.query.filter_by(排水工程特征表_id=feature.排水工程特征表_id).all()
         drainage_details.extend([
         {
-           
+            "管道类型": detail.管道类型,
             "管道材质": detail.管道材质,
             "施工方法": detail.施工方法,
             "管径": detail.管径,
             "长度（m）": detail.长度,
+            "备注":detail.备注
             
         }
         for detail in details
@@ -149,6 +167,21 @@ def project_details(project_id):
             "长度": project.道路全长,
             "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
         })
+
+    # 交通工程特征细表
+    traffic_details = []
+    for feature in traffic_features:
+        details = TrafficFeatureDetail.query.filter_by(交通工程特征表_id=feature.交通工程特征表_id).all()
+        traffic_details.extend([
+        {
+            "是否含交通信号灯": detail.是否含交通信号灯,
+            "是否含交通监控": detail.是否含交通监控,
+            "是否含电子警察": detail.是否含电子警察,
+            "十字路口个数": detail.十字路口个数,
+            "T字路口个数": detail.T字路口个数,
+        }    
+        for detail in details
+    ])
 
     
     # 照明工程特征
@@ -248,6 +281,8 @@ def project_details(project_id):
         task_data=task_data,
         road_features=road_features,
         road_details=road_details, # 确保明细表被传递
-        drainage_details=drainage_details
+        drainage_details=drainage_details,
+        culvert_details=culvert_details,
+        traffic_details=traffic_details
     )
 

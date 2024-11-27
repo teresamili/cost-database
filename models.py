@@ -91,7 +91,7 @@ class RoadFeatureDetail(db.Model):
         '透水沥青混凝土', '透水水泥混凝土', '其他'
     ), nullable=True, default=None)
     人行道面层 = db.Column(db.Enum(
-        '混凝土砖', '透水砖', '透水混凝土砖', 'PC砖', '花岗岩石材',
+        '混凝土砖', '透水砖', '混凝土透水砖', 'PC砖', '花岗岩石材',
         '透水水泥混凝土', '其他'
     ), nullable=True, default=None)
     
@@ -130,9 +130,27 @@ class CulvertFeature(db.Model):
 
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='culvert_features')
+    
+    # 关联到特征明细表
+    details = db.relationship('CulvertFeatureDetail', back_populates='culvert_feature')
 
     def __repr__(self):
         return f'<CulvertFeature {self.工程造价}>'
+    
+
+# 定义涵洞工程明细模型    
+class CulvertFeatureDetail(db.Model):
+    __tablename__ = '涵洞工程特征细表'
+
+    涵洞工程特征细表_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    涵洞形式 = db.Column(db.Enum('箱涵', '盖板涵', '圆管涵', name='涵洞形式_enum'), nullable=True, default=None)
+    规格 = db.Column(db.String(20), nullable=True, default=None)
+    长度 = db.Column('长度（m）', db.Numeric(7, 2), nullable=True, default=None)
+    涵洞工程特征表_id = db.Column(db.Integer, db.ForeignKey('涵洞工程特征表.涵洞工程特征表_id'), nullable=True)
+
+    # 外键关系声明
+    culvert_feature = db.relationship('CulvertFeature', back_populates='details')
+
 
 # 定义排水工程模型
 class DrainageFeature(db.Model):
@@ -158,6 +176,7 @@ class DrainageFeatureDetail(db.Model):
     __tablename__ = '排水工程特征细表'
 
     排水工程特征细表_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    管道类型 = db.Column('管道类型',db.Enum('雨水管', '污水管'),nullable=True,default=None)
     管径 = db.Column('管径（mm）', db.String(225), nullable=True, default=None)
     管道材质 = db.Column(
         db.Enum('钢筋混凝土管', '钢管', 'HDPE管', '球墨铸铁管', 'PVC-U管', 'PE管', '其他'),
@@ -170,6 +189,8 @@ class DrainageFeatureDetail(db.Model):
         default=None
     )
     长度 = db.Column('长度（m）', db.String(225), nullable=True, default=None)
+
+    备注 = db.Column('备注', db.String(225), nullable=True, default=None)
     排水工程特征表_id = db.Column(db.Integer, db.ForeignKey('排水工程特征表.排水工程特征表_id'), nullable=True)
 
     # 关系设置
@@ -190,8 +211,27 @@ class TrafficFeature(db.Model):
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='traffic_features')
 
+    details = db.relationship('TrafficFeatureDetail', back_populates='traffic_feature')
+
     def __repr__(self):
         return f'<TrafficFeature {self.工程造价}>'
+ 
+ # 定义交通工程细表模型   
+
+class TrafficFeatureDetail(db.Model):
+    __tablename__ = '交通工程特征细表'
+
+    交通工程特征细表_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    是否含交通信号灯 = db.Column(db.Enum('是', '否', name='是否含交通信号灯_enum'), nullable=True, default=None)
+    是否含交通监控 = db.Column(db.Enum('是', '否', name='是否含交通监控_enum'), nullable=True, default=None)
+    是否含电子警察 = db.Column(db.Enum('是', '否', name='是否含电子警察_enum'), nullable=True, default=None)
+    十字路口个数 = db.Column(db.Integer, nullable=True, default=None)
+    T字路口个数 = db.Column(db.Integer, nullable=True, default=None)
+    交通工程特征表_id = db.Column(db.Integer, db.ForeignKey('交通工程特征表.交通工程特征表_id'), nullable=True)
+
+    # 外键关系声明（可选）
+    traffic_feature = db.relationship('TrafficFeature', back_populates='details') 
+
 
 
 # 定义照明工程模型

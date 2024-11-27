@@ -13,9 +13,10 @@
     <!-- 主内容区域 -->
     <main>
       <h1>工程项目名称：{{ project.建设项目工程名称 }}</h1>
-     
+
+  <div class="details-container">  
       <!-- 道路特征信息表 --> 
-     <div class="details-container">
+     
   {% for row in road_details %}
   <div class="detail-card">
     <h3>道路工程特征 {{ loop.index }} </h3>
@@ -26,6 +27,31 @@
     </ul>
   </div>
   {% endfor %}
+
+  <!-- 涵洞特征信息表 --> 
+  {% for row in culvert_details %}
+  <div class="detail-card">
+    <h3>涵洞工程特征 {{ loop.index }} </h3>
+    <ul class="detail-list">
+      {% for key, value in row.items() %}
+      <li><strong>{{ key }}:</strong>  <span>{{ value }}</span></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %} 
+
+   <!-- 交通特征信息表 --> 
+  {% for row in traffic_details %}
+  <div class="detail-card">
+    <h3>交通工程特征 {{ loop.index }} </h3>
+    <ul class="detail-list">
+      {% for key, value in row.items() %}
+      <li><strong>{{ key }}:</strong>  <span>{{ value }}</span></li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %} 
+  
       <!-- 排水特征信息表 --> 
   {% for row in drainage_details %}
   <div class="detail-card">
