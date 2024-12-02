@@ -115,9 +115,27 @@ class BridgeFeature(db.Model):
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='bridge_features')
 
+    # 关联到特征明细表
+    details = db.relationship('BridgeFeatureDetail', back_populates='bridge_feature')
+
     def __repr__(self):
         return f'<BridgeFeature {self.工程造价}>'
-    
+
+
+# 定义桥梁工程明细模型
+class BridgeFeatureDetail(db.Model):
+    __tablename__ = '桥梁工程特征细表'
+    桥梁工程特征细表_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    桥梁工程特征表_id = db.Column(db.Integer,db.ForeignKey('桥梁工程特征表.桥梁工程特征表_id'), nullable=False)
+    桥梁结构形式 = db.Column(db.Enum('梁式桥','拱式桥','钢架桥','悬索桥','斜拉桥','其他'))
+    上部结构形式 = db.Column(db.Enum('预制空心板','预制小箱梁','预制T梁','预制预应力箱梁','预制装配式箱梁','预制钢混组合箱梁','现浇箱梁','现浇预应力箱梁','钢箱梁','钢管拱桥','连续钢桁梁','砼斜拉桥','钢斜拉桥'))
+    桥墩结构形式 = db.Column(db.Enum('实体桥墩','空心桥墩','柱式桥墩','柔性墩','框架墩'))
+    基础形式 = db.Column(db.Enum('扩大基础','混凝土灌注桩基础','混凝土预制桩基础','钢管桩基础','沉井基础'))
+    是否景观桥 = db.Column(db.Enum('是','否'))
+
+     # 建立与特征表的关系
+    bridge_feature = db.relationship('BridgeFeature', back_populates='details')
+
 # 定义涵洞工程模型
 class CulvertFeature(db.Model):
     __tablename__ = '涵洞工程特征表'

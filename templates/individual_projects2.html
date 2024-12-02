@@ -7,105 +7,119 @@
     <link rel="stylesheet" href="/static/css/styles.css" />
   </head>
   <body>
-  <div id="navbar"></div>
-  <!-- 包含导航栏 -->
+    <div id="navbar"></div>
+    <!-- 包含导航栏 -->
     {% include 'navbar.html' %}
     <!-- 主内容区域 -->
     <main>
       <h1>工程项目名称：{{ project.建设项目工程名称 }}</h1>
 
-  <div class="details-container">  
-      <!-- 道路特征信息表 --> 
-     
-  {% for row in road_details %}
-  <div class="detail-card">
-    <h3>道路工程特征 {{ loop.index }} </h3>
-    <ul class="detail-list">
-      {% for key, value in row.items() %}
-      <li><strong>{{ key }}:</strong>  <span>{{ value }}</span></li>
-      {% endfor %}
-    </ul>
-  </div>
-  {% endfor %}
+      <div class="details-container">
+        <!-- 道路特征信息表 -->
 
-  <!-- 涵洞特征信息表 --> 
-  {% for row in culvert_details %}
-  <div class="detail-card">
-    <h3>涵洞工程特征 {{ loop.index }} </h3>
-    <ul class="detail-list">
-      {% for key, value in row.items() %}
-      <li><strong>{{ key }}:</strong>  <span>{{ value }}</span></li>
-      {% endfor %}
-    </ul>
-  </div>
-  {% endfor %} 
-
-   <!-- 交通特征信息表 --> 
-  {% for row in traffic_details %}
-  <div class="detail-card">
-    <h3>交通工程特征 {{ loop.index }} </h3>
-    <ul class="detail-list">
-      {% for key, value in row.items() %}
-      <li><strong>{{ key }}:</strong>  <span>{{ value }}</span></li>
-      {% endfor %}
-    </ul>
-  </div>
-  {% endfor %} 
-  
-      <!-- 排水特征信息表 --> 
-  {% for row in drainage_details %}
-  <div class="detail-card">
-    <h3>排水工程特征 {{ loop.index }}</h3>
-    <ul class="detail-list">
-      {% for key, value in row.items() %}
-      <li><strong>{{ key }}:</strong>  <span>{{ value }}</span></li>
-      {% endfor %}
-    </ul>
-</div>
- 
-
-  {% endfor %}
-</div>
-
-        <!-- 任务表格 -->
-        <div class="task-table">
-          <table>
-            <thead>
-              <tr>
-                <th>序号</th>
-                <th>单位工程名称</th>
-                <th>工程造价（元）</th>
-                <th>面积（m2）</th>
-                <th>面积造价指标（元/m2）</th>
-                <th>长度（m）</th>
-                <th>长度造价指标（元/m）</th>
-                <th>备注</th>
-              </tr>
-            </thead>
-           <tbody>
-  {% for row in task_data %}
-  <tr>
-    <td>{{ loop.index }}</td>
-    <td>{{ row.单位工程名称 }}</td>
-    <td>{{ row.工程造价 }}</td>
-    <td>{{ row.面积 }}</td>
-    <td>{{ row.面积造价指标 if row.面积造价指标 != 'N/A' else 'N/A' }}</td>
-    <td>{{ row.长度 }}</td>
-    <td>{{ row.长度造价指标 if row.长度造价指标 != 'N/A' else 'N/A'}}</td>
-  </tr>
-  {% endfor %}
-</tbody>
-
-          </table>
-          <!-- 分页 -->
-          <div class="pagination">
-            <button>&lt;&lt;</button>
-            <button>&lt;</button>
-            <span>1 2 3 4 ...</span>
-            <button>&gt;</button>
-            <button>&gt;&gt;</button>
-          </div>
+        {% for row in road_details %}
+        <div class="detail-card">
+          <h3>道路工程特征 {{ loop.index }}</h3>
+          <ul class="detail-list">
+            {% for key, value in row.items() %}
+            <li><strong>{{ key }}:</strong> <span>{{ value }}</span></li>
+            {% endfor %}
+          </ul>
         </div>
+        {% endfor %}
+
+        <!-- 桥梁特征信息表 -->
+        {% for row in bridge_details %}
+        <div class="detail-card">
+          <h3>桥梁工程特征 {{ loop.index }}</h3>
+          <ul class="detail-list">
+            {% for key, value in row.items() %}
+            <li><strong>{{ key }}:</strong> <span>{{ value }}</span></li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endfor %}
+
+        <!-- 涵洞特征信息表 -->
+        {% for row in culvert_details %}
+        <div class="detail-card">
+          <h3>涵洞工程特征 {{ loop.index }}</h3>
+          <ul class="detail-list">
+            {% for key, value in row.items() %}
+            <li><strong>{{ key }}:</strong> <span>{{ value }}</span></li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endfor %}
+
+        <!-- 交通特征信息表 -->
+        {% for row in traffic_details %}
+        <div class="detail-card">
+          <h3>交通工程特征 {{ loop.index }}</h3>
+          <ul class="detail-list">
+            {% for key, value in row.items() %}
+            <li><strong>{{ key }}:</strong> <span>{{ value }}</span></li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endfor %}
+
+        <!-- 排水特征信息表 -->
+        {% for row in drainage_details %}
+        <div class="detail-card">
+          <h3>排水工程特征 {{ loop.index }}</h3>
+          <ul class="detail-list">
+            {% for key, value in row.items() %}
+            <li><strong>{{ key }}:</strong> <span>{{ value }}</span></li>
+            {% endfor %}
+          </ul>
+        </div>
+
+        {% endfor %}
+      </div>
+
+      <!-- 任务表格 -->
+      <div class="task-table">
+        <table>
+          <thead>
+            <tr>
+              <th>序号</th>
+              <th>单位工程名称</th>
+              <th>工程造价（元）</th>
+              <th>面积（m2）</th>
+              <th>面积造价指标（元/m2）</th>
+              <th>长度（m）</th>
+              <th>长度造价指标（元/m）</th>
+              <th>备注</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for row in task_data %}
+            <tr>
+              <td>{{ loop.index }}</td>
+              <td>{{ row.单位工程名称 }}</td>
+              <td>{{ row.工程造价 }}</td>
+              <td>{{ row.面积 }}</td>
+              <td>
+                {{ row.面积造价指标 if row.面积造价指标 != 'N/A' else 'N/A' }}
+              </td>
+              <td>{{ row.长度 }}</td>
+              <td>
+                {{ row.长度造价指标 if row.长度造价指标 != 'N/A' else 'N/A'}}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <!-- 分页 -->
+        <div class="pagination">
+          <button>&lt;&lt;</button>
+          <button>&lt;</button>
+          <span>1 2 3 4 ...</span>
+          <button>&gt;</button>
+          <button>&gt;&gt;</button>
+        </div>
+      </div>
     </main>
   </body>
 </html>
