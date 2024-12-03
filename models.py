@@ -263,8 +263,25 @@ class LightingFeature(db.Model):
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='lighting_features')
 
+    # 关联到特征明细表
+    details = db.relationship('LightingFeatureDetail', back_populates='lighting_feature')
+
     def __repr__(self):
         return f'<LightingFeature {self.工程造价}>'
+    
+# 定义照明工程明细模型    
+class LightingFeatureDetail(db.Model):
+    __tablename__ = '照明工程特征细表'
+    
+    照明工程特征细表_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    照明工程特征表_id = db.Column(db.Integer, db.ForeignKey('照明工程特征表.照明工程特征表_id'), nullable=False)
+    照明类型 = db.Column(db.Enum( '常规照明','景观照明' ))
+    灯杆类型 = db.Column(db.Enum( '常规灯杆','智慧灯杆' ))
+    灯杆数量 = db.Column('灯杆数量（套）', db.Integer) 
+    箱变数量 = db.Column('箱变数量（座）', db.Integer)                
+
+     # 建立与特征表的关系
+    lighting_feature = db.relationship('LightingFeature', back_populates='details')
 
 # 定义给水工程模型
 class WaterpipeFeature(db.Model):

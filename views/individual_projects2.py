@@ -18,7 +18,8 @@ from models import (
     DrainageFeatureDetail,
     CulvertFeatureDetail,
     TrafficFeatureDetail,
-    BridgeFeatureDetail
+    BridgeFeatureDetail,
+    LightingFeatureDetail
 )
 
 # 定义蓝图
@@ -98,7 +99,6 @@ def project_details(project_id):
         bridge_details.extend([
         {
             "桥梁结构形式": detail.桥梁结构形式,
-            "非机动车道宽度（m）": detail.非机动车道宽度,
             "上部结构形式": detail.上部结构形式,
             "桥墩结构形式": detail.桥墩结构形式,
             "基础形式 ": detail.基础形式 ,
@@ -216,6 +216,22 @@ def project_details(project_id):
             "长度": project.道路全长,
             "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
         })
+    
+    # 照明工程特征细表
+    lighting_details = []
+    for feature in lighting_features:
+        details = LightingFeatureDetail.query.filter_by(照明工程特征表_id=feature.照明工程特征表_id).all()
+        lighting_details.extend([
+        {
+            "照明类型": detail.照明类型,
+            "灯杆类型": detail.灯杆类型,
+            "灯杆数量（套）": detail.灯杆数量,
+            "箱变数量（座）": detail.箱变数量,
+            
+        }
+        for detail in details
+    ])
+
 
     # 给水工程特征
     waterpipe_features = WaterpipeFeature.query.filter(
@@ -303,6 +319,7 @@ def project_details(project_id):
         culvert_details=culvert_details,
         traffic_details=traffic_details,
         bridge_details=bridge_details,
+        lighting_details=lighting_details
 
     )
 

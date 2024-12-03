@@ -76,7 +76,20 @@
         </div>
 
         {% endfor %}
-      </div>
+
+        <!-- 照明特征信息表 -->
+        {% for row in lighting_details %}
+        <div class="detail-card">
+         <h3>照明工程明细 {{ loop.index }} </h3>
+         <ul class="detail-list">
+          {% for key, value in row.items() %}
+          <li><strong>{{ key }}:</strong>  <span>{{ value }}</span></li>
+          {% endfor %}
+         </ul>
+        </div>
+        {% endfor %}
+
+  </div>
 
       <!-- 任务表格 -->
       <div class="task-table">
