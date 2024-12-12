@@ -89,6 +89,65 @@
         </div>
         {% endfor %}
 
+          <!-- 给水特征信息表 -->
+        {% for row in waterpipe_details %}
+        <div class="detail-card">
+         <h3>给水工程明细 {{ loop.index }} </h3>
+         <ul class="detail-list">
+          {% for key, value in row.items() %}
+          <li><strong>{{ key }}:</strong>  <span>{{ value }}</span></li>
+          {% endfor %}
+         </ul>
+        </div>
+        {% endfor %}
+
+        <!-- 电力特征信息表 -->
+        {% for row in electrical_details %}
+        <div class="detail-card">
+         <h3>电力工程明细 {{ loop.index }} </h3>
+         <ul class="detail-list">
+          {% for key, value in row.items() %}
+          <li><strong>{{ key }}:</strong>  <span>{{ value }}</span></li>
+          {% endfor %}
+         </ul>
+        </div>
+        {% endfor %}
+
+        <!-- 通信特征信息表 -->
+        {% for row in telecom_details %}
+        <div class="detail-card">
+         <h3>通信工程明细 {{ loop.index }} </h3>
+         <ul class="detail-list">
+          {% for key, value in row.items() %}
+          <li><strong>{{ key }}:</strong>  <span>{{ value }}</span></li>
+          {% endfor %}
+         </ul>
+        </div>
+        {% endfor %}
+
+        <!-- 绿化特征信息表 -->
+        {% for row in green_details %}
+        <div class="detail-card">
+         <h3>绿化工程明细 {{ loop.index }} </h3>
+         <ul class="detail-list">
+          {% for key, value in row.items() %}
+          <li><strong>{{ key }}:</strong>  <span>{{ value }}</span></li>
+          {% endfor %}
+         </ul>
+        </div>
+        {% endfor %}
+
+        <!-- 隧道特征信息表 -->
+        {% for row in tunnel_details %}
+        <div class="detail-card">
+         <h3>隧道工程明细 {{ loop.index }} </h3>
+         <ul class="detail-list">
+          {% for key, value in row.items() %}
+          <li><strong>{{ key }}:</strong>  <span>{{ value }}</span></li>
+          {% endfor %}
+         </ul>
+        </div>
+        {% endfor %}
   </div>
 
       <!-- 任务表格 -->
@@ -119,6 +178,9 @@
               <td>{{ row.长度 }}</td>
               <td>
                 {{ row.长度造价指标 if row.长度造价指标 != 'N/A' else 'N/A'}}
+              </td>
+              <td>
+                {{ row.指标 }}
               </td>
             </tr>
             {% endfor %}

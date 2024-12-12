@@ -294,9 +294,28 @@ class WaterpipeFeature(db.Model):
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='waterpipe_features')
 
+      # 关联到特征明细表
+    details = db.relationship('WaterpipeFeatureDetail', back_populates='waterpipe_feature')
+
     def __repr__(self):
         return f'<WaterpipeFeature {self.工程造价}>'
-    
+
+# 定义给水工程明细模型    
+class WaterpipeFeatureDetail(db.Model):
+    __tablename__ = '给水工程特征细表'
+
+    给水工程特征细表_id = db.Column(db.Integer, primary_key=True)
+    给水工程特征表_id = db.Column(db.Integer, db.ForeignKey('给水工程特征表.给水工程特征表_id'), nullable=False)
+    管径 = db.Column('管径（mm）', db.String(225), nullable=True, default=None)
+    管道材质 = db.Column(db.Enum('球墨铸铁管','钢管','塑料管','复合管'), nullable=True, default=None)
+    施工方法= db.Column(db.Enum('开槽','顶管','水平定向钻','沉管'), nullable=True, default=None)
+    长度 = db.Column('长度（m）',db.Numeric(9, 2))
+
+     # 建立与特征表的关系
+    waterpipe_feature = db.relationship('WaterpipeFeature', back_populates='details')
+  
+
+
     # 定义电力工程模型
 class ElectricalFeature(db.Model):
     __tablename__ = '电力工程特征表'
@@ -307,10 +326,26 @@ class ElectricalFeature(db.Model):
 
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='electrical_features')
-
+    # 关联到特征明细表
+    details = db.relationship('ElectricalFeatureDetail', back_populates='electrical_feature')
     def __repr__(self):
         return f'<ElectricalFeature {self.工程造价}>'
     
+# 定义电力工程明细模型    
+class ElectricalFeatureDetail(db.Model):
+    __tablename__ = '电力工程特征细表'
+    
+    电力工程特征细表_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    电力工程特征表_id = db.Column(db.Integer, db.ForeignKey('电力工程特征表.电力工程特征表_id'), nullable=False)
+    敷设方式 = db.Column(db.Enum('直埋','电力排管','电缆沟','电缆隧道','水平定向钻孔'), nullable=True, default=None)
+    管径 = db.Column('管径（mm）',db.String(20), nullable=True, default=None)
+    管材 = db.Column(db.Enum('HDPE','PVC','MPP','玻璃钢'))
+    孔数 = db.Column(db.String(20))    
+    长度= db.Column('长度（m）',db.Numeric(9, 2))     
+
+ # 建立与特征表的关系
+    electrical_feature = db.relationship('ElectricalFeature', back_populates='details')
+
     # 定义通信工程模型
 class TelecomFeature(db.Model):
     __tablename__ = '通信工程特征表'
@@ -321,10 +356,26 @@ class TelecomFeature(db.Model):
 
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='telecom_features')
-
+    # 关联到特征明细表
+    details = db.relationship('TelecomFeatureDetail', back_populates='telecom_feature')
     def __repr__(self):
         return f'<TelecomFeature {self.工程造价}>'
     
+# 定义通信工程明细模型    
+class TelecomFeatureDetail(db.Model):
+    __tablename__ = '通信工程特征细表'
+    
+    通信工程特征细表_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    通信工程特征表_id = db.Column(db.Integer, db.ForeignKey('通信工程特征表.通信工程特征表_id'), nullable=False)
+    敷设方式 = db.Column(db.Enum('直埋','通信排管','电缆管沟','水平定向钻'), nullable=True, default=None)
+    管径 = db.Column('管径（mm）',db.String(20), nullable=True, default=None)
+    管材 = db.Column(db.Enum('硅芯管','PE','PVC-U','梅花管','格栅管','蜂窝管'))
+    孔数 = db.Column(db.String(20))    
+    长度= db.Column('长度（m）',db.Numeric(9, 2))     
+
+ # 建立与特征表的关系
+    telecom_feature = db.relationship('TelecomFeature', back_populates='details')
+
     # 定义绿化工程模型
 class GreenFeature(db.Model):
     __tablename__ = '绿化工程特征表'
@@ -336,10 +387,27 @@ class GreenFeature(db.Model):
 
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='green_features')
-
+    # 关联到特征明细表
+    details = db.relationship('GreenFeatureDetail', back_populates='green_feature')
     def __repr__(self):
         return f'<GreenFeature {self.工程造价}>'
     
+    # 定义绿化工程明细模型    
+class GreenFeatureDetail(db.Model):
+    __tablename__ = '绿化工程特征细表'
+    
+    绿化工程特征细表_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    绿化工程特征表_id = db.Column(db.Integer, db.ForeignKey('绿化工程特征表.绿化工程特征表_id'), nullable=False)   
+    树池数量= db.Column('树池数量（个）',db.Numeric(12, 2))     
+    乔木数量= db.Column('乔木数量（株）',db.Integer)  
+    灌木数量= db.Column('灌木数量（株）',db.Integer)  
+    地被数量= db.Column('地被数量（m2）',db.Numeric(12, 2))    
+    喷灌长度= db.Column('喷灌长度（m）',db.Numeric(12, 2))   
+
+ # 建立与特征表的关系
+    green_feature = db.relationship('GreenFeature', back_populates='details')
+
+
     # 定义隧道工程模型
 class TunnelFeature(db.Model):
     __tablename__ = '隧道工程特征表'
@@ -353,6 +421,20 @@ class TunnelFeature(db.Model):
 
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='tunnel_features')
-
+    # 关联到特征明细表
+    details = db.relationship('TunnelFeatureDetail', back_populates='tunnel_feature')
     def __repr__(self):
         return f'<TunnelFeature {self.工程造价}>'
+    
+     # 定义隧道工程明细模型    
+class TunnelFeatureDetail(db.Model):
+    __tablename__ = '隧道工程特征细表'
+    
+    隧道工程特征细表_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    隧道工程特征表_id = db.Column(db.Integer, db.ForeignKey('隧道工程特征表.隧道工程特征表_id'), nullable=False)   
+    隧道工法 = db.Column(db.Enum('明挖法','矿山法','沉管法','盾构法','顶管法'))
+    长度 = db.Column('长度（m）', db.Numeric(9, 2))
+    面积 = db.Column('面积（m2）', db.Numeric(9, 2))
+
+ # 建立与特征表的关系
+    tunnel_feature = db.relationship('TunnelFeature', back_populates='details')

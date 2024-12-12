@@ -19,7 +19,12 @@ from models import (
     CulvertFeatureDetail,
     TrafficFeatureDetail,
     BridgeFeatureDetail,
-    LightingFeatureDetail
+    LightingFeatureDetail,
+    WaterpipeFeatureDetail,
+    ElectricalFeatureDetail,
+    TelecomFeatureDetail,
+    GreenFeatureDetail,
+    TunnelFeatureDetail
 )
 
 # 定义蓝图
@@ -49,11 +54,12 @@ def project_details(project_id):
             "序号": idx,
             "单位工程名称": "道路工程",
             "工程造价": feature.工程造价,
-            "面积": feature.道路面积,
-            "面积造价指标": round(feature.工程造价 / feature.道路面积, 2) ,
+            "面积": round((project.道路总面积), 2),  # 示例计算
+            "面积造价指标": round(feature.工程造价 / (project.道路总面积), 2) ,
             "长度": feature.道路长度,
             "长度造价指标": round(feature.工程造价 / feature.道路长度, 2) ,
-
+            "道路面积":round((feature.道路面积), 2),
+            "指标" :'车行道与人行道面积:'+str(round((feature.道路面积), 2))+'m2  '+'指标:'+str(round(feature.工程造价 / (feature.道路面积), 2) )+'元/m2',
         })
 
     # 道路工程特征细表
@@ -248,6 +254,22 @@ def project_details(project_id):
             "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
         })
 
+   # 给水工程特征细表
+    waterpipe_details = []
+    for feature in waterpipe_features:
+        details = WaterpipeFeatureDetail.query.filter_by(给水工程特征表_id=feature.给水工程特征表_id).all()
+        waterpipe_details.extend([
+        {
+            "管径（mm）": detail.管径,
+            "管道材质": detail.管道材质,
+            "施工方法": detail.施工方法,
+            "长度": detail.长度,
+            
+        }
+        for detail in details
+    ])
+ 
+
    # 电力工程特征
     electrical_features = ElectricalFeature.query.filter(
         ElectricalFeature.项目_单位_id.in_([unit.项目_单位_id for unit in unit_projects])
@@ -262,6 +284,24 @@ def project_details(project_id):
             "长度": project.道路全长,
             "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
         })
+
+# 电力工程特征细表
+    electrical_details = []
+    for feature in electrical_features:
+        details = ElectricalFeatureDetail.query.filter_by(电力工程特征表_id=feature.电力工程特征表_id).all()
+        electrical_details.extend([
+        {
+            "敷设方式": detail.敷设方式,
+            "管径（mm）": detail.管径,
+            "管材": detail.管材,
+            "孔数": detail.孔数,
+            "长度（m）": detail.长度,
+
+        }
+        for detail in details
+    ])
+
+
 
         # 通信工程特征
     telecom_features = TelecomFeature.query.filter(
@@ -278,6 +318,23 @@ def project_details(project_id):
             "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
         })
 
+# 通信工程特征细表
+    telecom_details = []
+    for feature in telecom_features:
+        details = TelecomFeatureDetail.query.filter_by(通信工程特征表_id=feature.通信工程特征表_id).all()
+        telecom_details.extend([
+        {
+            "敷设方式": detail.敷设方式,
+            "管径（mm）": detail.管径,
+            "管材": detail.管材,
+            "孔数": detail.孔数,
+            "长度（m）": detail.长度,
+
+        }
+        for detail in details
+    ])
+
+
          # 绿化工程特征
     green_features = GreenFeature.query.filter(
         GreenFeature.项目_单位_id.in_([unit.项目_单位_id for unit in unit_projects])
@@ -287,11 +344,31 @@ def project_details(project_id):
             "序号": idx,
             "单位工程名称": "绿化工程",
             "工程造价": feature.工程造价,
-            "面积": round((feature.绿化面积), 2),
-            "面积造价指标": round(feature.工程造价 / (feature.绿化面积), 2) ,
+            "面积": round((project.道路总面积), 2),
+            "面积造价指标": round(feature.工程造价 / (project.道路总面积), 2) ,
             "长度": project.道路全长,
             "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
+            "绿化面积":round((feature.绿化面积), 2),
+            "指标" :'绿化面积:'+str(round((feature.绿化面积), 2))+'m2 '+'指标:'+str(round(feature.工程造价 / (feature.绿化面积), 2) )+'元/m2',
         })
+
+
+        # 绿化工程特征细表
+    green_details = []
+    for feature in green_features:
+        details = GreenFeatureDetail.query.filter_by(绿化工程特征表_id=feature.绿化工程特征表_id).all()
+        green_details.extend([
+        {
+            "树池数量（个）": detail.树池数量,
+            "乔木数量（株）": detail.乔木数量,
+            "灌木数量（株）": detail.灌木数量,
+            "地被数量（m2）": detail.地被数量,
+            "喷灌长度（m）": detail.喷灌长度,
+
+        }
+        for detail in details
+    ])
+
 
         # 隧道工程特征
     tunnel_features = TunnelFeature.query.filter(
@@ -308,6 +385,23 @@ def project_details(project_id):
             "长度造价指标": round(feature.工程造价 / feature.隧道长度, 2) ,
         })
 
+
+
+         # 隧道工程特征细表
+    tunnel_details = []
+    for feature in tunnel_features:
+        details = TunnelFeatureDetail.query.filter_by(隧道工程特征表_id=feature.隧道工程特征表_id).all()
+        tunnel_details.extend([
+        {
+            "隧道工法": detail.隧道工法,
+            "长度（m)": detail.长度,
+            "面积（m2）": detail.面积,
+    
+        }
+        for detail in details
+    ])
+
+
     # 渲染模板
     return render_template(
         'individual_projects2.html',
@@ -319,7 +413,11 @@ def project_details(project_id):
         culvert_details=culvert_details,
         traffic_details=traffic_details,
         bridge_details=bridge_details,
-        lighting_details=lighting_details
-
+        lighting_details=lighting_details,
+        waterpipe_details=waterpipe_details,
+        electrical_details=electrical_details,
+        telecom_details=telecom_details,
+        green_details=green_details,
+        tunnel_details=tunnel_details
     )
 
