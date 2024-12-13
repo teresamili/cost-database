@@ -438,3 +438,22 @@ class TunnelFeatureDetail(db.Model):
 
  # 建立与特征表的关系
     tunnel_feature = db.relationship('TunnelFeature', back_populates='details')
+
+    
+    
+    
+    #综合单价查询页面
+class UnitPrice(db.Model):
+    __tablename__ = '清单库'
+    清单库_id = db.Column(db.Integer, primary_key=True)
+    项目编码 = db.Column(db.String(20))
+    项目名称 = db.Column(db.String(45))
+    项目特征描述 = db.Column(db.String(500))
+    计量单位 = db.Column(db.String(10))
+    工程量 = db.Column( db.Numeric(12, 2))
+    综合单价 = db.Column( db.Numeric(9, 2))
+    综合合价 = db.Column( db.Numeric(14, 2))
+    项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
+
+
+
