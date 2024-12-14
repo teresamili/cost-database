@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request
 from models import UnitPrice
 from sqlalchemy import and_
 
@@ -9,28 +9,36 @@ def unit_price_list():
     """
     Displays comprehensive unit prices with filtering capabilities.
     """
-    # Retrieve filtering conditions
-    project_location = request.args.get('project_location')
-    price_basis = request.args.get('price_basis')
-    cost_type = request.args.get('cost_type')
+    page = request.args.get('page', 1, type=int)
+    per_page = 20
 
-    # Build filtering conditions
+    # 构建筛选条件（示例）
     filters = []
-    if project_location and project_location != "不限":
-        filters.append(UnitPrice.项目地点 == project_location)
+    price_basis = request.args.get('price_basis')
     if price_basis and price_basis != "不限":
         filters.append(UnitPrice.价格基准期 == price_basis)
-    if cost_type and cost_type != "不限":
-        filters.append(UnitPrice.造价类型 == cost_type)
 
-    # Query database based on filters
+    # 查询并分页
     if filters:
-        unit_price_list = UnitPrice.query.filter(and_(*filters)).all()
+        pagination = UnitPrice.query.filter(*filters).paginate(page=page, per_page=per_page)
     else:
-        unit_price_list = UnitPrice.query.all()
+        pagination = UnitPrice.query.paginate(page=page, per_page=per_page)
 
-    # Render the template with data
+    unit_prices = pagination.items
+
+    # 将项目名称和单位工程名称组合到一起
+    data = [
+        {
+            "unit_price": unit_price,
+            "project_name": unit_price.项目_单位.project.建设项目工程名称 if unit_price.项目_单位 else "未关联项目",
+            "unit_name": unit_price.项目_单位.unit.单位工程名称 if unit_price.项目_单位 else "未关联单位工程",
+            "project_id":unit_price.项目_单位.project.项目表_id
+        }
+        for unit_price in unit_prices
+    ]
+
     return render_template(
         'unit_prices.html',
-        unit_prices=unit_price_list
+        unit_prices=data,
+        pagination=pagination
     )

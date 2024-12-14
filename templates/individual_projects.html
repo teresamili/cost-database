@@ -18,9 +18,14 @@
       <div class="content">
         <!-- 搜索栏 -->
         <div class="search-bar">
-          <input type="text" placeholder="请输入工程项目名称" />
-          <button>搜索</button>
+          <input
+            type="text"
+            id="search-input"
+            placeholder="请输入工程项目名称"
+          />
+          <button id="search-button">搜索</button>
         </div>
+
         <!-- 搜索条件 -->
         <div class="search-condition">
           <ul>
@@ -297,9 +302,9 @@
 
         <!-- 任务表格 -->
         <div class="task-table">
-    <table>
-        <thead>
-            <tr>
+          <table>
+            <thead>
+              <tr>
                 <th>工程项目名称</th>
                 <th>项目地点</th>
                 <th>建设性质</th>
@@ -312,31 +317,33 @@
                 <th>道路总面积（m2）</th>
                 <th>面积造价指标（元/m2）</th>
                 <th>所含单位工程</th>
-            </tr>
-        </thead>
-       <tbody id="results">
-    {% for project, result in zip(projects, results) %}
-    <tr>
-        <td><a href="{{ url_for('individual_project2.project_details', project_id=project.项目表_id) }}">
-            {{ project.建设项目工程名称 }}</a></td>
-        <td>{{ project.项目地点 }}</td>
-        <td>{{ project.建设性质 }}</td>
-        <td>{{ project.价格基准期 }}</td>
-        <td>{{ project.造价类型 }}</td>
-        <td>{{ project.道路等级 }}</td>
-        <td>{{ project.单项工程费用 }}</td>
-        <td>{{ project.道路全长 }}</td>
-        <td>{{ result['道路长度指标'] }}</td>
-        <td>{{ project.道路总面积 }}</td>
-        <td>{{ result['道路面积指标'] }}</td>
-        <td>{{ result['单位工程'] }}</td>
-
-    </tr>
-    {% endfor %}
-</tbody>
-
-
-    </table>
+              </tr>
+            </thead>
+            <tbody id="results">
+              {% for project, result in zip(projects, results) %}
+              <tr>
+                <td>
+                  <a
+                    href="{{ url_for('individual_project2.project_details', project_id=project.项目表_id) }}"
+                  >
+                    {{ project.建设项目工程名称 }}</a
+                  >
+                </td>
+                <td>{{ project.项目地点 }}</td>
+                <td>{{ project.建设性质 }}</td>
+                <td>{{ project.价格基准期 }}</td>
+                <td>{{ project.造价类型 }}</td>
+                <td>{{ project.道路等级 }}</td>
+                <td>{{ project.单项工程费用 }}</td>
+                <td>{{ project.道路全长 }}</td>
+                <td>{{ result['道路长度指标'] }}</td>
+                <td>{{ project.道路总面积 }}</td>
+                <td>{{ result['道路面积指标'] }}</td>
+                <td>{{ result['单位工程'] }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
 
           <!-- 分页 -->
           <div class="pagination">

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>工程项目列表</title>
     <link rel="stylesheet" href="/static/css/styles.css" />
+    <script src="/static/js/project_search.js" defer></script>
+
   </head>
   <body>
     <div id="navbar"></div>
@@ -25,14 +27,14 @@
       <h1>工程项目列表</h1>
       <div class="content">
         <!-- 搜索栏 -->
-        <div class="search-bar">
-          <input type="text" placeholder="请输入工程项目名称" />
-          <button>搜索</button>
+         <div class="search-bar">
+          <input type="text" id="search-input" placeholder="请输入工程项目名称" />
+          <button id="search-button">搜索</button>
         </div>
 
-        <!-- 任务表格 -->
+        <!-- 项目概况表格 -->
         <div class="task-table">
-          <table>
+          <table id="project-table">
             <thead>
               <tr>
                 <th>序号</th>
@@ -52,7 +54,7 @@
               <tr>
                 <td>{{ project.项目表_id }}</td>
                 <td><a href="{{ url_for('individual_project.individual_project_list', project_id=project.项目表_id) }}">
-    {{ project.建设项目工程名称 }}</a></td>
+                 {{ project.建设项目工程名称 }}</a></td>
                 <td>{{ project.单项工程费用 }}</td>
                 <td>{{ project.造价类型 }}</td>
                 <td>{{ project.项目地点 }}</td>
