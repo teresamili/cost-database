@@ -26,7 +26,7 @@ def get_projects():
         "current_page": pagination.page,
     }
 
-
+#获取查询条件
 @individual_project_blueprint.route('/individual-projects', methods=['GET'])
 def individual_project_list():
     """
@@ -76,7 +76,7 @@ def individual_project_list():
 
 
 
-
+#后端处理查询条件
 from flask import jsonify
 from sqlalchemy import and_
 

@@ -13,129 +13,46 @@
     {% include 'navbar.html' %}
 
     <main>
-      <h1>综合单价指标</h1>
+      <h1>综合单价查询</h1>
       <div class="content">
         <!-- Search Bar -->
         <div class="search-bar">
           <input type="text" placeholder="请输入项目编码或待查关键词" />
-          <button>搜索</button>
         </div>
         <!-- Search Conditions -->
-        <div class="search-condition">
-          <ul>
-            <li>
-              <a>项目地点</a>
-              <div class="button-group">
-                <button
-                  type="button"
-                  class="region-btn"
-                  data-filter="project_location"
-                  data-value="不限"
-                >
-                  不限
-                </button>
-                <button
-                  type="button"
-                  class="region-btn"
-                  data-filter="project_location"
-                  data-value="广东"
-                >
-                  广东
-                </button>
-                <button
-                  type="button"
-                  class="region-btn"
-                  data-filter="project_location"
-                  data-value="四川"
-                >
-                  四川
-                </button>
-                <button
-                  type="button"
-                  class="region-btn"
-                  data-filter="project_location"
-                  data-value="海南"
-                >
-                  海南
-                </button>
-              </div>
-            </li>
-            <li>
-              <a>价格基期</a>
-              <div class="button-group">
-                <button
-                  type="button"
-                  class="region-btn"
-                  data-filter="price_basis"
-                  data-value="不限"
-                >
-                  不限
-                </button>
-                <button
-                  type="button"
-                  class="region-btn"
-                  data-filter="price_basis"
-                  data-value="2020"
-                >
-                  2020
-                </button>
-                <button
-                  type="button"
-                  class="region-btn"
-                  data-filter="price_basis"
-                  data-value="2021"
-                >
-                  2021
-                </button>
-                <button
-                  type="button"
-                  class="region-btn"
-                  data-filter="price_basis"
-                  data-value="2022"
-                >
-                  2022
-                </button>
-              </div>
-            </li>
-            <li>
-              <a>造价类型</a>
-              <div class="button-group">
-                <button
-                  type="button"
-                  class="region-btn"
-                  data-filter="cost_type"
-                  data-value="不限"
-                >
-                  不限
-                </button>
-                <button
-                  type="button"
-                  class="region-btn"
-                  data-filter="cost_type"
-                  data-value="估算价"
-                >
-                  估算价
-                </button>
-                <button
-                  type="button"
-                  class="region-btn"
-                  data-filter="cost_type"
-                  data-value="概算价"
-                >
-                  概算价
-                </button>
-                <button
-                  type="button"
-                  class="region-btn"
-                  data-filter="cost_type"
-                  data-value="预算价"
-                >
-                  预算价
-                </button>
-              </div>
-            </li>
-          </ul>
-        </div>
+<div class="search-condition">
+  <ul>
+    <li>
+      <a>项目地点</a>
+      <div class="button-group">
+        <button type="button" class="region-btn" data-filter="project_location" data-value="不限">不限</button>
+        <button type="button" class="region-btn" data-filter="project_location" data-value="广东">广东</button>
+        <button type="button" class="region-btn" data-filter="project_location" data-value="四川">四川</button>
+        <button type="button" class="region-btn" data-filter="project_location" data-value="海南">海南</button>
+      </div>
+    </li>
+    <li>
+      <a>价格基期</a>
+      <div class="button-group">
+        <button type="button" class="region-btn" data-filter="price_basis" data-value="不限">不限</button>
+        <button type="button" class="region-btn" data-filter="price_basis" data-value="2020">2020</button>
+        <button type="button" class="region-btn" data-filter="price_basis" data-value="2021">2021</button>
+        <button type="button" class="region-btn" data-filter="price_basis" data-value="2022">2022</button>
+      </div>
+    </li>
+    <li>
+      <a>造价类型</a>
+      <div class="button-group">
+        <button type="button" class="region-btn" data-filter="cost_type" data-value="不限">不限</button>
+        <button type="button" class="region-btn" data-filter="cost_type" data-value="估算价">估算价</button>
+        <button type="button" class="region-btn" data-filter="cost_type" data-value="概算价">概算价</button>
+        <button type="button" class="region-btn" data-filter="cost_type" data-value="预算价">预算价</button>
+        <button type="button" class="region-btn" data-filter="cost_type" data-value="预算价">招标控制价</button>
+      </div>
+    </li>
+  </ul>
+</div>
+
         <div class="sure">
           <button onclick="performSearch()">确定</button>
         </div>

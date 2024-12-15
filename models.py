@@ -454,6 +454,6 @@ class UnitPrice(db.Model):
     综合单价 = db.Column( db.Numeric(9, 2))
     综合合价 = db.Column( db.Numeric(14, 2))
     项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
-    项目_单位 = db.relationship('ProjectUnit', backref='unit_prices')  # 关联到项目_单位表
+    project_unit = db.relationship('ProjectUnit', backref='unit_prices')  # 关联到项目_单位表
 
 

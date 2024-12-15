@@ -173,6 +173,7 @@ main {
   justify-content: center;
   align-items: center;
   margin: 20px 0;
+  font-size: 10px;
 }
 
 .pagination a,
