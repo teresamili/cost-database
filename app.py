@@ -6,7 +6,7 @@ sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 #导入路径
 from flask import Flask, redirect, url_for, session
 from models import db
-from views import auth_blueprint, project_blueprint, individual_project_blueprint,individual_project2_blueprint,unit_price_blueprint
+from views import auth_blueprint, project_blueprint, individual_project_blueprint,individual_project2_blueprint,unit_price_blueprint,material_price_blueprint
 
 app = Flask(__name__, static_folder="static")
 app.secret_key = 'your_secret_key'
@@ -22,6 +22,7 @@ app.register_blueprint(project_blueprint)
 app.register_blueprint(individual_project_blueprint)
 app.register_blueprint(individual_project2_blueprint)
 app.register_blueprint(unit_price_blueprint)
+app.register_blueprint(material_price_blueprint)
 
 @app.route('/')
 def index():

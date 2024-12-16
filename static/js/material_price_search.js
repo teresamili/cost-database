@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
   // 处理筛选按钮点击事件
   document.querySelectorAll(".region-btn").forEach((button) => {
     button.addEventListener("click", () => {
-      const filter = button.getAttribute("data-filter");
-      const value = button.getAttribute("data-value");
+      const filter = button.getAttribute("price-filter");
+      const value = button.getAttribute("price-value");
 
       // 更新筛选条件
       if (value === "不限") {
@@ -45,48 +45,48 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("Generated Query String:", queryString); // 打印生成的查询字符串
 
     // 调用后端 API
-    fetch(`/unit-prices/search?${queryString}`)
+    fetch(`/material-prices/search?${queryString}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP Error: ${response.status}`);
         }
         return response.json();
       })
-      .then((data) => {
-        console.log("Search Results (Debug):", data); // 打印返回的数据
+      .then((price) => {
+        console.log("Search Results (Debug):", price); // 打印返回的数据
 
         const resultsElement = document.querySelector("tbody");
         resultsElement.innerHTML = "";
 
-        if (!data || data.results.length === 0) {
+        if (!price || price.results.length === 0) {
           resultsElement.innerHTML =
             "<tr><td colspan='10'>没有符合条件的结果</td></tr>";
           renderPagination({ total_pages: 1, current_page: 1 }); // 渲染单页分页器
           return;
         }
 
-        data.results.forEach((item, index) => {
-          console.log("Item Data:", item); // 调试每条记录
+        price.results.forEach((order, index) => {
+          console.log("Order Data:", order); // 调试每条记录
           
           const row = document.createElement("tr");
           // 修改 projectId 提取路径
-          const projectId =  item.project_id || (item.unit_price && item.unit_price.project_id) || "#";
+          const projectId =  order.project_id || (order.material_price && order.material_price.project_id) || "#";
          
 
           row.innerHTML = `
     <td>${index + 1}</td>
-    <td>${item.unit_price.项目编码}</td>
-    <td>${item.unit_price.项目名称}</td>
-    <td>${item.unit_price.项目特征描述}</td>
-    <td>${item.unit_price.计量单位}</td>
-    <td>${item.unit_price.工程量}</td>
-    <td>${item.unit_price.综合单价}</td>
-    <td>${item.unit_price.综合合价}</td>
+    <td>${order.material_price.材料名称}</td>
+    <td>${order.material_price.规格型号}</td>
+    <td>${order.material_price.单位}</td>
+    <td>${order.material_price.数量}</td>
+    <td>${order.material_price.不含税单价}</td>
+    <td>${order.material_price.合计}</td>
+    <td>${order.project_basis}</td>
     <td>
         ${
         projectId !== "#"
-          ? `<a href="/individual-projects?project_id=${encodeURIComponent(projectId)}">${item.project_name || "未命名项目"}</a>`
-          : `<span>${item.project_name || "未命名项目"}</span>`
+          ? `<a href="/individual-projects?project_id=${encodeURIComponent(projectId)}">${order.project_name || "未命名项目"}</a>`
+          : `<span>${order.project_name || "未命名项目"}</span>`
       }
     </td>
   `;

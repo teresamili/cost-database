@@ -457,3 +457,15 @@ class UnitPrice(db.Model):
     project_unit = db.relationship('ProjectUnit', backref='unit_prices')  # 关联到项目_单位表
 
 
+    #人材机单价查询页面
+class MaterialPrice(db.Model):
+    __tablename__ = '材价库'
+    材价库_id = db.Column(db.Integer, primary_key=True)
+    材料名称 = db.Column(db.String(45))
+    规格型号 = db.Column(db.String(45))
+    单位 = db.Column(db.String(45))
+    数量 = db.Column( db.Numeric(12, 2))
+    不含税单价 = db.Column('不含税单价（元）', db.Numeric(9, 2))
+    合计 = db.Column('合计（元）', db.Numeric(14, 2))
+    项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
+    project_unit = db.relationship('ProjectUnit', backref='material_prices')  # 关联到项目_单位表
