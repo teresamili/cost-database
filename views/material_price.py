@@ -45,7 +45,8 @@ def material_price_list():
             "material_price": material_price,
             "project_name": material_price.project_unit.project.建设项目工程名称 if material_price.project_unit else "未关联项目",
             "unit_name": material_price.project_unit.unit.单位工程名称 if material_price.project_unit else "未关联单位工程",
-            "project_id": material_price.project_unit.project.项目表_id if material_price.project_unit else None
+            "project_id": material_price.project_unit.project.项目表_id if material_price.project_unit else None,
+            "project_basis": material_price.project_unit.project.价格基准期 if material_price.project_unit  else "N/A"
         }
         for material_price in material_prices
     ]
@@ -55,6 +56,7 @@ def material_price_list():
         material_prices=price,
         pagination=pagination
     )
+
 
 @material_price_blueprint.route('/material-prices/search', methods=['GET'])
 def material_price_search():

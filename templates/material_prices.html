@@ -36,16 +36,16 @@
              <div class="button-group">
               <button type="button" class="region-btn" price-filter="price_basis" price-value="不限">不限</button>
               <button type="button" class="region-btn" price-filter="price_basis" price-value="2020">2014</button>
-              <button type="button" class="region-btn" price-filter="price_basis" price-value="2020">2015</button>
-              <button type="button" class="region-btn" price-filter="price_basis" price-value="2020">2016</button>
-              <button type="button" class="region-btn" price-filter="price_basis" price-value="2020">2017</button>
-              <button type="button" class="region-btn" price-filter="price_basis" price-value="2020">2018</button>
-              <button type="button" class="region-btn" price-filter="price_basis" price-value="2020">2019</button>
+              <button type="button" class="region-btn" price-filter="price_basis" price-value="2015">2015</button>
+              <button type="button" class="region-btn" price-filter="price_basis" price-value="2016">2016</button>
+              <button type="button" class="region-btn" price-filter="price_basis" price-value="2017">2017</button>
+              <button type="button" class="region-btn" price-filter="price_basis" price-value="2018">2018</button>
+              <button type="button" class="region-btn" price-filter="price_basis" price-value="2019">2019</button>
               <button type="button" class="region-btn" price-filter="price_basis" price-value="2020">2020</button>
               <button type="button" class="region-btn" price-filter="price_basis" price-value="2021">2021</button>
               <button type="button" class="region-btn" price-filter="price_basis" price-value="2022">2022</button>
-              <button type="button" class="region-btn" price-filter="price_basis" price-value="2022">2023</button>
-              <button type="button" class="region-btn" price-filter="price_basis" price-value="2022">2024</button>
+              <button type="button" class="region-btn" price-filter="price_basis" price-value="2023">2023</button>
+              <button type="button" class="region-btn" price-filter="price_basis" price-value="2024">2024</button>
              </div>
               </li>
             <li><a>造价类型</a>
@@ -92,7 +92,7 @@
                 <td>{{ price.material_price.数量 }}</td>
                 <td>{{ price.material_price.不含税单价 }}</td>
                 <td>{{ price.material_price.合计 }}</td>
-                <td>{{ price.project_unit.project['价格基准期'] | default('N/A') }}</td>
+                <td>{{ price.project_basis }}</td>
                 <td data-full-text="{{ price.project_name }}-{{ price.unit_name }}" class="hoverable-cell">
                  <a href="individual-projects?project_id={{ price.project_id }}">
                   {{ price.project_name[:10] }}...

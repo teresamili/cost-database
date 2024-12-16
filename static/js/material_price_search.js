@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // 清除该行其他按钮的选中状态
       document
-        .querySelectorAll(`.region-btn[data-filter="${filter}"]`)
+        .querySelectorAll(`.region-btn[price-filter="${filter}"]`)
         .forEach((btn) => {
           btn.classList.remove("selected", "active");
         });
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .addEventListener("click", performSearch);
 
   function performSearch() {
-    console.log("Performing search with filters:", filters); // 打印当前的筛选条件
+    console.log("Performing search with filters:", filters);
 
     const queryInput = document.querySelector(".search-bar input");
     if (queryInput) {
@@ -42,18 +42,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const queryString = new URLSearchParams(filters).toString();
-    console.log("Generated Query String:", queryString); // 打印生成的查询字符串
+    console.log("Generated Query String:", queryString);
 
     // 调用后端 API
     fetch(`/material-prices/search?${queryString}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP Error: ${response.status}`);
-        }
-        return response.json();
-      })
+      .then((response) => response.json())
       .then((price) => {
-        console.log("Search Results (Debug):", price); // 打印返回的数据
+        console.log("Search Results (Debug):", price);
 
         const resultsElement = document.querySelector("tbody");
         resultsElement.innerHTML = "";
@@ -61,46 +56,40 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!price || price.results.length === 0) {
           resultsElement.innerHTML =
             "<tr><td colspan='10'>没有符合条件的结果</td></tr>";
-          renderPagination({ total_pages: 1, current_page: 1 }); // 渲染单页分页器
           return;
         }
 
         price.results.forEach((order, index) => {
-          console.log("Order Data:", order); // 调试每条记录
-          
           const row = document.createElement("tr");
-          // 修改 projectId 提取路径
-          const projectId =  order.project_id || (order.material_price && order.material_price.project_id) || "#";
-         
+          const projectId = order.project_id || "#";
 
           row.innerHTML = `
-    <td>${index + 1}</td>
-    <td>${order.material_price.材料名称}</td>
-    <td>${order.material_price.规格型号}</td>
-    <td>${order.material_price.单位}</td>
-    <td>${order.material_price.数量}</td>
-    <td>${order.material_price.不含税单价}</td>
-    <td>${order.material_price.合计}</td>
-    <td>${order.project_basis}</td>
-    <td>
-        ${
-        projectId !== "#"
-          ? `<a href="/individual-projects?project_id=${encodeURIComponent(projectId)}">${order.project_name || "未命名项目"}</a>`
-          : `<span>${order.project_name || "未命名项目"}</span>`
-      }
-    </td>
-  `;
+            <td>${index + 1}</td>
+            <td>${order.material_price.材料名称}</td>
+            <td>${order.material_price.规格型号}</td>
+            <td>${order.material_price.单位}</td>
+            <td>${order.material_price.数量}</td>
+            <td>${order.material_price.不含税单价}</td>
+            <td>${order.material_price.合计}</td>
+            <td>${order.project_basis}</td>
+            <td>
+              ${
+                projectId !== "#"
+                  ? `<a href="/individual-projects?project_id=${encodeURIComponent(projectId)}">${order.project_name || "未命名项目"}</a>`
+                  : `<span>${order.project_name || "未命名项目"}</span>`
+              }
+            </td>
+          `;
           resultsElement.appendChild(row);
         });
-
-        // 重新渲染分页器
-        renderPagination(data.pagination);
       })
       .catch((error) => {
         console.error("Error during fetch:", error);
         alert("查询失败，请稍后重试！");
       });
   }
+});
+  
 
   function renderPagination(pagination) {
     const paginationElement = document.querySelector(".pagination");
@@ -167,4 +156,5 @@ document.addEventListener("DOMContentLoaded", function () {
       paginationElement.appendChild(nextLink);
     }
   }
-});
+
+
