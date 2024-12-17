@@ -169,7 +169,8 @@
             {% for row in task_data %}
             <tr>
               <td>{{ loop.index }}</td>
-              <td>{{ row.单位工程名称 }}</td>
+              <td><a href="{{ url_for('unit_price.unit_price_list', project_unit_id=row.project_unit_id) }}">
+                {{ row.单位工程名称 }}</a></td>
               <td>{{ row.工程造价 }}</td>
               <td>{{ row.面积 }}</td>
               <td>

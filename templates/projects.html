@@ -10,16 +10,7 @@
   </head>
   <body>
     <div id="navbar"></div>
-    <!--
-<script>
-    // 使用 JavaScript 加载外部 HTML 文件
-    fetch('navbar.html')
-        .then(response => response.text())
-        .then(data => {
-            document.getElementById('navbar').innerHTML = data;
-        })
-        .catch(error => console.log('Error loading navbar:', error));
-</script>-->
+
     <!-- 包含导航栏 -->
     {% include 'navbar.html' %}
     <!-- 主内容区域 -->

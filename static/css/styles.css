@@ -387,23 +387,27 @@ main {
   word-break: break-word;
 }
 
-.unit_price-table th:nth-child(1),
-.unit_price-table td:nth-child(1) { width: 30px; }
-.unit_price-table th:nth-child(2),
-.unit_price-table td:nth-child(2) { width: 100px; }
-.unit_price-table th:nth-child(3),
-.unit_price-table td:nth-child(3) { width: 180px; }
-.unit_price-table th:nth-child(4),
-.unit_price-table td:nth-child(4) { width: 400px; }
-.unit_price-table th:nth-child(5),
-.unit_price-table td:nth-child(5) { width: 80px; }
-.unit_price-table th:nth-child(6),
-.unit_price-table td:nth-child(6) { width: 100px; }
-.unit_price-table th:nth-child(7),
-.unit_price-table td:nth-child(7) { width: 120px; }
-.unit_price-table th:nth-child(8),
-.unit_price-table td:nth-child(8) { width: 150px; }
-.unit_price-table th:nth-child(9),
+
+#unit_prices th:nth-child(1),
+#unit_prices td:nth-child(1) { width: 30px; }
+#unit_prices th:nth-child(2),
+#unit_prices td:nth-child(2) { width: 80px; }
+#unit_prices th:nth-child(3),
+#unit_prices td:nth-child(3) { width: 180px; }
+#unit_prices th:nth-child(4),
+#unit_prices td:nth-child(4) { width: 400px; }
+#unit_prices th:nth-child(5),
+#unit_prices td:nth-child(5) { width: 80px; }
+#unit_prices th:nth-child(6),
+#unit_prices td:nth-child(6) { width: 80px; }
+#unit_prices th:nth-child(7),
+#unit_prices td:nth-child(7) { width: 100px; }
+#unit_prices th:nth-child(8),
+#unit_prices td:nth-child(8) { width: 100px; }
+#unit_prices th:nth-child(9),
+#unit_prices td:nth-child(9) { width: 70px; }
+#unit_prices th:nth-child(10),
+#unit_prices td:nth-child(10) { width: 200px; }
 /* 基础样式 */
 .unit_price-table td.hoverable-cell {
   position: relative; /* 必须设置相对定位，为 ::after 提供上下文 */
@@ -448,7 +452,7 @@ main {
 }
 
 
-
+/* 人材机单价表格*/
 #material-prices th:nth-child(1),
 #material-prices td:nth-child(1) { width: 40px; }
 

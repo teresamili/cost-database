@@ -67,11 +67,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
         data.results.forEach((item, index) => {
           console.log("Item Data:", item); // 调试每条记录
-          
+
           const row = document.createElement("tr");
           // 修改 projectId 提取路径
-          const projectId =  item.project_id || (item.unit_price && item.unit_price.project_id) || "#";
-         
+          const projectId =
+            item.project_id ||
+            (item.unit_price && item.unit_price.project_id) ||
+            "#";
+          //定义table格式 “unit_prices”是table id
+          const table = document.getElementById("unit_prices");
 
           row.innerHTML = `
     <td>${index + 1}</td>
@@ -82,12 +86,16 @@ document.addEventListener("DOMContentLoaded", function () {
     <td>${item.unit_price.工程量}</td>
     <td>${item.unit_price.综合单价}</td>
     <td>${item.unit_price.综合合价}</td>
+    <td>${item.project_basis}</td>
     <td>
         ${
-        projectId !== "#"
-          ? `<a href="/individual-projects?project_id=${encodeURIComponent(projectId)}">${item.project_name || "未命名项目"}</a>`
-          : `<span>${item.project_name || "未命名项目"}</span>`
-      }
+          projectId !== "#"
+            ? `<a href="/individual-projects?project_id=${encodeURIComponent(
+                projectId
+              )}">${item.project_name || "未命名项目"}-${
+                item.unit_name || "未命名项目"}</a>`
+            : `<span>${item.project_name || "未命名项目"}</span>`
+        }
     </td>
   `;
           resultsElement.appendChild(row);

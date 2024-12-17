@@ -12,6 +12,9 @@ def unit_price_list():
     page = request.args.get('page', 1, type=int)
     per_page = 20
 
+    # 接收项目ID参数
+    project_unit_id = request.args.get('project_unit_id', type=int)
+
     # 构建筛选条件
     filters = []
     project_location = request.args.get('project_location', '')
@@ -21,7 +24,7 @@ def unit_price_list():
 
     # 根据筛选条件构建查询
     query = UnitPrice.query.join(ProjectUnit).join(Project)
-
+  
     if project_location:
         filters.append(Project.项目地点 == project_location)
     if price_basis:
@@ -30,6 +33,9 @@ def unit_price_list():
         filters.append(Project.造价类型 == cost_type)
     if search:
         filters.append(UnitPrice.项目名称.like(f"%{search}%"))
+    # 如果提供了 project_id，添加过滤条件
+    if project_unit_id:
+        query = query.filter(ProjectUnit.项目_单位_id == project_unit_id)
 
     # 应用过滤条件
     if filters:
@@ -45,7 +51,10 @@ def unit_price_list():
             "unit_price": unit_price,
             "project_name": unit_price.project_unit.project.建设项目工程名称 if unit_price.project_unit else "未关联项目",
             "unit_name": unit_price.project_unit.unit.单位工程名称 if unit_price.project_unit else "未关联单位工程",
-            "project_id": unit_price.project_unit.project.项目表_id if unit_price.project_unit else None
+            "project_id": unit_price.project_unit.project.项目表_id if unit_price.project_unit else " ",
+            "project_unit_id": unit_price.项目_单位_id, # 从 UnitPrice 表获取项目_单位_id
+            "project_basis": unit_price.project_unit.project.价格基准期 if unit_price.project_unit and unit_price.project_unit.project else "N/A",
+            
         }
         for unit_price in unit_prices
     ]
@@ -99,7 +108,9 @@ def unit_price_search():
                     
                 },
                 "project_name": item.project_unit.project.建设项目工程名称 if item.project_unit else "未关联项目",
-                "project_id": item.project_unit.project.项目表_id if item.project_unit else None
+                "project_id": item.project_unit.project.项目表_id if item.project_unit else None,
+                "project_basis":item.project_unit.project.价格基准期 if item.project_unit and item.project_unit.project else "N/A",
+                "unit_name": item.project_unit.unit.单位工程名称 if item.project_unit else "未关联单位工程",
             }
             for item in results
         ],
