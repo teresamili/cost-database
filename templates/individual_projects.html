@@ -14,16 +14,12 @@
 
     <!-- 主内容区域 -->
     <main>
-      <h1>工程项目名称</h1>
+      <h1>单项工程造价指标</h1>
       <div class="content">
         <!-- 搜索栏 -->
         <div class="search-bar">
-          <input
-            type="text"
-            id="search-input"
-            placeholder="请输入工程项目名称"
-          />
-          <button id="search-button">搜索</button>
+          <input type="text" id="search-input" placeholder="请输入工程项目名称" />
+          <!--取消这个button <button id="search-button">搜索</button> -->
         </div>
 
         <!-- 搜索条件 -->
@@ -69,8 +65,8 @@
               <div class="button-group">
                 <button type="button" class="region-btn" data-filter="cost_type" data-value="不限">不限</button>
                 <button type="button" class="region-btn" data-filter="cost_type" data-value="估算价">估算价</button>  
-                <button type="button" class="region-btn" data-filter="cost_type" data-value="估算价">概算价</button>
-                <button type="button" class="region-btn" data-filter="cost_type" data-value="估算价">预算价</button>
+                <button type="button" class="region-btn" data-filter="cost_type" data-value="概算价">概算价</button>
+                <button type="button" class="region-btn" data-filter="cost_type" data-value="预算价">预算价</button>
                 <button type="button" class="region-btn" data-filter="cost_type" data-value="招标控制价">招标控制价</button>
               </div>
             </li>
@@ -87,7 +83,7 @@
           </ul>
         </div>
         <div class="sure">
-          <button onclick="performSearch()">确定</button>
+          <button>确定</button>
         </div>
 
         <!-- 任务表格 -->
