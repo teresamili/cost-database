@@ -103,7 +103,8 @@ def material_price_search():
                 },
                 "project_basis": order.project_unit.project.价格基准期 if order.project_unit and order.project_unit.project else "N/A",
                 "project_name": order.project_unit.project.建设项目工程名称 if order.project_unit else "未关联项目",
-                "project_id": order.project_unit.project.项目表_id if order.project_unit else None
+                "project_id": order.project_unit.project.项目表_id if order.project_unit else None,
+                "unit_name": order.project_unit.unit.单位工程名称
             }
             for order in results
         ],

@@ -447,3 +447,31 @@ main {
   right: 0; /* 如果悬浮框溢出，则向左偏移 */
 }
 
+
+
+#material-prices th:nth-child(1),
+#material-prices td:nth-child(1) { width: 40px; }
+
+#material-prices th:nth-child(2),
+#material-prices td:nth-child(2) { width: 200px; }
+
+#material-prices th:nth-child(3),
+#material-prices td:nth-child(3) { width: 150px; }
+
+#material-prices th:nth-child(4),
+#material-prices td:nth-child(4) { width: 90px; }
+
+#material-prices th:nth-child(5),
+#material-prices td:nth-child(5) { width: 90px; }
+
+#material-prices th:nth-child(6),
+#material-prices td:nth-child(6) { width: 120px; }
+
+#material-prices th:nth-child(7),
+#material-prices td:nth-child(7) { width: 120px; }
+
+#material-prices th:nth-child(8),
+#material-prices td:nth-child(8) { width: 90px; }
+
+#material-prices th:nth-child(9),
+#material-prices td:nth-child(9) { width: 160px; }

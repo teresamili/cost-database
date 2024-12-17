@@ -62,11 +62,13 @@ document.addEventListener("DOMContentLoaded", function () {
         price.results.forEach((order, index) => {
           const row = document.createElement("tr");
           const projectId = order.project_id || "#";
+          //定义table格式 “material-prices”是table id
+          const table = document.getElementById("material-prices");
 
           row.innerHTML = `
             <td>${index + 1}</td>
             <td>${order.material_price.材料名称}</td>
-            <td>${order.material_price.规格型号}</td>
+            <td>${order.material_price.规格型号 || ""}</td>
             <td>${order.material_price.单位}</td>
             <td>${order.material_price.数量}</td>
             <td>${order.material_price.不含税单价}</td>
@@ -75,7 +77,11 @@ document.addEventListener("DOMContentLoaded", function () {
             <td>
               ${
                 projectId !== "#"
-                  ? `<a href="/individual-projects?project_id=${encodeURIComponent(projectId)}">${order.project_name || "未命名项目"}</a>`
+                  ? `<a href="/individual-projects?project_id=${encodeURIComponent(
+                      projectId
+                    )}">${order.project_name || "未命名项目"}-${
+                      order.unit_name || "未命名项目"
+                    }</a>`
                   : `<span>${order.project_name || "未命名项目"}</span>`
               }
             </td>

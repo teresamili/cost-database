@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>人材机单价</title>
-    <link rel="stylesheet" href="/css/styles.css" />
+    <link rel="stylesheet" href="/static/css/styles.css" />
+    <script src="/static/js/material_price_search.js"></script>
   </head>
   <body>
    <div id="navbar"></div>
@@ -65,8 +66,8 @@
         </div>
 
         <!-- material_prices表格 -->
-        <div class="material_price-table">
-          <table>
+        <div class="unit_price-table">
+          <table id="material-prices">
             <thead>
               <tr>
                 <th>序号</th>
@@ -87,7 +88,7 @@
                   {{ loop.index + (pagination.page - 1) * pagination.per_page }}
                 </td>
                 <td>{{ price.material_price.材料名称 }}</td>
-                <td>{{ price.material_price.规格型号 }}</td>
+                <td>{{ price.material_price.规格型号 if price.material_price.规格型号 else "" }}</td>
                 <td>{{ price.material_price.单位 }}</td>
                 <td>{{ price.material_price.数量 }}</td>
                 <td>{{ price.material_price.不含税单价 }}</td>
@@ -95,7 +96,7 @@
                 <td>{{ price.project_basis }}</td>
                 <td data-full-text="{{ price.project_name }}-{{ price.unit_name }}" class="hoverable-cell">
                  <a href="individual-projects?project_id={{ price.project_id }}">
-                  {{ price.project_name[:10] }}...
+                  {{ price.project_name[:15] }}...
                  </a>
                 </td>
 
