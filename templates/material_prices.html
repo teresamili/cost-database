@@ -8,8 +8,8 @@
     <script src="/static/js/material_price_search.js"></script>
   </head>
   <body>
-   <div id="navbar"></div>
-  <!-- 包含导航栏 -->
+    <div id="navbar"></div>
+    <!-- 包含导航栏 -->
     {% include 'navbar.html' %}
 
     <!-- 主内容区域 -->
@@ -26,38 +26,187 @@
             <li>
               <a>项目地点</a>
               <div class="button-group">
-               <button type="button" class="region-btn" price-filter="project_location" price-value="不限">不限</button>
-               <button type="button" class="region-btn" price-filter="project_location" price-value="广东">广东</button>
-               <button type="button" class="region-btn" price-filter="project_location" price-value="四川">四川</button>
-               <button type="button" class="region-btn" price-filter="project_location" price-value="海南">海南</button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  price-filter="project_location"
+                  price-value="不限"
+                >
+                  不限
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  price-filter="project_location"
+                  price-value="广东"
+                >
+                  广东
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  price-filter="project_location"
+                  price-value="四川"
+                >
+                  四川
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  price-filter="project_location"
+                  price-value="海南"
+                >
+                  海南
+                </button>
               </div>
             </li>
-            
-            <li><a>价格基期</a>
-             <div class="button-group">
-              <button type="button" class="region-btn" price-filter="price_basis" price-value="不限">不限</button>
-              <button type="button" class="region-btn" price-filter="price_basis" price-value="2020">2014</button>
-              <button type="button" class="region-btn" price-filter="price_basis" price-value="2015">2015</button>
-              <button type="button" class="region-btn" price-filter="price_basis" price-value="2016">2016</button>
-              <button type="button" class="region-btn" price-filter="price_basis" price-value="2017">2017</button>
-              <button type="button" class="region-btn" price-filter="price_basis" price-value="2018">2018</button>
-              <button type="button" class="region-btn" price-filter="price_basis" price-value="2019">2019</button>
-              <button type="button" class="region-btn" price-filter="price_basis" price-value="2020">2020</button>
-              <button type="button" class="region-btn" price-filter="price_basis" price-value="2021">2021</button>
-              <button type="button" class="region-btn" price-filter="price_basis" price-value="2022">2022</button>
-              <button type="button" class="region-btn" price-filter="price_basis" price-value="2023">2023</button>
-              <button type="button" class="region-btn" price-filter="price_basis" price-value="2024">2024</button>
-             </div>
-              </li>
-            <li><a>造价类型</a>
-             <div class="button-group">
-              <button type="button" class="region-btn" price-filter="cost_type" price-value="不限">不限</button>
-              <button type="button" class="region-btn" price-filter="cost_type" price-value="估算价">估算价</button>
-              <button type="button" class="region-btn" price-filter="cost_type" price-value="概算价">概算价</button>
-              <button type="button" class="region-btn" price-filter="cost_type" price-value="预算价">预算价</button>
-              <button type="button" class="region-btn" price-filter="cost_type" price-value="招标控制价">招标控制价</button>
-             </div>
-            </li>              
+
+            <li>
+              <a>价格基期</a>
+              <div class="button-group">
+                <button
+                  type="button"
+                  class="region-btn"
+                  price-filter="price_basis"
+                  price-value="不限"
+                >
+                  不限
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  price-filter="price_basis"
+                  price-value="2020"
+                >
+                  2014
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  price-filter="price_basis"
+                  price-value="2015"
+                >
+                  2015
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  price-filter="price_basis"
+                  price-value="2016"
+                >
+                  2016
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  price-filter="price_basis"
+                  price-value="2017"
+                >
+                  2017
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  price-filter="price_basis"
+                  price-value="2018"
+                >
+                  2018
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  price-filter="price_basis"
+                  price-value="2019"
+                >
+                  2019
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  price-filter="price_basis"
+                  price-value="2020"
+                >
+                  2020
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  price-filter="price_basis"
+                  price-value="2021"
+                >
+                  2021
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  price-filter="price_basis"
+                  price-value="2022"
+                >
+                  2022
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  price-filter="price_basis"
+                  price-value="2023"
+                >
+                  2023
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  price-filter="price_basis"
+                  price-value="2024"
+                >
+                  2024
+                </button>
+              </div>
+            </li>
+            <li>
+              <a>造价类型</a>
+              <div class="button-group">
+                <button
+                  type="button"
+                  class="region-btn"
+                  price-filter="cost_type"
+                  price-value="不限"
+                >
+                  不限
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  price-filter="cost_type"
+                  price-value="估算价"
+                >
+                  估算价
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  price-filter="cost_type"
+                  price-value="概算价"
+                >
+                  概算价
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  price-filter="cost_type"
+                  price-value="预算价"
+                >
+                  预算价
+                </button>
+                <button
+                  type="button"
+                  class="region-btn"
+                  price-filter="cost_type"
+                  price-value="招标控制价"
+                >
+                  招标控制价
+                </button>
+              </div>
+            </li>
           </ul>
         </div>
 
@@ -82,74 +231,82 @@
               </tr>
             </thead>
             <tbody>
-               {% for price in material_prices %}
+              {% for price in material_prices %}
               <tr>
                 <td>
                   {{ loop.index + (pagination.page - 1) * pagination.per_page }}
                 </td>
                 <td>{{ price.material_price.材料名称 }}</td>
-                <td>{{ price.material_price.规格型号 if price.material_price.规格型号 else "" }}</td>
+                <td>
+                  {{ price.material_price.规格型号 if
+                  price.material_price.规格型号 else "" }}
+                </td>
                 <td>{{ price.material_price.单位 }}</td>
                 <td>{{ price.material_price.数量 }}</td>
                 <td>{{ price.material_price.不含税单价 }}</td>
                 <td>{{ price.material_price.合计 }}</td>
                 <td>{{ price.project_basis }}</td>
-                <td data-full-text="{{ price.project_name }}-{{ price.unit_name }}" class="hoverable-cell">
-                 <a href="individual-projects?project_id={{ price.project_id }}">
-                  {{ price.project_name[:15] }}...
-                 </a>
+                <td
+                  data-full-text="{{ price.project_name }}-{{ price.unit_name }}"
+                  class="hoverable-cell"
+                >
+                  <a
+                    href="individual-projects?project_id={{ price.project_id }}"
+                  >
+                    {{ price.project_name[:15] }}...
+                  </a>
                 </td>
-
-
               </tr>
               {% endfor %}
             </tbody>
           </table>
         </div>
 
-         <!-- 分页按钮 -->
- <div class="pagination">
-  {% if pagination.has_prev %}
-  <a href="{{ url_for('material_price.material_price_list', page=pagination.prev_num) }}">&lt; 上一页</a>
-  {% else %}
-  <span class="disabled">&lt; 上一页</span>
-  {% endif %}
-
-  {# 显示第一页 #}
-  {% if pagination.page > 3 %}
-  <a href="{{ url_for('material_price.material_price_list', page=1) }}">1</a>
-  {% if pagination.page > 4 %}
-  <span>...</span>
-  {% endif %}
-  {% endif %}
- <!-- 模板逻辑（Jinja2 {% ... %} 内部）：不需要修改 > 
+        <!-- 分页按钮 -->
+        <div class="pagination">
+          {% if pagination.has_prev %}
+          <a
+            href="{{ url_for('material_price.material_price_list', page=pagination.prev_num) }}"
+            >&lt; 上一页</a
+          >
+          {% else %}
+          <span class="disabled">&lt; 上一页</span>
+          {% endif %} {# 显示第一页 #} {% if pagination.page > 3 %}
+          <a href="{{ url_for('material_price.material_price_list', page=1) }}"
+            >1</a
+          >
+          {% if pagination.page > 4 %}
+          <span>...</span>
+          {% endif %} {% endif %}
+          <!-- 模板逻辑（Jinja2 {% ... %} 内部）：不需要修改 > 
        HTML 输出（直接在 HTML 标签中）：需要替换 > 为 &gt;-->
-  {# 显示当前页前两页、当前页、后两页 #}
-  {% for page in range(pagination.page - 2, pagination.page + 3) %}
-    {% if page > 0 and page <= pagination.pages %}
-      {% if page == pagination.page %}
-      <span class="active">{{ page }}</span>
-      {% else %}
-      <a href="{{ url_for('material_price.material_price_list', page=page) }}">{{ page }}</a>
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-
-  {# 显示最后一页 #}
-  {% if pagination.page < pagination.pages - 2 %} 
-    {% if pagination.page < pagination.pages - 3 %}
-    <span>...</span>
-    {% endif %}
-    <a href="{{ url_for('material_price.material_price_list', page=pagination.pages) }}">{{ pagination.pages }}</a>
-  {% endif %}
-
-  {% if pagination.has_next %}
-  <a href="{{ url_for('material_price.material_price_list', page=pagination.next_num) }}">&gt; 下一页</a>
-  {% else %}
-  <span class="disabled">&gt; 下一页</span>
-  {% endif %}
-</div>
-
+          {# 显示当前页前两页、当前页、后两页 #} {% for page in
+          range(pagination.page - 2, pagination.page + 3) %} {% if page > 0 and
+          page <= pagination.pages %} {% if page == pagination.page %}
+          <span class="active">{{ page }}</span>
+          {% else %}
+          <a
+            href="{{ url_for('material_price.material_price_list', page=page) }}"
+            >{{ page }}</a
+          >
+          {% endif %} {% endif %} {% endfor %} {# 显示最后一页 #} {% if
+          pagination.page < pagination.pages - 2 %} {% if pagination.page <
+          pagination.pages - 3 %}
+          <span>...</span>
+          {% endif %}
+          <a
+            href="{{ url_for('material_price.material_price_list', page=pagination.pages) }}"
+            >{{ pagination.pages }}</a
+          >
+          {% endif %} {% if pagination.has_next %}
+          <a
+            href="{{ url_for('material_price.material_price_list', page=pagination.next_num) }}"
+            >&gt; 下一页</a
+          >
+          {% else %}
+          <span class="disabled">&gt; 下一页</span>
+          {% endif %}
+        </div>
       </div>
     </main>
   </body>

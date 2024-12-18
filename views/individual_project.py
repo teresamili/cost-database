@@ -1,39 +1,20 @@
 from flask import Blueprint, render_template, session, redirect, url_for, request, jsonify
 from models import Project
-from sqlalchemy import and_
+from sqlalchemy import and_, or_
 
-individual_project_blueprint = Blueprint('individual_project', __name__) 
-@individual_project_blueprint.route('/projects', methods=['GET'])
-def get_projects():
-    # 此处的 request.args 在请求上下文中，可以正常使用
-    page = request.args.get('page', 1, type=int)  # 从请求参数中获取页码
-    per_page = 10  # 每页显示10条记录
+individual_project_blueprint = Blueprint('individual_project', __name__)
 
-    # 示例过滤条件
-    filters = []  
-    project_name = request.args.get('project_name')
-    if project_name:
-        filters.append(Project.name.like(f"%{project_name}%"))
 
-    # 分页查询
-    pagination = Project.query.filter(and_(*filters)).paginate(page=page, per_page=per_page)
-    project_list = pagination.items
-
-    # 返回分页数据
-    return {
-        "projects": [{"id": p.id, "name": p.name} for p in project_list],
-        "total_pages": pagination.pages,
-        "current_page": pagination.page,
-    }
-
-#获取查询条件
 @individual_project_blueprint.route('/individual-projects', methods=['GET'])
 def individual_project_list():
     """
-    显示所有项目或根据筛选条件显示特定项目
+    显示所有项目或根据筛选条件和关键词显示特定项目
     """
-    # 获取筛选条件
-    project_id = request.args.get('project_id', type=int)
+    page = request.args.get('page', 1, type=int)  # 获取页码参数，默认为第1页
+    per_page = 10  # 每页显示10条数据
+
+    # 获取关键词和筛选条件
+    search_query = request.args.get('search', '', type=str)  # 输入框关键词搜索
     project_location = request.args.get('project_location')
     construction_nature = request.args.get('construction_nature')
     price_basis = request.args.get('price_basis')
@@ -42,8 +23,9 @@ def individual_project_list():
 
     # 构建过滤条件
     filters = []
-    if project_id:
-        filters.append(Project.项目表_id == project_id)
+    if search_query:
+        # 模糊匹配关键词（项目名称中搜索）
+        filters.append(Project.建设项目工程名称.ilike(f"%{search_query}%"))
     if project_location and project_location != "不限":
         filters.append(Project.项目地点 == project_location)
     if construction_nature and construction_nature != "不限":
@@ -55,98 +37,61 @@ def individual_project_list():
     if road_grade and road_grade != "不限":
         filters.append(Project.道路等级 == road_grade)
 
-    # 根据过滤条件查询项目
-    if filters:
-        project_list = Project.query.filter(and_(*filters)).all()
-    else:
-        project_list = Project.query.all()
+    # 查询数据库，结合分页
+    query = Project.query.filter(and_(*filters))
+    pagination = query.paginate(page=page, per_page=per_page, error_out=False)
+    project_list = pagination.items
 
-    # 调用 perform_calculation 计算结果
+    # 调用计算函数
     calculated_results = perform_calculation(project_list)
 
-
-    # 渲染模板，传递项目列表和计算结果
+    # 渲染模板，传递项目列表和分页对象
     return render_template(
         'individual_projects.html',
         projects=project_list,
         results=calculated_results,
+        pagination=pagination,
+        search_query=search_query,  # 传递关键词给模板
         zip=zip
     )
-
-
-
-
-#后端处理查询条件
-from flask import jsonify
-from sqlalchemy import and_
-
-@individual_project_blueprint.route('/search', methods=['GET'])
-def search():
-    # 获取查询条件
-    project_location = request.args.get('project_location')
-    construction_nature = request.args.get('construction_nature')
-    price_basis = request.args.get('price_basis')
-    cost_type = request.args.get('cost_type')
-    road_grade = request.args.get('road_grade')
-
-    # 构建查询条件
-    filters = []
-    if project_location and project_location != "不限":
-        filters.append(Project.项目地点 == project_location)
-    if construction_nature and construction_nature != "不限":
-        filters.append(Project.建设性质 == construction_nature)
-    if price_basis and price_basis != "不限":
-        filters.append(Project.价格基准期 == price_basis)
-    if cost_type and cost_type != "不限":
-        filters.append(Project.造价类型 == cost_type)
-    if road_grade and road_grade != "不限":
-        filters.append(Project.道路等级 == road_grade)
-
-    # 查询数据库
-    project_list = Project.query.filter(and_(*filters)).all() if filters else Project.query.all()
-
-    # 调用 perform_calculation 计算结果
-    calculated_results = perform_calculation(project_list)
-
-    # 将查询结果转换为字典格式
-    result_list = []
-    for project, result in zip(project_list, calculated_results):
-        result_list.append({
-            "url": url_for('individual_project2.project_details', project_id=project.项目表_id),  # 动态生成链接
-            "建设项目工程名称": project.建设项目工程名称,
-            "项目地点": project.项目地点,
-            "建设性质": project.建设性质,
-            "价格基准期": project.价格基准期,
-            "造价类型": project.造价类型,
-            "道路等级": project.道路等级,
-            "单项工程费用": project.单项工程费用,
-            "道路全长":project.道路全长,
-            "道路总面积":project.道路总面积,
-            "道路长度指标": result["道路长度指标"],
-            "道路面积指标": result["道路面积指标"],
-            "单位工程": result["单位工程"]
-        })
-
-    return jsonify(result_list)
-
 
 
 def perform_calculation(projects):
     results = []
     for project in projects:
-        # 单项工程费用/道路全长
         original_cost = project.单项工程费用 or 0
-        road_length = project.道路全长 or 1  # 避免除以0
-        road_area = project.道路总面积
+        road_length = project.道路全长 or 1  # 避免除0错误
+        road_area = project.道路总面积 or 1  # 避免除0错误
         cost_index_length = original_cost / road_length
         cost_index_area = original_cost / road_area
 
         # 获取单位工程名称列表
         unit_names = [unit.单位工程名称 for unit in project.units] if project.units else []
-        # 将计算结果和单位工程名称存储到字典中
+
         results.append({
-            "道路面积指标": round(float(cost_index_area), 2),
             "道路长度指标": round(float(cost_index_length), 2),
+            "道路面积指标": round(float(cost_index_area), 2),
             "单位工程": ', '.join(unit_names)
         })
     return results
+
+
+def perform_calculation(projects):
+    results = []
+    for project in projects:
+        original_cost = project.单项工程费用 or 0
+        road_length = project.道路全长 or 1  # 避免除0错误
+        road_area = project.道路总面积 or 1  # 避免除0错误
+        cost_index_length = original_cost / road_length
+        cost_index_area = original_cost / road_area
+
+        # 获取单位工程名称列表
+        unit_names = [unit.单位工程名称 for unit in project.units] if project.units else []
+
+        results.append({
+            "道路长度指标": round(float(cost_index_length), 2),
+            "道路面积指标": round(float(cost_index_area), 2),
+            "单位工程": ', '.join(unit_names)
+        })
+    return results
+

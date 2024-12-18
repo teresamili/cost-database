@@ -119,12 +119,14 @@ main {
   display: flex;
   justify-content: flex-start; /* 左对齐，避免按钮和输入框之间距离过大 */
   align-items: center;
+  width: 100%; /* 保证父容器宽度 */
+  max-width: 800px; /* 设置最大宽度 */
   gap: 10px; /* 设置输入框和按钮之间的间距 */
   margin-bottom: 10px;
 }
 
 .search-bar input {
-  width: 50%;
+  width: 600px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -399,15 +401,15 @@ main {
 #unit_prices th:nth-child(5),
 #unit_prices td:nth-child(5) { width: 80px; }
 #unit_prices th:nth-child(6),
-#unit_prices td:nth-child(6) { width: 80px; }
+#unit_prices td:nth-child(6) { width: 100px; }
 #unit_prices th:nth-child(7),
 #unit_prices td:nth-child(7) { width: 100px; }
 #unit_prices th:nth-child(8),
 #unit_prices td:nth-child(8) { width: 100px; }
 #unit_prices th:nth-child(9),
-#unit_prices td:nth-child(9) { width: 90px; }
+#unit_prices td:nth-child(9) { width: 100px; }
 #unit_prices th:nth-child(10),
-#unit_prices td:nth-child(10) { width: 150px; }
+#unit_prices td:nth-child(10) { width: 120px; }
 /* 基础样式 */
 .unit_price-table td.hoverable-cell {
   position: relative; /* 必须设置相对定位，为 ::after 提供上下文 */
