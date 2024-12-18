@@ -88,14 +88,17 @@ document.addEventListener("DOMContentLoaded", function () {
           `;
           resultsElement.appendChild(row);
         });
+
+        // 添加分页显示
+        if (price.pagination) {
+          renderPagination(price.pagination);
+        }
       })
       .catch((error) => {
         console.error("Error during fetch:", error);
         alert("查询失败，请稍后重试！");
       });
   }
-});
-  
 
   function renderPagination(pagination) {
     const paginationElement = document.querySelector(".pagination");
@@ -106,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return; // 如果只有 1 页或 total_pages 未定义，不显示分页器
     }
 
-    // 限制分页显示，只显示前后若干页
+    // 限制分页显示，只显示前后若广页
     const maxPagesToShow = 5;
     const startPage = Math.max(
       1,
@@ -141,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
 
       pageLink.addEventListener("click", (event) => {
-        event.preventDefault(); // 防止页面跳转
+        event.preventDefault(); // 阻止页面跳转
         filters["page"] = page; // 更新当前页码
         performSearch(); // 重新执行查询
       });
@@ -162,5 +165,4 @@ document.addEventListener("DOMContentLoaded", function () {
       paginationElement.appendChild(nextLink);
     }
   }
-
-
+});
