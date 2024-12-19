@@ -263,50 +263,49 @@
         </div>
 
         <!-- 分页按钮 -->
-        <div class="pagination">
-          {% if pagination.has_prev %}
-          <a
-            href="{{ url_for('material_price.material_price_list', page=pagination.prev_num) }}"
-            >&lt; 上一页</a
-          >
-          {% else %}
-          <span class="disabled">&lt; 上一页</span>
-          {% endif %} {# 显示第一页 #} {% if pagination.page > 3 %}
-          <a href="{{ url_for('material_price.material_price_list', page=1) }}"
-            >1</a
-          >
-          {% if pagination.page > 4 %}
-          <span>...</span>
-          {% endif %} {% endif %}
-          <!-- 模板逻辑（Jinja2 {% ... %} 内部）：不需要修改 > 
-       HTML 输出（直接在 HTML 标签中）：需要替换 > 为 &gt;-->
-          {# 显示当前页前两页、当前页、后两页 #} {% for page in
-          range(pagination.page - 2, pagination.page + 3) %} {% if page > 0 and
-          page <= pagination.pages %} {% if page == pagination.page %}
-          <span class="active">{{ page }}</span>
-          {% else %}
-          <a
-            href="{{ url_for('material_price.material_price_list', page=page) }}"
-            >{{ page }}</a
-          >
-          {% endif %} {% endif %} {% endfor %} {# 显示最后一页 #} {% if
-          pagination.page < pagination.pages - 2 %} {% if pagination.page <
-          pagination.pages - 3 %}
-          <span>...</span>
-          {% endif %}
-          <a
-            href="{{ url_for('material_price.material_price_list', page=pagination.pages) }}"
-            >{{ pagination.pages }}</a
-          >
-          {% endif %} {% if pagination.has_next %}
-          <a
-            href="{{ url_for('material_price.material_price_list', page=pagination.next_num) }}"
-            >&gt; 下一页</a
-          >
-          {% else %}
-          <span class="disabled">&gt; 下一页</span>
-          {% endif %}
-        </div>
+       <div class="pagination">
+  {% if pagination and pagination.pages > 1 %}
+    {% if pagination.has_prev %}
+    <a href="{{ url_for('material_price.material_price_list', page=pagination.prev_num) }}">&lt; 上一页</a>
+    {% else %}
+    <span class="disabled">&lt; 上一页</span>
+    {% endif %}
+
+    {# 显示第一页 #}
+    {% if pagination.page > 3 %}
+    <a href="{{ url_for('material_price.material_price_list', page=1) }}">1</a>
+    {% if pagination.page > 4 %}
+    <span>...</span>
+    {% endif %}
+    {% endif %}
+
+    {# 显示当前页前后两页 #}
+    {% for page in range(pagination.page - 2, pagination.page + 3) %}
+      {% if page > 0 and page <= pagination.pages %}
+        {% if page == pagination.page %}
+        <span class="active">{{ page }}</span>
+        {% else %}
+        <a href="{{ url_for('material_price.material_price_list', page=page) }}">{{ page }}</a>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+
+    {# 显示最后一页 #}
+    {% if pagination.page < pagination.pages - 2 %}
+      {% if pagination.page < pagination.pages - 3 %}
+      <span>...</span>
+      {% endif %}
+      <a href="{{ url_for('material_price.material_price_list', page=pagination.pages) }}">{{ pagination.pages }}</a>
+    {% endif %}
+
+    {% if pagination.has_next %}
+    <a href="{{ url_for('material_price.material_price_list', page=pagination.next_num) }}">&gt; 下一页</a>
+    {% else %}
+    <span class="disabled">&gt; 下一页</span>
+    {% endif %}
+  {% endif %}
+</div>
+
       </div>
     </main>
   </body>

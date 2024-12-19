@@ -12,6 +12,7 @@ app = Flask(__name__, static_folder="static")
 app.secret_key = 'your_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:March5323@localhost/cost-database'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.jinja_env.globals.update(zip=zip)
 
 # 初始化数据库
 db.init_app(app)

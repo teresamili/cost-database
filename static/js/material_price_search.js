@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
   }
 
-  function renderPagination(pagination) {
+function renderPagination(pagination) {
     const paginationElement = document.querySelector(".pagination");
     paginationElement.innerHTML = "";
 
@@ -165,4 +165,5 @@ document.addEventListener("DOMContentLoaded", function () {
       paginationElement.appendChild(nextLink);
     }
   }
+
 });

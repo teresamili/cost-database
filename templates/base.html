@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <script src="/static/js/individual_project_search.js"></script>
+  </head>
+  <body>
+    <!-- 导航栏 -->
+    {% include 'navbar.html' %}
+
+    <!-- 主内容区域 -->
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>

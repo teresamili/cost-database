@@ -1,24 +1,13 @@
-<!DOCTYPE html>
-<html lang="zh">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>单项工程造价指标</title>
-    <link rel="stylesheet" href="/static/css/styles.css" />
-    <script src="/static/js/individual_project_search.js"></script>
-  </head>
-  <body>
-    <div id="navbar"></div>
-    <!-- 包含导航栏 -->
-    {% include 'navbar.html' %}
+<!-- This file extends base.html and is not a standalone HTML document -->
+{% extends 'base.html' %}
 
-    <!-- 主内容区域 -->
-    <main>
-      <h1>单项工程造价指标</h1>
-      <div class="content">
-        <!-- 搜索栏 -->
-        <div class="search-bar">
-  <form method="get" action="{{ url_for('individual_project.individual_project_list') }}">
+{% block title %}单项工程造价指标{% endblock %}
+
+{% block content %}
+<h1>单项工程造价指标</h1>
+<div class="content">
+  <!-- 搜索栏 -->
+  <form method="get" action="{{ url_for('individual_project.individual_project_list') }}" class="search-bar">
     <input
       type="text"
       id="search-input"
@@ -28,143 +17,262 @@
     />
     <button type="submit">搜索</button>
   </form>
-</div>
 
-
-        <!-- 搜索条件 -->
-        <div class="search-condition">
-          <ul>
-            <li>
-              <a>项目地点</a>
-              <div class="button-group">
-                <button type="button" class="region-btn" data-filter="project_location" data-value="不限">不限</button>
-                <button type="button" class="region-btn" data-filter="project_location" data-value="广东">广东</button>      
-                <button type="button" class="region-btn" data-filter="project_location" data-value="四川">四川</button>
-                <button type="button" class="region-btn" data-filter="project_location" data-value="海南">海南</button>
-              </div>
-            </li>
-            <li>
-              <a>建设性质</a>
-              <div class="button-group"> 
-                <button type="button" class="region-btn" data-filter="construction_nature" data-value="不限">不限</button>
-                <button type="button" class="region-btn" data-filter="construction_nature" data-value="新建">新建</button>
-                <button type="button" class="region-btn" data-filter="construction_nature" data-value="改建">改建</button>
-                <button type="button" class="region-btn" data-filter="construction_nature" data-value="扩建">扩建</button>
-              </div>
-            </li>
-            <li>
-              <a>价格基期</a>
-              <div class="button-group">
-                <button type="button" class="region-btn" data-filter="price_basis" data-value="不限">不限</button>
-                <button type="button" class="region-btn" data-filter="price_basis" data-value="2014">2014</button>
-                <button type="button" class="region-btn" data-filter="price_basis" data-value="2015">2015</button>
-                <button type="button" class="region-btn" data-filter="price_basis" data-value="2016">2016</button>
-                <button type="button" class="region-btn" data-filter="price_basis" data-value="2017">2017</button>
-                <button type="button" class="region-btn" data-filter="price_basis" data-value="2018">2018</button>
-                <button type="button" class="region-btn" data-filter="price_basis" data-value="2019">2019</button>
-                <button type="button" class="region-btn" data-filter="price_basis" data-value="2020">2020</button>
-                <button type="button" class="region-btn" data-filter="price_basis" data-value="2021">2021</button>
-                <button type="button" class="region-btn" data-filter="price_basis" data-value="2022">2022</button>
-                <button type="button" class="region-btn" data-filter="price_basis" data-value="2023">2023</button>
-                <button type="button" class="region-btn" data-filter="price_basis" data-value="2024">2024</button>
-              </div>
-            </li>
-            <li>
-              <a>造价类型</a>
-              <div class="button-group">
-                <button type="button" class="region-btn" data-filter="cost_type" data-value="不限">不限</button>
-                <button type="button" class="region-btn" data-filter="cost_type" data-value="估算价">估算价</button>  
-                <button type="button" class="region-btn" data-filter="cost_type" data-value="概算价">概算价</button>
-                <button type="button" class="region-btn" data-filter="cost_type" data-value="预算价">预算价</button>
-                <button type="button" class="region-btn" data-filter="cost_type" data-value="招标控制价">招标控制价</button>
-              </div>
-            </li>
-            <li>
-              <a>道路等级</a>
-              <div class="button-group">
-                <button type="button" class="region-btn" data-filter="road_grade" data-value="不限">不限</button>
-                <button type="button" class="region-btn" data-filter="road_grade" data-value="快速路">快速路</button>  
-                <button type="button" class="region-btn" data-filter="road_grade" data-value="主干路">主干路</button> 
-                <button type="button" class="region-btn" data-filter="road_grade" data-value="次干路">次干路</button>
-                <button type="button" class="region-btn" data-filter="road_grade" data-value="支路">支路</button>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <div class="sure">
-          <button>确定</button>
-        </div>
-
-        <!-- 任务表格 -->
-        <div class="task-table">
-          <table>
-            <thead>
-              <tr>
-                <th>工程项目名称</th>
-                <th>项目地点</th>
-                <th>建设性质</th>
-                <th>价格基准期</th>
-                <th>造价类型</th>
-                <th>道路等级</th>
-                <th>单项工程费用（元）</th>
-                <th>道路全长（m）</th>
-                <th>长度造价指标（元/m）</th>
-                <th>道路总面积（m2）</th>
-                <th>面积造价指标（元/m2）</th>
-                <th>所含单位工程</th>
-              </tr>
-            </thead>
-            <tbody id="results">
-              {% for project, result in zip(projects, results) %}
-              <tr>
-                <td>
-                  <a
-                    href="{{ url_for('individual_project2.project_details', project_id=project.项目表_id) }}"
-                  >
-                    {{ project.建设项目工程名称 }}</a
-                  >
-                </td>
-                <td>{{ project.项目地点 }}</td>
-                <td>{{ project.建设性质 }}</td>
-                <td>{{ project.价格基准期 }}</td>
-                <td>{{ project.造价类型 }}</td>
-                <td>{{ project.道路等级 }}</td>
-                <td>{{ project.单项工程费用 }}</td>
-                <td>{{ project.道路全长 }}</td>
-                <td>{{ result['道路长度指标'] }}</td>
-                <td>{{ project.道路总面积 }}</td>
-                <td>{{ result['道路面积指标'] }}</td>
-                <td>{{ result['单位工程'] }}</td>
-              </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-
-           <!-- 分页按钮 -->
- <div class="pagination">
-  {% if pagination.has_prev %}
-  <a href="{{ url_for('individual_project.individual_project_list', page=pagination.prev_num, search=search_query) }}">&lt; 上一页</a>
-  {% else %}
-  <span class="disabled">&lt; 上一页</span>
-  {% endif %}
-
-  {% for page in range(1, pagination.pages + 1) %}
-    {% if page == pagination.page %}
-      <span class="active">{{ page }}</span>
-    {% else %}
-      <a href="{{ url_for('individual_project.individual_project_list', page=page, search=search_query) }}">{{ page }}</a>
-    {% endif %}
-  {% endfor %}
-
-  {% if pagination.has_next %}
-  <a href="{{ url_for('individual_project.individual_project_list', page=pagination.next_num, search=search_query) }}">&gt; 下一页</a>
-  {% else %}
-  <span class="disabled">&gt; 下一页</span>
-  {% endif %}
-</div>
-
-        </div>
+  <!-- 筛选条件 -->
+  <div class="search-condition">
+  <form method="get" action="{{ url_for('individual_project.individual_project_list') }}">
+  <ul>
+    <!-- 项目地点 -->
+    <li>
+      <a>项目地点</a>
+      <div class="button-group">
+        <!-- 隐藏表单字段 -->
+        <input
+          type="hidden"
+          name="project_location"
+          value="{{ request.args.get('project_location', '不限') }}"
+        >
+        <button
+          type="button"
+          class="region-btn {% if not request.args.get('project_location') or request.args.get('project_location') == '不限' %}active{% endif %}"
+          data-filter="project_location"
+          data-value="不限"
+        >不限</button>
+        <button
+          type="button"
+          class="region-btn {% if request.args.get('project_location') == '广东' %}active{% endif %}"
+          data-filter="project_location"
+          data-value="广东"
+        >广东</button>
+        <button
+          type="button"
+          class="region-btn {% if request.args.get('project_location') == '四川' %}active{% endif %}"
+          data-filter="project_location"
+          data-value="四川"
+        >四川</button>
+        <button
+          type="button"
+          class="region-btn {% if request.args.get('project_location') == '海南' %}active{% endif %}"
+          data-filter="project_location"
+          data-value="海南"
+        >海南</button>
       </div>
-    </main>
-  </body>
-</html>
+    </li>
+
+    <!-- 其他筛选条件类似 -->
+    <!-- 建设性质 -->
+    <li>
+      <a>建设性质</a>
+      <div class="button-group">
+        <input
+          type="hidden"
+          name="construction_nature"
+          value="{{ request.args.get('construction_nature', '不限') }}"
+        >
+        <button
+          type="button"
+          class="region-btn {% if not request.args.get('construction_nature') or request.args.get('construction_nature') == '不限' %}active{% endif %}"
+          data-filter="construction_nature"
+          data-value="不限"
+        >不限</button>
+        <button
+          type="button"
+          class="region-btn {% if request.args.get('construction_nature') == '新建' %}active{% endif %}"
+          data-filter="construction_nature"
+          data-value="新建"
+        >新建</button>
+        <button
+          type="button"
+          class="region-btn {% if request.args.get('construction_nature') == '改建' %}active{% endif %}"
+          data-filter="construction_nature"
+          data-value="改建"
+        >改建</button>
+        <button
+          type="button"
+          class="region-btn {% if request.args.get('construction_nature') == '扩建' %}active{% endif %}"
+          data-filter="construction_nature"
+          data-value="扩建"
+        >扩建</button>
+      </div>
+    </li>
+  </ul>
+
+  <!-- 价格基准期 -->
+      <li>
+        <a>价格基准期</a>
+        <div class="button-group">
+        <input
+          type="hidden"
+          name="price_basis"
+          value="{{ request.args.get('price_basis', '不限') }}"
+        >
+          <button
+            type="button"
+            class="region-btn {% if not request.args.get('price_basis')  or  request.args.get('price_basis')== '不限' %}active{% endif %}"
+            data-filter="price_basis"
+            data-value="不限"
+          >不限</button>
+          {% for year in range(2014, 2025) %}
+          <button
+            type="button"
+            class="region-btn {% if request.args.get('price_basis') == year|string %}active{% endif %}"
+            data-filter="price_basis"
+            data-value="{{ year }}"
+          >{{ year }}</button>
+          {% endfor %}
+        </div>
+      </li>
+
+      <!-- 造价类型 -->
+      <li>
+        <a>造价类型</a>
+        <div class="button-group">
+          <input
+          type="hidden"
+          name="cost_type"
+          value="{{ request.args.get('cost_type', '不限') }}"
+        >
+          <button
+            type="button"
+            class="region-btn {% if not request.args.get('cost_type') or request.args.get('cost_type')== '不限' %}active{% endif %}"
+            data-filter="cost_type"
+            data-value="不限"
+          >不限</button>
+          <button
+            type="button"
+            class="region-btn {% if request.args.get('cost_type') == '估算价' %}active{% endif %}"
+            data-filter="cost_type"
+            data-value="估算价"
+          >估算价</button>
+          <button
+            type="button"
+            class="region-btn {% if request.args.get('cost_type') == '概算价' %}active{% endif %}"
+            data-filter="cost_type"
+            data-value="概算价"
+          >概算价</button>
+          <button
+            type="button"
+            class="region-btn {% if request.args.get('cost_type') == '预算价' %}active{% endif %}"
+            data-filter="cost_type"
+            data-value="预算价"
+          >预算价</button>
+          <button
+            type="button"
+            class="region-btn {% if request.args.get('cost_type') == '招标控制价' %}active{% endif %}"
+            data-filter="cost_type"
+            data-value="招标控制价"
+          >招标控制价</button>
+        </div>
+      </li>
+
+      <!-- 道路等级 -->
+      <li>
+        <a>道路等级</a>
+        <div class="button-group">
+        <input
+          type="hidden"
+          name="road_grade"
+          value="{{ request.args.get('road_grade', '不限') }}"
+        >
+          <button
+            type="button"
+            class="region-btn {% if not request.args.get('road_grade')  or request.args.get('road_grade')== '不限' %}active{% endif %}"
+            data-filter="road_grade"
+            data-value="不限"
+          >不限</button>
+          <button
+            type="button"
+            class="region-btn {% if request.args.get('road_grade') == '快速路' %}active{% endif %}"
+            data-filter="road_grade"
+            data-value="快速路"
+          >快速路</button>
+          <button
+            type="button"
+            class="region-btn {% if request.args.get('road_grade') == '主干路' %}active{% endif %}"
+            data-filter="road_grade"
+            data-value="主干路"
+          >主干路</button>
+          <button
+            type="button"
+            class="region-btn {% if request.args.get('road_grade') == '次干路' %}active{% endif %}"
+            data-filter="road_grade"
+            data-value="次干路"
+          >次干路</button>
+          <button
+            type="button"
+            class="region-btn {% if request.args.get('road_grade') == '支路' %}active{% endif %}"
+            data-filter="road_grade"
+            data-value="支路"
+          >支路</button>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+
+  <!-- 确定按钮 -->
+  <div class="sure">
+    <button type="submit">确定</button>
+  </div>
+</form>
+
+
+  <!-- 任务表格 -->
+  <div class="task-table">
+  <table>
+    <thead>
+      <tr>
+        <th>工程项目名称</th>
+        <th>项目地点</th>
+        <th>建设性质</th>
+        <th>价格基准期</th>
+        <th>造价类型</th>
+        <th>道路等级</th>
+        <th>单项工程费用（元）</th>
+        <th>道路全长（m）</th>
+        <th>长度造价指标（元/m）</th>
+        <th>道路总面积（m²）</th>
+        <th>面积造价指标（元/m²）</th>
+        <th>所含单位工程</th>
+      </tr>
+    </thead>
+    <tbody id="results">
+      {% for project, result in zip(projects, results) %}
+      <tr>
+        <td>
+            <a href="{{ url_for('individual_project2.project_details', project_id=project.项目表_id) }}">
+              {{ project.建设项目工程名称 }}
+            </a>
+        </td>
+        <td>{{ project.项目地点 }}</td>
+        <td>{{ project.建设性质 }}</td>
+        <td>{{ project.价格基准期 }}</td>
+        <td>{{ project.造价类型 }}</td>
+        <td>{{ project.道路等级 }}</td>
+        <td>{{ project.单项工程费用 }}</td>
+        <td>{{ project.道路全长 }}</td>
+        <td>{{ result['道路长度指标'] }}</td>
+        <td>{{ project.道路总面积 }}</td>
+        <td>{{ result['道路面积指标'] }}</td>
+        <td>{{ result['单位工程'] }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+  <!-- 分页 -->
+  <div class="pagination">
+    {% if pagination.has_prev %}
+    <a href="{{ url_for('individual_project.individual_project_list', page=pagination.prev_num, **request.args.to_dict()) }}">&lt; 上一页</a>
+    {% endif %}
+    {% for page in pagination.iter_pages(left_edge=2, right_edge=2, left_current=2, right_current=2) %}
+    {% if page %}
+    <a href="{{ url_for('individual_project.individual_project_list', page=page, **request.args.to_dict()) }}">{{ page }}</a>
+    {% endif %}
+    {% endfor %}
+    {% if pagination.has_next %}
+    <a href="{{ url_for('individual_project.individual_project_list', page=pagination.next_num, **request.args.to_dict()) }}">&gt; 下一页</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
