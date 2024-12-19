@@ -27,11 +27,11 @@ def individual_project_list():
     if search_query:
         filters.append(Project.建设项目工程名称.ilike(f"%{search_query}%"))
     if project_location and project_location != "不限":
-        filters.append(Project.项目地点 == project_location)
+        filters.append(Project.项目地点.like(f"%{project_location}%"))
     if construction_nature and construction_nature != "不限":
         filters.append(Project.建设性质 == construction_nature)
     if price_basis and price_basis != "不限":
-        filters.append(Project.价格基准期 == price_basis)
+        filters.append(Project.价格基准期.like(f"%{price_basis}%"))
     if cost_type and cost_type != "不限":
         filters.append(Project.造价类型 == cost_type)
     if road_grade and road_grade != "不限":

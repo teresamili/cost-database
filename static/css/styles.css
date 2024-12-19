@@ -391,7 +391,7 @@ main {
 
 
 #unit_prices th:nth-child(1),
-#unit_prices td:nth-child(1) { width: 40px; }
+#unit_prices td:nth-child(1) { width: 35px; }
 #unit_prices th:nth-child(2),
 #unit_prices td:nth-child(2) { width: 120px; }
 #unit_prices th:nth-child(3),
@@ -399,17 +399,17 @@ main {
 #unit_prices th:nth-child(4),
 #unit_prices td:nth-child(4) { width: 400px; }
 #unit_prices th:nth-child(5),
-#unit_prices td:nth-child(5) { width: 80px; }
+#unit_prices td:nth-child(5) { width: 35px; }
 #unit_prices th:nth-child(6),
-#unit_prices td:nth-child(6) { width: 100px; }
+#unit_prices td:nth-child(6) { width: 90px; }
 #unit_prices th:nth-child(7),
-#unit_prices td:nth-child(7) { width: 100px; }
+#unit_prices td:nth-child(7) { width: 90px; }
 #unit_prices th:nth-child(8),
-#unit_prices td:nth-child(8) { width: 100px; }
+#unit_prices td:nth-child(8) { width: 90px; }
 #unit_prices th:nth-child(9),
-#unit_prices td:nth-child(9) { width: 100px; }
+#unit_prices td:nth-child(9) { width: 250px; }
 #unit_prices th:nth-child(10),
-#unit_prices td:nth-child(10) { width: 120px; }
+#unit_prices td:nth-child(10) { width: 80px; }
 /* 基础样式 */
 .unit_price-table td.hoverable-cell {
   position: relative; /* 必须设置相对定位，为 ::after 提供上下文 */

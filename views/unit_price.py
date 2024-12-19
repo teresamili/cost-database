@@ -24,9 +24,9 @@ def unit_price_list():
     if search_query:
         filters.append(or_(UnitPrice.项目名称.ilike(f"%{search_query}%"), UnitPrice.项目编码.ilike(f"%{search_query}%")))
     if project_location and project_location != "不限":
-        filters.append(Project.项目地点 == project_location)
+        filters.append(Project.项目地点.like(f"%{project_location}%"))
     if price_basis and price_basis != "不限":
-        filters.append(Project.价格基准期 == price_basis)
+        filters.append(Project.价格基准期.like(f"%{price_basis}%"))
     if cost_type and cost_type != "不限":
         filters.append(Project.造价类型 == cost_type)
 
@@ -44,6 +44,8 @@ def unit_price_list():
             "project_id": unit_price.project_unit.project.项目表_id if unit_price.project_unit else " ",
             "project_unit_id": unit_price.项目_单位_id,  # 从 UnitPrice 表获取项目_单位_id
             "project_basis": unit_price.project_unit.project.价格基准期 if unit_price.project_unit and unit_price.project_unit.project else "N/A",
+            "project_location":unit_price.project_unit.project.项目地点,
+            "cost_type":unit_price.project_unit.project.造价类型,
         })
 
     # 将 unit_price 和 data 合并成一个新的列表

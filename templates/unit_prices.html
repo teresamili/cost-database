@@ -7,7 +7,7 @@
 
 {% block content %}
 <h1>综合单价</h1>
-< class="content">
+<div class="content">
   <!-- 搜索栏 -->
   <form method="get" action="{{ url_for('unit_price.unit_price_list') }}" class="search-bar">
     <input
@@ -162,7 +162,7 @@
                 <th>工程量</th>
                 <th>综合单价（元）</th>
                 <th>综合合价（元）</th>
-                <th>价格基准期</th>
+                <th>定价参数</th>
                 <th>所属项目</th>
       </tr>
     </thead>
@@ -179,7 +179,7 @@
                 <td>{{  item.unit_price.工程量 }}</td>
                 <td>{{  item.unit_price.综合单价 }}</td>
                 <td>{{  item.unit_price.综合合价 }}</td>
-                <td>{{  item.unit_price.project_basis }}</td>
+                <td>{{ item.data.project_location}}/{{  item.data.project_basis }}/{{ item.data.cost_type}}</td>
                 <td
                   data-full-text="{{ item.data.project_name }}-{{ item.data.unit_name }}"
                   class="hoverable-cell"
@@ -187,7 +187,7 @@
                   <a
                     href="individual-projects?project_id={{ item.data.project_id }}"
                    >
-                    {{  item.data.project_name[:20]}}...
+                    {{  item.data.project_name[:10]}}...
                   </a>
         </td>
       </tr>
