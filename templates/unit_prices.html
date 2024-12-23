@@ -15,7 +15,7 @@
       id="search-input"
       name="search"
       placeholder="请输入项目编码或关键词"
-      value="{{ search_query }}"
+      value="{{ request.args.get('search', '') }}" 
     />
     <button type="submit">搜索</button>
   </form>
@@ -23,7 +23,9 @@
 
   <!-- 筛选条件 -->
   <div class="search-condition">
-  <form method="get" action="{{ url_for('unit_price.unit_price_list') }}">
+  <form method="get" action="{{ url_for('unit_price.unit_price_list') }}" >
+     <!-- 隐藏字段用于同步搜索框的值 -->
+      <input type="hidden" name="search" value="{{ request.args.get('search', '') }}">
   <ul>
     <!-- 项目地点 -->
     <li>
@@ -197,62 +199,71 @@
 </div>
          <!-- 分页按钮 -->
         <div class="pagination">
-          <!-- 上一页 -->
-          {% if pagination.has_prev %}
-          <a
-            href="{{ url_for('unit_price.unit_price_list', page=pagination.prev_num, project_unit_id=request.args.get('project_unit_id')) }}"
-            >&lt; 上一页</a
-          >
-          {% else %}
-          <span class="disabled">&lt; 上一页</span>
-          {% endif %}
+  <!-- 上一页 -->
+  {% if pagination.has_prev %}
+  <a
+    href="{{ url_for('unit_price.unit_price_list', 
+                      page=pagination.prev_num, 
+                      **request.args) }}"
+    >&lt; 上一页</a
+  >
+  {% else %}
+  <span class="disabled">&lt; 上一页</span>
+  {% endif %}
 
+  <!-- 第一页 -->
+  {% if pagination.page > 3 %}
+  <a
+    href="{{ url_for('unit_price.unit_price_list', 
+                      page=1, 
+                      **request.args) }}"
+    >1</a
+  >
+  {% if pagination.page > 4 %}
+  <span>...</span>
+  {% endif %} 
+  {% endif %}
 
-          <!-- 第一页 -->
-          {% if pagination.page > 3 %}
-          <a
-            href="{{ url_for('unit_price.unit_price_list', page=1, project_unit_id=request.args.get('project_unit_id')) }}"
-            >1</a
-          >
-          {% if pagination.page > 4 %}
-          <span>...</span>
-          {% endif %} {% endif %}
+  <!-- 当前页前后两页 -->
+  {% for page in range(pagination.page - 2, pagination.page + 3) %}
+  {% if page > 0 and page <= pagination.pages %}
+    {% if page == pagination.page %}
+    <span class="active">{{ page }}</span>
+    {% else %}
+    <a
+      href="{{ url_for('unit_price.unit_price_list', 
+                        page=page, 
+                        **request.args) }}"
+      >{{ page }}</a
+    >
+    {% endif %}
+  {% endif %}
+  {% endfor %}
 
+  <!-- 最后一页 -->
+  {% if pagination.page < pagination.pages - 2 %}
+  {% if pagination.page < pagination.pages - 3 %}
+  <span>...</span>
+  {% endif %}
+  <a
+    href="{{ url_for('unit_price.unit_price_list', 
+                      page=pagination.pages, 
+                      **request.args) }}"
+    >{{ pagination.pages }}</a
+  >
+  {% endif %}
 
-          <!-- 当前页前后两页 -->
-          {% for page in range(pagination.page - 2, pagination.page + 3) %} {%
-          if page > 0 and page <= pagination.pages %} {% if page ==
-          pagination.page %}
-          <span class="active">{{ page }}</span>
-          {% else %}
-          <a
-            href="{{ url_for('unit_price.unit_price_list', page=page, project_unit_id=request.args.get('project_unit_id')) }}"
-            >{{ page }}</a
-          >
-          {% endif %} {% endif %} {% endfor %}
-
-
-          <!-- 最后一页 -->
-          {% if pagination.page < pagination.pages - 2 %} {% if pagination.page
-          < pagination.pages - 3 %}
-          <span>...</span>
-          {% endif %}
-          <a
-            href="{{ url_for('unit_price.unit_price_list', page=pagination.pages, project_unit_id=request.args.get('project_unit_id')) }}"
-            >{{ pagination.pages }}</a
-          >
-          {% endif %}
-
-
-          <!-- 下一页 -->
-          {% if pagination.has_next %}
-          <a
-            href="{{ url_for('unit_price.unit_price_list', page=pagination.next_num, project_unit_id=request.args.get('project_unit_id')) }}"
-            >下一页 &gt;</a
-          >
-          {% else %}
-          <span class="disabled">下一页 &gt;</span>
-          {% endif %}
-
+  <!-- 下一页 -->
+  {% if pagination.has_next %}
+  <a
+    href="{{ url_for('unit_price.unit_price_list', 
+                      page=pagination.next_num, 
+                      **request.args) }}"
+    >下一页 &gt;</a
+  >
+  {% else %}
+  <span class="disabled">下一页 &gt;</span>
+  {% endif %}
 </div>
+
 {% endblock %}

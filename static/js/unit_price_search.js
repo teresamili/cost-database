@@ -1,25 +1,37 @@
 document.addEventListener("DOMContentLoaded", function () {
-  // 存储筛选条件，用于更新隐藏表单
-  const filters = {};
+ document.addEventListener("DOMContentLoaded", function () {
+  // 搜索输入框
+  const searchInput = document.querySelector("#search-input");
+  const searchHiddenInput = document.querySelector(
+    `form.search-condition input[name="search"]`
+  );
 
-  // 筛选条件按钮事件
+  if (searchInput && searchHiddenInput) {
+    // 同步搜索框的值到筛选条件表单中的隐藏字段
+    searchInput.addEventListener("input", function () {
+      searchHiddenInput.value = searchInput.value.trim();
+    });
+  }
+
+  // 筛选条件按钮点击事件
   document.querySelectorAll(".region-btn").forEach((button) => {
     button.addEventListener("click", () => {
       const filter = button.getAttribute("data-filter");
       const value = button.getAttribute("data-value");
 
-      // 更新按钮样式：移除当前组的所有按钮的 active 样式
-      document
-        .querySelectorAll(`.region-btn[data-filter="${filter}"]`)
-        .forEach((btn) => btn.classList.remove("active"));
-      // 为当前点击的按钮添加 active 样式
-      button.classList.add("active");
-
-      // 更新隐藏表单中的筛选值
-      const hiddenInput = document.querySelector(`input[name="${filter}"]`);
+      // 更新隐藏字段
+      const hiddenInput = document.querySelector(
+        `input[name="${filter}"]`
+      );
       if (hiddenInput) {
         hiddenInput.value = value;
       }
+
+      // 更新按钮状态
+      document
+        .querySelectorAll(`.region-btn[data-filter="${filter}"]`)
+        .forEach((btn) => btn.classList.remove("active"));
+      button.classList.add("active");
     });
   });
 });
