@@ -1,26 +1,27 @@
 <!-- This file extends base.html and is not a standalone HTML document -->
 {% extends 'base.html' %}
-
-
 {% block title %}综合单价{% endblock %}
-
-
 {% block content %}
 <h1>综合单价</h1>
 <div class="content">
   <!-- 搜索栏 -->
-  <form method="get" action="{{ url_for('unit_price.unit_price_list') }}" class="search-bar">
-    <input
+  <form 
+    method="get" 
+    action="{{ url_for('unit_price.unit_price_list') }}" 
+    class="search-container"
+  >
+    <div class="search-bar">
+      <input
       type="text"
       id="search-input"
       name="search"
       placeholder="请输入项目编码或关键词"
       value="{{ search_query }}"
-    />
+      />
+    <div class="sure">
     <button type="submit">搜索</button>
-  </form>
-
-
+    </div>
+ </div>
   <!-- 筛选条件 -->
   <div class="search-condition">
   <form method="get" action="{{ url_for('unit_price.unit_price_list') }}">
@@ -133,23 +134,11 @@
           >招标控制价</button>
         </div>
       </li>
-
     </ul>
-  </div>
-
-
-
-
-  <!-- 确定按钮 -->
-  <div class="sure">
-    <button type="submit">确定</button>
   </div>
 </form>
 
-
-
-
-  <!-- 任务表格 -->
+  <!-- unit_prices表格 -->
   <div class="unit_price-table">
   <table id="unit_prices">
     <thead>
@@ -195,64 +184,33 @@
     </tbody>
   </table>
 </div>
-         <!-- 分页按钮 -->
-        <div class="pagination">
-          <!-- 上一页 -->
-          {% if pagination.has_prev %}
-          <a
-            href="{{ url_for('unit_price.unit_price_list', page=pagination.prev_num, project_unit_id=request.args.get('project_unit_id')) }}"
-            >&lt; 上一页</a
-          >
-          {% else %}
-          <span class="disabled">&lt; 上一页</span>
-          {% endif %}
+  
+ <!-- 分页按钮 -->
+<div class="pagination">
+  <!-- 上一页 -->
+  {% if pagination.has_prev %}
+  <a href="{{ url_for('unit_price.unit_price_list', page=pagination.prev_num, **args) }}">&lt; 上一页</a>
+  {% else %}
+  <span class="disabled">&lt; 上一页</span>
+  {% endif %}
 
+  <!-- 当前页前后两页 -->
+  {% for page in range(pagination.page - 2, pagination.page + 3) %}
+  {% if page > 0 and page <= pagination.pages %}
+    {% if page == pagination.page %}
+    <span class="active">{{ page }}</span>
+    {% else %}
+    <a href="{{ url_for('unit_price.unit_price_list', page=page, **args) }}">{{ page }}</a>
+    {% endif %}
+  {% endif %}
+  {% endfor %}
 
-          <!-- 第一页 -->
-          {% if pagination.page > 3 %}
-          <a
-            href="{{ url_for('unit_price.unit_price_list', page=1, project_unit_id=request.args.get('project_unit_id')) }}"
-            >1</a
-          >
-          {% if pagination.page > 4 %}
-          <span>...</span>
-          {% endif %} {% endif %}
-
-
-          <!-- 当前页前后两页 -->
-          {% for page in range(pagination.page - 2, pagination.page + 3) %} {%
-          if page > 0 and page <= pagination.pages %} {% if page ==
-          pagination.page %}
-          <span class="active">{{ page }}</span>
-          {% else %}
-          <a
-            href="{{ url_for('unit_price.unit_price_list', page=page, project_unit_id=request.args.get('project_unit_id')) }}"
-            >{{ page }}</a
-          >
-          {% endif %} {% endif %} {% endfor %}
-
-
-          <!-- 最后一页 -->
-          {% if pagination.page < pagination.pages - 2 %} {% if pagination.page
-          < pagination.pages - 3 %}
-          <span>...</span>
-          {% endif %}
-          <a
-            href="{{ url_for('unit_price.unit_price_list', page=pagination.pages, project_unit_id=request.args.get('project_unit_id')) }}"
-            >{{ pagination.pages }}</a
-          >
-          {% endif %}
-
-
-          <!-- 下一页 -->
-          {% if pagination.has_next %}
-          <a
-            href="{{ url_for('unit_price.unit_price_list', page=pagination.next_num, project_unit_id=request.args.get('project_unit_id')) }}"
-            >下一页 &gt;</a
-          >
-          {% else %}
-          <span class="disabled">下一页 &gt;</span>
-          {% endif %}
-
+  <!-- 下一页 -->
+  {% if pagination.has_next %}
+  <a href="{{ url_for('unit_price.unit_price_list', page=pagination.next_num, **args) }}">下一页 &gt;</a>
+  {% else %}
+  <span class="disabled">下一页 &gt;</span>
+  {% endif %}
 </div>
+
 {% endblock %}
