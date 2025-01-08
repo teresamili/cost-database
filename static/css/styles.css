@@ -407,9 +407,9 @@ main {
 #unit_prices th:nth-child(8),
 #unit_prices td:nth-child(8) { width: 90px; }
 #unit_prices th:nth-child(9),
-#unit_prices td:nth-child(9) { width: 250px; }
+#unit_prices td:nth-child(9) { width: 200px; }
 #unit_prices th:nth-child(10),
-#unit_prices td:nth-child(10) { width: 80px; }
+#unit_prices td:nth-child(10) { width: 150px; }
 /* 基础样式 */
 .unit_price-table td.hoverable-cell {
   position: relative; /* 必须设置相对定位，为 ::after 提供上下文 */
@@ -477,7 +477,7 @@ main {
 #material-prices td:nth-child(7) { width: 120px; }
 
 #material-prices th:nth-child(8),
-#material-prices td:nth-child(8) { width: 90px; }
+#material-prices td:nth-child(8) { width: 200px; }
 
 #material-prices th:nth-child(9),
-#material-prices td:nth-child(9) { width: 160px; }
+#material-prices td:nth-child(9) { width: 150px; }

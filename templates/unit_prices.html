@@ -1,6 +1,8 @@
 <!-- This file extends base.html and is not a standalone HTML document -->
 {% extends 'base.html' %}
+
 {% block title %}综合单价{% endblock %}
+
 {% block content %}
 <h1>综合单价</h1>
 <div class="content">
@@ -12,181 +14,170 @@
   >
     <div class="search-bar">
       <input
-      type="text"
-      id="search-input"
-      name="search"
-      placeholder="请输入项目编码或关键词"
-      value="{{ search_query }}"
+        type="text"
+        id="search-input"
+        name="search"
+        placeholder="请输入项目编码或关键词"
+        value="{{ search_query }}"
       />
-    <div class="sure">
-    <button type="submit">搜索</button>
-    </div>
- </div>
-  <!-- 筛选条件 -->
-  <div class="search-condition">
-  <form method="get" action="{{ url_for('unit_price.unit_price_list') }}">
-  <ul>
-    <!-- 项目地点 -->
-    <li>
-      <a>项目地点</a>
-      <div class="button-group">
-        <!-- 隐藏表单字段 -->
-        <input
-          type="hidden"
-          name="project_location"
-          value="{{ request.args.get('project_location', '不限') }}"
-        >
-        <button
-          type="button"
-          class="region-btn {% if not request.args.get('project_location') or request.args.get('project_location') == '不限' %}active{% endif %}"
-          data-filter="project_location"
-          data-value="不限"
-        >不限</button>
-        <button
-          type="button"
-          class="region-btn {% if request.args.get('project_location') == '广东' %}active{% endif %}"
-          data-filter="project_location"
-          data-value="广东"
-        >广东</button>
-        <button
-          type="button"
-          class="region-btn {% if request.args.get('project_location') == '四川' %}active{% endif %}"
-          data-filter="project_location"
-          data-value="四川"
-        >四川</button>
-        <button
-          type="button"
-          class="region-btn {% if request.args.get('project_location') == '海南' %}active{% endif %}"
-          data-filter="project_location"
-          data-value="海南"
-        >海南</button>
+      <div class="sure">
+        <button type="submit">搜索</button>
       </div>
-    </li>
+    </div>
 
+    <!-- 筛选条件 -->
+    <div class="search-condition">
+      <ul>
+        <!-- 项目地点 -->
+        <li>
+          <a>项目地点</a>
+          <div class="button-group">
+            <!-- 隐藏表单字段 -->
+            <input
+              type="hidden"
+              name="project_location"
+              value="{{ request.args.get('project_location', '不限') }}"
+            >
+            <button
+              type="button"
+              class="region-btn {% if not request.args.get('project_location') or request.args.get('project_location') == '不限' %}active{% endif %}"
+              data-filter="project_location"
+              data-value="不限"
+            >不限</button>
+            <button
+              type="button"
+              class="region-btn {% if request.args.get('project_location') == '广东' %}active{% endif %}"
+              data-filter="project_location"
+              data-value="广东"
+            >广东</button>
+            <button
+              type="button"
+              class="region-btn {% if request.args.get('project_location') == '四川' %}active{% endif %}"
+              data-filter="project_location"
+              data-value="四川"
+            >四川</button>
+            <button
+              type="button"
+              class="region-btn {% if request.args.get('project_location') == '海南' %}active{% endif %}"
+              data-filter="project_location"
+              data-value="海南"
+            >海南</button>
+          </div>
+        </li>
 
-    <!-- 其他筛选条件类似 -->
-    
-  <!-- 价格基准期 -->
-      <li>
-        <a>价格基准期</a>
-        <div class="button-group">
-        <input
-          type="hidden"
-          name="price_basis"
-          value="{{ request.args.get('price_basis', '不限') }}"
-        >
-          <button
-            type="button"
-            class="region-btn {% if not request.args.get('price_basis')  or  request.args.get('price_basis')== '不限' %}active{% endif %}"
-            data-filter="price_basis"
-            data-value="不限"
-          >不限</button>
-          {% for year in range(2014, 2025) %}
-          <button
-            type="button"
-            class="region-btn {% if request.args.get('price_basis') == year|string %}active{% endif %}"
-            data-filter="price_basis"
-            data-value="{{ year }}"
-          >{{ year }}</button>
-          {% endfor %}
-        </div>
-      </li>
+        <!-- 价格基准期 -->
+        <li>
+          <a>价格基准期</a>
+          <div class="button-group">
+            <input
+              type="hidden"
+              name="price_basis"
+              value="{{ request.args.get('price_basis', '不限') }}"
+            >
+            <button
+              type="button"
+              class="region-btn {% if not request.args.get('price_basis') or request.args.get('price_basis') == '不限' %}active{% endif %}"
+              data-filter="price_basis"
+              data-value="不限"
+            >不限</button>
+            {% for year in range(2014, 2025) %}
+            <button
+              type="button"
+              class="region-btn {% if request.args.get('price_basis') == year|string %}active{% endif %}"
+              data-filter="price_basis"
+              data-value="{{ year }}"
+            >{{ year }}</button>
+            {% endfor %}
+          </div>
+        </li>
 
-
-      <!-- 造价类型 -->
-      <li>
-        <a>造价类型</a>
-        <div class="button-group">
-          <input
-          type="hidden"
-          name="cost_type"
-          value="{{ request.args.get('cost_type', '不限') }}"
-        >
-          <button
-            type="button"
-            class="region-btn {% if not request.args.get('cost_type') or request.args.get('cost_type')== '不限' %}active{% endif %}"
-            data-filter="cost_type"
-            data-value="不限"
-          >不限</button>
-          <button
-            type="button"
-            class="region-btn {% if request.args.get('cost_type') == '估算价' %}active{% endif %}"
-            data-filter="cost_type"
-            data-value="估算价"
-          >估算价</button>
-          <button
-            type="button"
-            class="region-btn {% if request.args.get('cost_type') == '概算价' %}active{% endif %}"
-            data-filter="cost_type"
-            data-value="概算价"
-          >概算价</button>
-          <button
-            type="button"
-            class="region-btn {% if request.args.get('cost_type') == '预算价' %}active{% endif %}"
-            data-filter="cost_type"
-            data-value="预算价"
-          >预算价</button>
-          <button
-            type="button"
-            class="region-btn {% if request.args.get('cost_type') == '招标控制价' %}active{% endif %}"
-            data-filter="cost_type"
-            data-value="招标控制价"
-          >招标控制价</button>
-        </div>
-      </li>
-    </ul>
-  </div>
-</form>
+        <!-- 造价类型 -->
+        <li>
+          <a>造价类型</a>
+          <div class="button-group">
+            <input
+              type="hidden"
+              name="cost_type"
+              value="{{ request.args.get('cost_type', '不限') }}"
+            >
+            <button
+              type="button"
+              class="region-btn {% if not request.args.get('cost_type') or request.args.get('cost_type') == '不限' %}active{% endif %}"
+              data-filter="cost_type"
+              data-value="不限"
+            >不限</button>
+            <button
+              type="button"
+              class="region-btn {% if request.args.get('cost_type') == '估算价' %}active{% endif %}"
+              data-filter="cost_type"
+              data-value="估算价"
+            >估算价</button>
+            <button
+              type="button"
+              class="region-btn {% if request.args.get('cost_type') == '概算价' %}active{% endif %}"
+              data-filter="cost_type"
+              data-value="概算价"
+            >概算价</button>
+            <button
+              type="button"
+              class="region-btn {% if request.args.get('cost_type') == '预算价' %}active{% endif %}"
+              data-filter="cost_type"
+              data-value="预算价"
+            >预算价</button>
+            <button
+              type="button"
+              class="region-btn {% if request.args.get('cost_type') == '招标控制价' %}active{% endif %}"
+              data-filter="cost_type"
+              data-value="招标控制价"
+            >招标控制价</button>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </form>
 
   <!-- unit_prices表格 -->
   <div class="unit_price-table">
-  <table id="unit_prices">
-    <thead>
-      <tr>
-                <th>序号</th>
-                <th>项目编码</th>
-                <th>项目名称</th>
-                <th>项目特征描述</th>
-                <th>计量单位</th>
-                <th>工程量</th>
-                <th>综合单价（元）</th>
-                <th>综合合价（元）</th>
-                <th>定价参数</th>
-                <th>所属项目</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for item in unit_price_data %}
-      <tr>
-        <td>
-            {{ loop.index + (pagination.page - 1) * pagination.per_page }}
-        </td>
-                <td>{{  item.unit_price.项目编码 }}</td>
-                <td>{{  item.unit_price.项目名称 }}</td>
-                <td>{{  item.unit_price.项目特征描述 }}</td>
-                <td>{{  item.unit_price.计量单位 }}</td>
-                <td>{{  item.unit_price.工程量 }}</td>
-                <td>{{  item.unit_price.综合单价 }}</td>
-                <td>{{  item.unit_price.综合合价 }}</td>
-                <td>{{ item.data.project_location}}/{{  item.data.project_basis }}/{{ item.data.cost_type}}</td>
-                <td
-                  data-full-text="{{ item.data.project_name }}-{{ item.data.unit_name }}"
-                  class="hoverable-cell"
-                >
-                  <a
-                    href="individual-projects?project_id={{ item.data.project_id }}"
-                   >
-                    {{  item.data.project_name[:10]}}...
-                  </a>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-</div>
-  
- <!-- 分页按钮 -->
-<div class="pagination">
+    <table id="unit_prices">
+      <thead>
+        <tr>
+          <th>序号</th>
+          <th>项目编码</th>
+          <th>项目名称</th>
+          <th>项目特征描述</th>
+          <th>计量单位</th>
+          <th>工程量</th>
+          <th>综合单价（元）</th>
+          <th>综合合价（元）</th>
+          <th>定价参数</th>
+          <th>所属项目</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in unit_price_data %}
+        <tr>
+          <td>{{ loop.index + (pagination.page - 1) * pagination.per_page }}</td>
+          <td>{{ item.unit_price.项目编码 }}</td>
+          <td>{{ item.unit_price.项目名称 }}</td>
+          <td>{{ item.unit_price.项目特征描述 }}</td>
+          <td>{{ item.unit_price.计量单位 }}</td>
+          <td>{{ item.unit_price.工程量 }}</td>
+          <td>{{ item.unit_price.综合单价 }}</td>
+          <td>{{ item.unit_price.综合合价 }}</td>
+          <td>{{ item.data.project_location }}/{{ item.data.project_basis }}/{{ item.data.cost_type }}</td>
+          <td>
+            <a
+              href="individual-projects?project_id={{ item.data.project_id }}"
+            >{{ item.data.project_name[:10] }}...</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 分页按钮 -->
+  <div class="pagination">
   <!-- 上一页 -->
   {% if pagination.has_prev %}
   <a href="{{ url_for('unit_price.unit_price_list', page=pagination.prev_num, **args) }}">&lt; 上一页</a>
@@ -194,7 +185,15 @@
   <span class="disabled">&lt; 上一页</span>
   {% endif %}
 
-  <!-- 当前页前后两页 -->
+  <!-- 第一页 -->
+  {% if pagination.page > 3 %}
+  <a href="{{ url_for('unit_price.unit_price_list', page=1, **args) }}">1</a>
+  {% if pagination.page > 4 %}
+  <span>...</span>
+  {% endif %}
+  {% endif %}
+
+  <!-- 当前页前两页、当前页、后两页 -->
   {% for page in range(pagination.page - 2, pagination.page + 3) %}
   {% if page > 0 and page <= pagination.pages %}
     {% if page == pagination.page %}
@@ -205,6 +204,14 @@
   {% endif %}
   {% endfor %}
 
+  <!-- 最后一页 -->
+  {% if pagination.page < pagination.pages - 2 %}
+  {% if pagination.page < pagination.pages - 3 %}
+  <span>...</span>
+  {% endif %}
+  <a href="{{ url_for('unit_price.unit_price_list', page=pagination.pages, **args) }}">{{ pagination.pages }}</a>
+  {% endif %}
+
   <!-- 下一页 -->
   {% if pagination.has_next %}
   <a href="{{ url_for('unit_price.unit_price_list', page=pagination.next_num, **args) }}">下一页 &gt;</a>
@@ -213,4 +220,5 @@
   {% endif %}
 </div>
 
+</div>
 {% endblock %}

@@ -1,13 +1,13 @@
 from flask import Blueprint, render_template, request
 from models import MaterialPrice, Project, ProjectUnit
-from sqlalchemy import and_
+from sqlalchemy import and_, or_
 
 material_price_blueprint = Blueprint('material_price', __name__)
 
 @material_price_blueprint.route('/material-prices', methods=['GET'])
 def material_price_list():
     page = request.args.get('page', 1, type=int)
-    per_page = 20
+    per_page = 10
 
     # 获取筛选条件
     project_location = request.args.get('project_location', '')
@@ -23,15 +23,15 @@ def material_price_list():
     if search_query:
         filters.append(MaterialPrice.材料名称.like(f"%{search_query}%"))
     if project_location and project_location != "不限":
-        filters.append(Project.项目地点 == project_location)
+        filters.append(Project.项目地点.like(f"%{project_location}%"))
     if price_basis and price_basis != "不限":
-        filters.append(Project.价格基准期 == price_basis)
+        filters.append(Project.价格基准期.like(f"%{price_basis}%"))
     if cost_type and cost_type != "不限":
         filters.append(Project.造价类型 == cost_type)
 
     # 查询数据库
     query = MaterialPrice.query.join(ProjectUnit).join(Project).filter(and_(*filters))
-    pagination = query.paginate(page=page, per_page=per_page, error_out=False)
+    pagination = query.paginate(page=page, per_page=10, error_out=False)
     material_prices = pagination.items
 
     # 构建模板数据
@@ -60,6 +60,7 @@ def material_price_list():
         material_prices=material_prices,
         pagination=pagination,
         search_query=search_query,
+        request=request,
         data=data,
         args=args,
         material_price_data=[{'material_price': up, 'data': d} for up, d in zip(material_prices, data)]

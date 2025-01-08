@@ -9,10 +9,16 @@ def individual_project_list():
     """
     根据筛选条件和分页逻辑，展示单项工程造价指标
     """
-    # 获取分页参数
+    # 获取参数
+    project_id = request.args.get('project_id', type=int)
     page = request.args.get('page', 1, type=int)  # 默认第 1 页
     per_page = 10  # 每页显示 10 条数据
 
+    # 构建过滤条件
+    filters = []
+    if project_id:
+        # 如果有 project_id，仅筛选该项目
+        filters.append(Project.项目表_id == project_id)
 
     # 获取筛选条件
     project_location = request.args.get('project_location')
@@ -20,10 +26,8 @@ def individual_project_list():
     price_basis = request.args.get('price_basis')
     cost_type = request.args.get('cost_type')
     road_grade = request.args.get('road_grade')
-    search_query = request.args.get('search', '', type=str)  # 工程名称关键词搜索
-    
-    # 构建过滤条件
-    filters = []
+    search_query = request.args.get('search', '', type=str)
+
     if search_query:
         filters.append(Project.建设项目工程名称.ilike(f"%{search_query}%"))
     if project_location and project_location != "不限":
@@ -35,7 +39,7 @@ def individual_project_list():
     if cost_type and cost_type != "不限":
         filters.append(Project.造价类型 == cost_type)
     if road_grade and road_grade != "不限":
-        filters.append(Project.道路等级 == road_grade)        
+        filters.append(Project.道路等级 == road_grade)
 
     # 查询数据库，结合分页
     query = Project.query.filter(and_(*filters))
@@ -50,9 +54,9 @@ def individual_project_list():
         'individual_projects.html',
         projects=projects,
         results=results,
-        pagination=pagination,
+        pagination=pagination,  # 分页对象
         search_query=search_query,
-        request=request  # 将 request 传递给模板
+        request=request
     )
 
 
