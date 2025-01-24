@@ -91,7 +91,7 @@ def project_details(project_id):
     for idx, feature in enumerate(bridge_features, start=1):
         task_data.append({
             "序号": idx,
-            "单位工程名称": "桥梁工程",
+            "单位工程名称": "桥梁工程" + ("/" + str(feature.备注) if feature.备注 else ""),
             "工程造价": feature.工程造价,
             "面积": feature.桥梁面积,
             "面积造价指标": round(feature.工程造价 / feature.桥梁面积, 2) ,
@@ -351,7 +351,7 @@ def project_details(project_id):
     for idx, feature in enumerate(green_features, start=len(task_data) + 1):
         task_data.append({
             "序号": idx,
-            "单位工程名称": "绿化工程",
+            "单位工程名称": "绿化工程" + ("/" + str(feature.备注) if feature.备注 else ""),
             "工程造价": feature.工程造价,
             "面积": round((project.道路总面积), 2),
             "面积造价指标": round(feature.工程造价 / (project.道路总面积), 2) ,
@@ -359,7 +359,8 @@ def project_details(project_id):
             "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
             "绿化面积":round((feature.绿化面积), 2),
             "指标" :'绿化面积:'+str(round((feature.绿化面积), 2))+'m2 '+'指标:'+str(round(feature.工程造价 / (feature.绿化面积), 2) )+'元/m2',
-            "project_unit_id": feature.项目_单位_id
+            "project_unit_id": feature.项目_单位_id,
+            
         })
 
 

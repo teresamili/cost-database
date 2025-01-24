@@ -38,15 +38,17 @@
           <li class="nav-item">
             <a href="#" class="main-menu">单位工程造价指标</a>
             <div class="submenu">
-              <a href="#">道路工程</a>
-              <a href="#">桥梁工程</a>
-              <a href="#">涵洞工程</a>
-              <a href="#">交通工程</a>
-              <a href="#">给水工程</a>
-              <a href="#">排水工程</a>
-              <a href="#">电力工程</a>
-              <a href="#">通信工程</a>
-              <a href="#">绿化工程</a>
+              <a href="{{ url_for('road.road_list') }}">道路工程</a>
+              <a href="{{ url_for('bridge.bridge_list') }}">桥梁工程</a>
+              <a href="{{ url_for('culvert.culvert_list') }}">涵洞工程</a>
+              <a href="{{ url_for('traffic.traffic_list') }}">交通工程</a>
+              <a href="{{ url_for('lighting.lighting_list') }}">照明工程</a>
+              <a href="{{ url_for('waterpipe.waterpipe_list') }}">给水工程</a>
+              <a href="{{ url_for('drainage.drainage_list') }}">排水工程</a>
+              <a href="{{ url_for('electrical.electrical_list') }}">电力工程</a>
+              <a href="{{ url_for('telecom.telecom_list') }}">通信工程</a>
+              <a href="{{ url_for('green.green_list') }}">绿化工程</a>
+              <a href="{{ url_for('tunnel.tunnel_list') }}">隧道工程</a>
             </div>
           </li>
           <li>

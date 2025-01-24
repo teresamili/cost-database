@@ -64,6 +64,7 @@ class RoadFeature(db.Model):
     工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
     道路面积 = db.Column('道路面积（m2）', db.Numeric(14, 2))
     道路长度 = db.Column('道路长度（m）', db.Numeric(14, 2))
+    备注 = db.Column(db.String(225))
 
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='road_features')
@@ -111,6 +112,7 @@ class BridgeFeature(db.Model):
     工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
     桥梁面积 = db.Column('桥梁面积（m2）', db.Numeric(14, 2))
     桥梁长度 = db.Column('桥梁长度（m）', db.Numeric(14, 2))
+    备注 = db.Column(db.String(225)) 
 
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='bridge_features')
@@ -145,6 +147,7 @@ class CulvertFeature(db.Model):
     工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
     涵洞面积 = db.Column('涵洞面积（m2）', db.Numeric(14, 2))
     涵洞长度 = db.Column('涵洞长度（m）', db.Numeric(14, 2))
+    备注 = db.Column(db.String(225))
 
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='culvert_features')
@@ -177,6 +180,7 @@ class DrainageFeature(db.Model):
     排水工程特征表_id = db.Column(db.Integer, primary_key=True)
     项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
     工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
+    备注 = db.Column(db.String(225))
 
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='drainage_features')
@@ -225,6 +229,7 @@ class TrafficFeature(db.Model):
     交通工程特征表_id = db.Column(db.Integer, primary_key=True)
     项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
     工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
+    备注 = db.Column(db.String(225))  
 
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='traffic_features')
@@ -259,6 +264,7 @@ class LightingFeature(db.Model):
     照明工程特征表_id = db.Column(db.Integer, primary_key=True)
     项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
     工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
+    备注 = db.Column(db.String(225))
 
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='lighting_features')
@@ -290,6 +296,7 @@ class WaterpipeFeature(db.Model):
     给水工程特征表_id = db.Column(db.Integer, primary_key=True)
     项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
     工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
+    备注 = db.Column(db.String(225))
 
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='waterpipe_features')
@@ -323,6 +330,7 @@ class ElectricalFeature(db.Model):
     电力工程特征表_id = db.Column(db.Integer, primary_key=True)
     项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
     工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
+    备注 = db.Column(db.String(225))
 
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='electrical_features')
@@ -353,6 +361,7 @@ class TelecomFeature(db.Model):
     通信工程特征表_id = db.Column(db.Integer, primary_key=True)
     项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
     工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
+    备注 = db.Column(db.String(225))
 
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='telecom_features')
@@ -384,6 +393,7 @@ class GreenFeature(db.Model):
     项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
     工程造价 = db.Column('工程造价（元）', db.Numeric(12, 2))
     绿化面积 = db.Column('绿化面积（m2）', db.Numeric(10, 2))
+    备注 = db.Column(db.String(225))  
 
     # 关联到项目_单位表
     project_unit = db.relationship('ProjectUnit', backref='green_features')
@@ -417,6 +427,7 @@ class TunnelFeature(db.Model):
     工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
     隧道面积 = db.Column('隧道面积（m2）', db.Numeric(14, 2))
     隧道长度 = db.Column('隧道长度（m）', db.Numeric(14, 2))
+    备注 = db.Column(db.String(225))
 
 
     # 关联到项目_单位表
