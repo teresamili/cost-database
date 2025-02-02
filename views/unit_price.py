@@ -10,8 +10,15 @@ def unit_price_list():
     根据筛选条件和分页逻辑，展示综合单价指标
     """
     # 获取分页参数
+    project_unit_id = request.args.get('project_unit_id', type=int)
     page = request.args.get('page', 1, type=int)  # 默认第 1 页
     per_page = 10  # 每页显示 10 条数据
+
+    # 构建过滤条件
+    filters = []
+    if project_unit_id:
+        # 如果有 project_unit_id，仅筛选该项目
+        filters.append(ProjectUnit.项目_单位_id == project_unit_id)
 
     # 获取筛选条件
     project_location = request.args.get('project_location')
@@ -22,7 +29,6 @@ def unit_price_list():
     args.pop('page', None)  # 移除 page 参数
 
     # 构建过滤条件
-    filters = []
     if search_query:
         filters.append(
             or_(

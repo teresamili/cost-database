@@ -165,7 +165,10 @@
           <td>{{ item.unit_price.综合单价 }}</td>
           <td>{{ item.unit_price.综合合价 }}</td>
           <td>{{ item.data.project_location }}/{{ item.data.project_basis }}/{{ item.data.cost_type }}</td>
-          <td>
+          <td
+              data-full-text="{{ item['data']['project_name'] }}-{{ item['data']['unit_name'] }}"
+              class="hoverable-cell"
+          >
             <a
               href="individual-projects?project_id={{ item.data.project_id }}"
             >{{ item.data.project_name[:10] }}...</a>
