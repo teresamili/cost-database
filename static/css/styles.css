@@ -228,6 +228,7 @@ main {
 
 .search-condition a {
   color: #000; /* 设置字体颜色为黑色 */
+  font-weight: bold;
   text-decoration: none;
   font-size: 12px; /* 调整字体大小 */
   margin-right: 10px; /* 在文本和选择项之间添加间距 */
@@ -238,10 +239,12 @@ main {
 .button-group {
   display: flex;
   gap: 8px; /* 设置按钮之间的间距 */
+
 }
 
 .region-btn {
   padding: 5px 10px;
+  font-size: 12px;
   background-color: #f8f8f8; /* 默认背景颜色为白色 */
   color: #000; /* 黑色字体 */
   border: 0px solid #f8f8f8; /* 灰色边框 */

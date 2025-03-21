@@ -11,6 +11,7 @@ def unit_price_list():
     """
     # 获取分页参数
     project_unit_id = request.args.get('project_unit_id', type=int)
+    project_unit_id = request.args.get('project_unit_id', type=int)
     page = request.args.get('page', 1, type=int)  # 默认第 1 页
     per_page = 10  # 每页显示 10 条数据
 
