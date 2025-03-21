@@ -81,19 +81,21 @@ class RoadFeatureDetail(db.Model):
 
     道路工程特征细表_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     道路工程特征表_id = db.Column(db.Integer, db.ForeignKey('道路工程特征表.道路工程特征表_id'), nullable=False)
+    机动车道结构层厚度 = db.Column('机动车道结构层厚度（m）',db.Numeric(6, 2), nullable=True, default=None)
     机动车道宽度 = db.Column('机动车道宽度（m）',db.Numeric(6, 2), nullable=True, default=None)
     非机动车道宽度 = db.Column('非机动车道宽度（m）',db.Numeric(6, 2), nullable=True, default=None)
     人行道宽度 = db.Column('人行道宽度（m）',db.Numeric(6, 2), nullable=True, default=None)
     中央分隔带宽度 = db.Column('中央分隔带宽度（m）',db.Numeric(6, 2))
     外侧分隔带宽度 = db.Column('外侧分隔带宽度（m）',db.Numeric(6, 2))
-    机动车道面层 = db.Column(db.Enum('沥青混凝土', '水泥混凝土'), nullable=True, default=None)
+    机动车道面层 = db.Column(db.Enum('沥青混凝土', '水泥混凝土', 'SBS改性沥青混凝土', 'SMA改性沥青玛蹄脂碎石', '其他'), nullable=True, default=None)
     非机动车道面层 = db.Column(db.Enum(
         '沥青混凝土', '水泥混凝土', '彩色沥青混凝土', '彩色水泥混凝土',
-        '透水沥青混凝土', '透水水泥混凝土', '其他'
+        '原色透水沥青混凝土', '原色透水水泥混凝土', '彩色透水沥青混凝土','彩色透水水泥混凝土','其他'
     ), nullable=True, default=None)
     人行道面层 = db.Column(db.Enum(
-        '混凝土砖', '透水砖', '混凝土透水砖', 'PC砖', '花岗岩石材',
-        '透水水泥混凝土', '其他'
+        '混凝土砖', '普通透水砖', '仿石材透水砖', 'PC砖', '花岗岩石材',
+        '彩色沥青混凝土', '彩色水泥混凝土',
+        '原色透水沥青混凝土', '原色透水水泥混凝土', '彩色透水沥青混凝土','彩色透水水泥混凝土','其他'
     ), nullable=True, default=None)
     
     是否含软基处理 = db.Column('是否含软基处理',db.Enum('是', '否'), nullable=True, default=None)
@@ -228,6 +230,7 @@ class TrafficFeature(db.Model):
 
     交通工程特征表_id = db.Column(db.Integer, primary_key=True)
     项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
+    交叉口数量 = db.Column('交叉口（个）', db.Integer, nullable=True, default=None) 
     工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
     备注 = db.Column(db.String(225))  
 
@@ -264,6 +267,7 @@ class LightingFeature(db.Model):
     照明工程特征表_id = db.Column(db.Integer, primary_key=True)
     项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
     工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
+    灯杆数量 = db.Column('灯杆数量（套）', db.Integer) 
     备注 = db.Column(db.String(225))
 
     # 关联到项目_单位表
@@ -281,10 +285,10 @@ class LightingFeatureDetail(db.Model):
     
     照明工程特征细表_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     照明工程特征表_id = db.Column(db.Integer, db.ForeignKey('照明工程特征表.照明工程特征表_id'), nullable=False)
-    照明类型 = db.Column(db.Enum( '常规照明','景观照明' ))
-    灯杆类型 = db.Column(db.Enum( '常规灯杆','智慧灯杆' ))
-    灯杆数量 = db.Column('灯杆数量（套）', db.Integer) 
-    箱变数量 = db.Column('箱变数量（座）', db.Integer)                
+    照明类型 = db.Column(db.Enum( '常规照明','景观照明'))
+    灯杆类型 = db.Column(db.Enum( '常规灯杆','智慧灯杆','景观灯杆'))
+    箱变数量 = db.Column('箱变数量（座）', db.Integer)   
+    备注 = db.Column(db.String(225))             
 
      # 建立与特征表的关系
     lighting_feature = db.relationship('LightingFeature', back_populates='details')

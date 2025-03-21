@@ -181,7 +181,7 @@
                 {{ row.长度造价指标 if row.长度造价指标 != 'N/A' else 'N/A'}}
               </td>
               <td>
-                {{ row.指标 }}
+                {{ row.指标 or ''  }}  {{ row.备注 or ''  }}
               </td>
             </tr>
             {% endfor %}

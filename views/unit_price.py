@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request
-from models import Project, UnitPrice, ProjectUnit
+from models import Project, UnitPrice, ProjectUnit, Unit
 from sqlalchemy import and_, or_
 
 unit_price_blueprint = Blueprint('unit_price', __name__)
@@ -10,8 +10,16 @@ def unit_price_list():
     根据筛选条件和分页逻辑，展示综合单价指标
     """
     # 获取分页参数
+    project_unit_id = request.args.get('project_unit_id', type=int)
     page = request.args.get('page', 1, type=int)  # 默认第 1 页
     per_page = 10  # 每页显示 10 条数据
+
+    # 构建过滤条件
+    filters = []
+    if project_unit_id:
+        # 如果有 project_unit_id，仅筛选该项目
+        filters.append(UnitPrice.项目_单位_id == project_unit_id)
+
 
     # 获取筛选条件
     project_location = request.args.get('project_location')
@@ -21,13 +29,12 @@ def unit_price_list():
     args = request.args.to_dict(flat=True)
     args.pop('page', None)  # 移除 page 参数
 
-    # 构建过滤条件
-    filters = []
     if search_query:
         filters.append(
             or_(
                 UnitPrice.项目名称.ilike(f"%{search_query}%"),
-                UnitPrice.项目编码.ilike(f"%{search_query}%")
+                UnitPrice.项目编码.ilike(f"%{search_query}%"),
+                UnitPrice.项目特征描述.ilike(f"%{search_query}%")
             )
         )
     if project_location and project_location != "不限":

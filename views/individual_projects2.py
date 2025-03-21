@@ -59,7 +59,7 @@ def project_details(project_id):
             "长度": feature.道路长度,
             "长度造价指标": round(feature.工程造价 / feature.道路长度, 2) ,
             "道路面积":round((feature.道路面积), 2),
-            "指标" :'车行道与人行道面积:'+str(round((feature.道路面积), 2))+'m2  '+'指标:'+str(round(feature.工程造价 / (feature.道路面积), 2) )+'元/m2',
+            "指标" :'车行道与人行道面积:'+str(round((feature.道路面积), 2))+'m2  '+'指标:'+str(round(feature.工程造价 / (feature.道路面积), 2) )+'元/m2' ,
             "project_unit_id": feature.项目_单位_id  # 添加 project_unit_id
         })
 
@@ -194,7 +194,9 @@ def project_details(project_id):
             "面积造价指标": round(feature.工程造价 / (project.道路总面积), 2) ,
             "长度": project.道路全长,
             "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
-            "project_unit_id": feature.项目_单位_id
+            "指标" : '交叉口:'+str(feature.交叉口数量)+'个'+' '+'指标:'+str(round(feature.工程造价 / feature.交叉口数量/10000, 2))+ '万元/个', 
+            "project_unit_id": feature.项目_单位_id,
+            "备注": feature.备注
         })
 
     # 交通工程特征细表
@@ -212,7 +214,6 @@ def project_details(project_id):
         for detail in details
     ])
 
-    
     # 照明工程特征
     lighting_features = LightingFeature.query.filter(
         LightingFeature.项目_单位_id.in_([unit.项目_单位_id for unit in unit_projects])
@@ -226,6 +227,7 @@ def project_details(project_id):
             "面积造价指标": round(feature.工程造价 / (project.道路总面积), 2) ,
             "长度": project.道路全长,
             "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
+            "指标" : '路灯数量:'+str(feature.灯杆数量)+'套'+' '+'指标:'+str(round(feature.工程造价 / feature.灯杆数量, 2))+ '元/套', 
             "project_unit_id": feature.项目_单位_id
         })
     
@@ -237,8 +239,8 @@ def project_details(project_id):
         {
             "照明类型": detail.照明类型,
             "灯杆类型": detail.灯杆类型,
-            "灯杆数量（套）": detail.灯杆数量,
             "箱变数量（座）": detail.箱变数量,
+            "备注": detail.备注,
             
         }
         for detail in details
