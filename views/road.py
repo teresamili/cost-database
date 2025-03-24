@@ -66,10 +66,11 @@ def perform_calculation(projects):
     results = []
     for project in projects:
             original_cost = project.工程造价 or 0
-            road_length = project.道路长度 or 1  # 避免除以 0
-            road_area = project.道路面积 or 1  # 避免除以 0
+            road_length = project.project_unit.project.道路全长 or 1  # 避免除以 0
+            road_area = project.project_unit.project.道路总面积 or 1  # 避免除以 0
             cost_index_length = original_cost / road_length
             cost_index_area = original_cost / road_area
+            cost_index_road = project.工程造价 / project.道路面积
 #将将一个字典添加到 results 列表中，results 是一个列表，append() 方法会将一个新元素添加到该列表中。
             results.append({
                 "project_id": project.project_unit.project.项目表_id,
@@ -81,6 +82,7 @@ def perform_calculation(projects):
                 "道路等级": project.project_unit.project.道路等级,
                 "道路长度指标": round(float(cost_index_length), 2),
                 "道路面积指标": round(float(cost_index_area), 2),
+                "人/车行道指标": round(float(cost_index_road), 2),
             })
 
     return results

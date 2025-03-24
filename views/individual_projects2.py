@@ -160,6 +160,7 @@ def project_details(project_id):
             "面积造价指标": round(feature.工程造价 / (project.道路总面积), 2) ,
             "长度": project.道路全长,
             "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
+            "指标" : '管线长度:'+str(feature.管线长度)+'m'+' '+'指标:'+str(round(feature.工程造价 / feature.管线长度, 2))+ '元/m',
             "project_unit_id": feature.项目_单位_id
         })
 
@@ -260,6 +261,7 @@ def project_details(project_id):
             "面积造价指标": round(feature.工程造价 / (project.道路总面积), 2) ,
             "长度": project.道路全长,
             "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
+            "指标" : '管线长度:'+str(feature.管线长度)+'m'+' '+'指标:'+str(round(feature.工程造价 / feature.管线长度, 2))+ '元/m',
             "project_unit_id": feature.项目_单位_id
         })
 
@@ -292,6 +294,7 @@ def project_details(project_id):
             "面积造价指标": round(feature.工程造价 / (project.道路总面积), 2) ,
             "长度": project.道路全长,
             "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
+            "指标" : '管线长度:'+str(feature.管线长度)+'m'+' '+'指标:'+str(round(feature.工程造价 / feature.管线长度, 2))+ '元/m',
             "project_unit_id": feature.项目_单位_id
         })
 
@@ -326,6 +329,7 @@ def project_details(project_id):
             "面积造价指标": round(feature.工程造价 / (project.道路总面积), 2) ,
             "长度": project.道路全长,
             "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
+            "指标" : '管线长度:'+str(feature.管线长度)+'m'+' '+'指标:'+str(round(feature.工程造价 / feature.管线长度, 2))+ '元/m',
             "project_unit_id": feature.项目_单位_id
         })
 

@@ -182,6 +182,7 @@ class DrainageFeature(db.Model):
     排水工程特征表_id = db.Column(db.Integer, primary_key=True)
     项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
     工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
+    管线长度 = db.Column('管线长度（m）', db.Numeric(14, 2))
     备注 = db.Column(db.String(225))
 
     # 关联到项目_单位表
@@ -300,6 +301,7 @@ class WaterpipeFeature(db.Model):
     给水工程特征表_id = db.Column(db.Integer, primary_key=True)
     项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
     工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
+    管线长度 = db.Column('管线长度（m）', db.Numeric(14, 2))
     备注 = db.Column(db.String(225))
 
     # 关联到项目_单位表
@@ -334,6 +336,7 @@ class ElectricalFeature(db.Model):
     电力工程特征表_id = db.Column(db.Integer, primary_key=True)
     项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
     工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
+    管线长度 = db.Column('管线长度（m）', db.Numeric(14, 2))
     备注 = db.Column(db.String(225))
 
     # 关联到项目_单位表
@@ -365,6 +368,7 @@ class TelecomFeature(db.Model):
     通信工程特征表_id = db.Column(db.Integer, primary_key=True)
     项目_单位_id = db.Column(db.Integer, db.ForeignKey('项目_单位.项目_单位_id'), nullable=False)
     工程造价 = db.Column('工程造价（元）', db.Numeric(14, 2))
+    管线长度 = db.Column('管线长度（m）', db.Numeric(14, 2))
     备注 = db.Column(db.String(225))
 
     # 关联到项目_单位表

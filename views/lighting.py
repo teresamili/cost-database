@@ -1,3 +1,4 @@
+from pyexpat import features
 from flask import Blueprint, render_template, request
 from models import LightingFeature, Project, ProjectUnit,Unit
 from sqlalchemy import and_
@@ -51,7 +52,7 @@ def lighting_list():
 
     # 渲染模板
     return render_template(
-        'traffics.html',
+        'lightings.html',
         projects=projects,
         results=results,
         pagination=pagination,  # 分页对象
@@ -70,7 +71,7 @@ def perform_calculation(projects):
             road_area = project.project_unit.project.道路总面积 or 1  # 避免除以 0
             cost_index_length = original_cost / road_length
             cost_index_area = original_cost / road_area
-         
+            cost_index_lighting = project.工程造价/project.灯杆数量
 
 #将将一个字典添加到 results 列表中，results 是一个列表，append() 方法会将一个新元素添加到该列表中。
             results.append({
@@ -85,6 +86,7 @@ def perform_calculation(projects):
                 "道路长度": project.project_unit.project.道路全长,
                 "长度指标": round(float(cost_index_length), 2),
                 "面积指标": round(float(cost_index_area), 2),
+                "路灯指标": round(float(cost_index_lighting), 2),
                 "单位工程": "照明工程"+("/" + str(project.备注) if project.备注 else ""),
             })
 
