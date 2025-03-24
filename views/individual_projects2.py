@@ -106,6 +106,9 @@ def project_details(project_id):
         details = BridgeFeatureDetail.query.filter_by(桥梁工程特征表_id=feature.桥梁工程特征表_id).all()
         bridge_details.extend([
         {
+            "桥梁类型": detail.桥梁类型,
+            "孔数孔径": detail.孔数孔径,
+            "桥面宽度（m）": detail.桥面宽度,
             "桥梁结构形式": detail.桥梁结构形式,
             "上部结构形式": detail.上部结构形式,
             "桥墩结构形式": detail.桥墩结构形式,

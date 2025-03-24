@@ -131,6 +131,9 @@ class BridgeFeatureDetail(db.Model):
     __tablename__ = '桥梁工程特征细表'
     桥梁工程特征细表_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     桥梁工程特征表_id = db.Column(db.Integer,db.ForeignKey('桥梁工程特征表.桥梁工程特征表_id'), nullable=False)
+    桥梁类型 = db.Column(db.Enum('分离式立交桥/（跨线桥）','互通式立交桥','高架桥','跨河桥','通道箱涵','人行地下通道','人行天桥'))
+    孔数孔径 = db.Column('孔数-孔径',db.String(50), nullable=True, default=None)
+    桥面宽度 = db.Column('桥面宽度（m）',db.String(50), nullable=True, default=None)
     桥梁结构形式 = db.Column(db.Enum('梁式桥','拱式桥','钢架桥','悬索桥','斜拉桥','其他'))
     上部结构形式 = db.Column(db.Enum('预制空心板','预制小箱梁','预制T梁','预制预应力箱梁','预制装配式箱梁','预制钢混组合箱梁','现浇箱梁','现浇预应力箱梁','钢箱梁','钢管拱桥','连续钢桁梁','砼斜拉桥','钢斜拉桥'))
     桥墩结构形式 = db.Column(db.Enum('实体桥墩','空心桥墩','柱式桥墩','柔性墩','框架墩'))
@@ -354,7 +357,7 @@ class ElectricalFeatureDetail(db.Model):
     电力工程特征表_id = db.Column(db.Integer, db.ForeignKey('电力工程特征表.电力工程特征表_id'), nullable=False)
     敷设方式 = db.Column(db.Enum('直埋','电力排管','电缆沟','电缆隧道','水平定向钻孔'), nullable=True, default=None)
     管径 = db.Column('管径（mm）',db.String(20), nullable=True, default=None)
-    管材 = db.Column(db.Enum('HDPE','PVC','MPP','玻璃钢'))
+    管材 = db.Column(db.Enum('HDPE','PVC','MPP','玻璃钢','砖砌','混凝土'))
     孔数 = db.Column(db.String(20))    
     长度= db.Column('长度（m）',db.Numeric(9, 2))     
 
