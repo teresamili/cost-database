@@ -70,7 +70,7 @@ def perform_calculation(projects):
             road_area = project.project_unit.project.道路总面积 or 1  # 避免除以 0
             cost_index_length = original_cost / road_length
             cost_index_area = original_cost / road_area
-            cost_index = project.工程造价/project.交叉口数量/10000
+            cost_index = project.工程造价/project.交叉口数量/10000 if project.交叉口数量 else 0
 
 #将将一个字典添加到 results 列表中，results 是一个列表，append() 方法会将一个新元素添加到该列表中。
             results.append({

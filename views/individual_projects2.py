@@ -126,13 +126,14 @@ def project_details(project_id):
     for idx, feature in enumerate(culvert_features, start=1):
         task_data.append({
             "序号": idx,
-            "单位工程名称": "涵洞工程",
+            "单位工程名称": "涵洞工程"+ ("/" + str(feature.备注) if feature.备注 else ""),
             "工程造价": feature.工程造价,
             "面积": feature.涵洞面积,
             "面积造价指标": round(feature.工程造价 / feature.涵洞面积, 2) ,
             "长度": feature.涵洞长度,
             "长度造价指标": round(feature.工程造价 / feature.涵洞长度, 2) ,
-            "project_unit_id": feature.项目_单位_id
+            "project_unit_id": feature.项目_单位_id,
+
         })
 
 # 涵洞工程特征细表
@@ -144,6 +145,7 @@ def project_details(project_id):
             "涵洞形式": detail.涵洞形式,
             "规格": detail.规格,
             "长度(m)": detail.长度,
+            "备注": detail.备注,
            
         }
         for detail in details
@@ -178,7 +180,7 @@ def project_details(project_id):
             "施工方法": detail.施工方法,
             "管径": detail.管径,
             "长度（m）": detail.长度,
-            "备注":detail.备注
+            "备注":detail.备注,
             
         }
         for detail in details
@@ -192,15 +194,14 @@ def project_details(project_id):
     for idx, feature in enumerate(traffic_features, start=len(task_data) + 1):
         task_data.append({
             "序号": idx,
-            "单位工程名称": "交通工程",
+            "单位工程名称": "交通工程"+ ("/" + str(feature.备注) if feature.备注 else ""),
             "工程造价": feature.工程造价,
             "面积": round((project.道路总面积), 2),
             "面积造价指标": round(feature.工程造价 / (project.道路总面积), 2) ,
             "长度": project.道路全长,
             "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
-            "指标" : '交叉口:'+str(feature.交叉口数量)+'个'+' '+'指标:'+str(round(feature.工程造价 / feature.交叉口数量/10000, 2))+ '万元/个', 
+            "指标" : '交叉口:'+str(feature.交叉口数量)+'个'+' '+'指标:'+str(round(feature.工程造价 / feature.交叉口数量/10000, 2))+ '万元/个' if feature.交叉口数量 else 0, 
             "project_unit_id": feature.项目_单位_id,
-            "备注": feature.备注
         })
 
     # 交通工程特征细表
@@ -214,6 +215,7 @@ def project_details(project_id):
             "是否含电子警察": detail.是否含电子警察,
             "十字路口个数": detail.十字路口个数,
             "T字路口个数": detail.T字路口个数,
+            "备注": detail.备注,
         }    
         for detail in details
     ])
@@ -225,14 +227,15 @@ def project_details(project_id):
     for idx, feature in enumerate(lighting_features, start=len(task_data) + 1):
         task_data.append({
             "序号": idx,
-            "单位工程名称": "照明工程",
+            "单位工程名称": "照明工程"+ ("/" + str(feature.备注) if feature.备注 else ""),
             "工程造价": feature.工程造价,
             "面积": round((project.道路总面积), 2),
             "面积造价指标": round(feature.工程造价 / (project.道路总面积), 2) ,
             "长度": project.道路全长,
             "长度造价指标": round(feature.工程造价 / project.道路全长, 2) ,
-            "指标" : '路灯数量:'+str(feature.灯杆数量)+'套'+' '+'指标:'+str(round(feature.工程造价 / feature.灯杆数量, 2))+ '元/套', 
-            "project_unit_id": feature.项目_单位_id
+            "指标" : '路灯数量:'+str(feature.灯杆数量)+'套'+' '+'指标:'+str(round(feature.工程造价 / feature.灯杆数量, 2))+'元/套', 
+            "project_unit_id": feature.项目_单位_id,
+            
         })
     
     # 照明工程特征细表

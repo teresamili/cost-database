@@ -81,6 +81,7 @@ def perform_calculation(projects):
                 "道路等级": project.project_unit.project.道路等级,
                 "长度指标": round(float(cost_index_length), 2),
                 "面积指标": round(float(cost_index_area), 2),
+                "单位工程": project.备注 if project.备注 else "",
             })
 
     return results

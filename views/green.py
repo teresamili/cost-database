@@ -67,9 +67,10 @@ def perform_calculation(projects):
     for project in projects:
             original_cost = project.工程造价 or 0
             road_length = project.project_unit.project.道路全长 or 1  # 避免除以 0
-            road_area = project.绿化面积 or 1  # 避免除以 0
+            road_area = project.project_unit.project.道路总面积
             cost_index_length = original_cost / road_length
             cost_index_area = original_cost / road_area
+            cost_index = project.工程造价/project.绿化面积
          
 
 #将将一个字典添加到 results 列表中，results 是一个列表，append() 方法会将一个新元素添加到该列表中。
@@ -82,8 +83,10 @@ def perform_calculation(projects):
                 "造价类型": project.project_unit.project.造价类型,
                 "道路等级": project.project_unit.project.道路等级,
                 "道路长度": project.project_unit.project.道路全长,
-                "长度指标": round(float(cost_index_length), 2),
+                "道路面积": project.project_unit.project.道路总面积,
                 "面积指标": round(float(cost_index_area), 2),
+                "长度指标": round(float(cost_index_length), 2),
+                "指标": round(float(cost_index), 2),
                 "单位工程": "绿化工程"+("/" + str(project.备注) if project.备注 else ""),
             })
 

@@ -173,7 +173,7 @@ class CulvertFeatureDetail(db.Model):
     规格 = db.Column(db.String(20), nullable=True, default=None)
     长度 = db.Column('长度（m）', db.Numeric(7, 2), nullable=True, default=None)
     涵洞工程特征表_id = db.Column(db.Integer, db.ForeignKey('涵洞工程特征表.涵洞工程特征表_id'), nullable=True)
-
+    备注 = db.Column(db.String(225))
     # 外键关系声明
     culvert_feature = db.relationship('CulvertFeature', back_populates='details')
 
@@ -258,7 +258,7 @@ class TrafficFeatureDetail(db.Model):
     十字路口个数 = db.Column(db.Integer, nullable=True, default=None)
     T字路口个数 = db.Column(db.Integer, nullable=True, default=None)
     交通工程特征表_id = db.Column(db.Integer, db.ForeignKey('交通工程特征表.交通工程特征表_id'), nullable=True)
-
+    备注 = db.Column(db.String(225))
     # 外键关系声明（可选）
     traffic_feature = db.relationship('TrafficFeature', back_populates='details') 
 
@@ -469,7 +469,7 @@ class UnitPrice(db.Model):
     __tablename__ = '清单库'
     清单库_id = db.Column(db.Integer, primary_key=True)
     项目编码 = db.Column(db.String(20))
-    项目名称 = db.Column(db.String(45))
+    项目名称 = db.Column(db.String(100))
     项目特征描述 = db.Column(db.String(500))
     计量单位 = db.Column(db.String(10))
     工程量 = db.Column( db.Numeric(12, 2))
