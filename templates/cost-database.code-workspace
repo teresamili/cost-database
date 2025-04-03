@@ -1,0 +1,18 @@
+{
+  "folders": [
+	{
+		"path": ".."
+	},
+	{
+		"path": "E:/test"
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "cost-database",
+    "CodeGPT.apiKey": "CodeGPT Plus Beta"
+  }
+}
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
+}
